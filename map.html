@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Sun Feb 12 2017 09:15:59 GMT+0000 (UTC)  -->
+<html data-wf-page="588f0386c498fd3f484cbd99" data-wf-site="58871881358a5fed55e35ef0">
+<head>
+  <meta charset="utf-8">
+  <title>didalready: Map</title>
+  <meta content="Come take a look at where we&#39;ve been!" name="description">
+  <meta content="didalready: Map" property="og:title">
+  <meta content="Come take a look at where we&#39;ve been!" property="og:description">
+  <meta content="summary" name="twitter:card">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/didalready.webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Bitter:400,700,400italic","Vollkorn:400,400italic,700,700italic","Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic","Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Oswald:300,400,700","Droid Sans:400,700"]
+      }
+    });
+  </script>
+  <script src="js/modernizr.js" type="text/javascript"></script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+</head>
+<body>
+  <div class="hero"><a class="header-link w-button" href="index.html">DID ALREADY</a>
+  </div>
+  <div class="navigation-bar w-nav" data-animation="default" data-collapse="none" data-duration="400">
+    <div class="navigation-container w-container">
+      <nav class="w-nav-menu" role="navigation"><a class="navigation-link w-nav-link" href="about.html">ABOUT</a><a class="navigation-link w-nav-link" href="map.html">MAP</a><a class="navigation-link w-nav-link" href="current.html">CURRENT</a><a class="navigation-link w-nav-link" href="went.html">WENT</a><a class="navigation-link w-nav-link" href="snapped.html">SNAPPED</a><a class="navigation-link w-nav-link" href="contact.html">CONTACT</a>
+      </nav>
+      <div class="w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-title-container">
+    <div class="page-title">MAP</div>
+  </div>
+  <!--********MAP CONTAINER********-->
+  <div class="mapcontainer w-container">
+  <center><title>MapMultMarkers</title> 
+  <script src="http://maps.google.com/maps/api/js?sensor=false" 
+          type="text/javascript"></script>
+
+  <div id="map" style="width: 90%; height: 400px;"></div>
+
+  <script type="text/javascript">
+    var locations = [
+	<!--********Africa********-->
+    <!--********Asia********-->
+	  ['J: Kampong Speu, Cambodia', 11.615511, 104.379191],
+	  ['J: Kampong Trach, Cambodia', 10.556941, 104.467963],
+	  ['J: Kampot, Cambodia', 10.594242, 104.164035],
+	  ['J: Kirivong, Cambodia', 10.637675, 104.874651],
+	  ['J: Takeo, Cambodia', 10.932152, 104.798771],
+	  ['Beijing, China', 39.904211, 116.407395],
+	  ['Dalian, China', 38.914003, 121.614682],
+	  ['Dandong, China', 40.000787, 124.354451],
+	  ['Harbin, China', 45.622442, 126.243381],
+	  ['Shenyang, China', 41.805699, 123.431472],
+	  ['Hong Kong, Hong Kong', 22.28552, 114.15769],
+	  ['Mumbai, India', 19.07283, 72.88261],
+	  ['Canggu, Bali, Indonesia', -8.647818, 115.138519],
+	  ['Ubud, Bali, Indonesia', -8.497726, 115.263014],
+	  ['Jakarta, Indonesia', -6.175392, 106.827153],
+	  ['Pulau Karimunbesar, Indonesia', 1.05, 103.3666],
+	  ['Macau, Macau', 22.204746, 113.555203],
+	  ['Cameron Highlands, Malaysia', 4.472120, 101.380144],
+	  ['Ipoh, Malaysia', 4.5841,101.0829],
+	  ['Johor Bahru, Malaysia', 1.4655,103.7578],
+	  ['Kuala Lumpur, Malaysia', 3.1412,101.68653],
+	  ['Langkawi, Malaysia', 6.295592, 99.722813],
+	  ['Melaka, Malaysia', 2.196,102.2405],
+	  ['George Town, Malaysia', 5.41123,100.33543],
+	  ['Hulhumale, Maldives', 4.210649, 73.538799],
+	  ['Maafushi, Maldives', 3.940893, 73.489465],
+	  ['Male, Maldives', 4.175496, 73.509347],
+	  ['Villimale, Maldives', 4.173125, 73.485047],
+	  ['Bagan, Myanmar', 21.171727, 94.858546],
+	  ['Yangon, Myanmar', 16.774555, 96.161978],
+	  ['Manila, The Philippines', 14.599512, 120.984219],
+	  ['Singapore, Singapore', 1.28967,103.85007],
+	  ['Jiufen, New Taipei City, Taiwan', 23.931123, 120.564628],
+	  ['Jinguashi, New Taipei City, Taiwan', 25.109115, 121.857684],
+	  ['Jinshan, New Taipei City, Taiwan', 30.741991, 121.34197],
+	  ['Kaohsiung, New Taipei City, Taiwan', 22.61626,120.31333],
+	  ['Keelung, Taiwan', 25.127600, 121.739181],
+	  ['Datong Township, Yilan County, Taiwan', 24.599572, 121.529532],
+	  ['Tainan, Taiwan', 22.999900, 120.226876],
+	  ['Taipei, Taiwan', 25.032969, 121.565418],
+	  ['Wulai, New Taipei City, Taiwan', 24.864618, 121.551869],
+	  ['J: Koh Samui, Thailand', 9.512017, 100.013593],
+	  ['Pattaya, Thailand', 12.927608, 100.877081],
+	  ['Bangkok, Thailand', 13.756331, 100.501765],
+	  ['Colombo, Sri Lanka', 6.927079, 79.861243],
+	  ['Dubai, United Arab Emirates', 25.204849, 55.270783],
+	  ['Da Nang, Vietnam', 16.054407, 108.202167],
+	  ['Hoi An, Vietnam', 15.880058, 108.338047],
+	  ['Ho Chi Minh City, Vietnam', 10.823099, 106.629664],
+    <!--********Europe********-->
+	  ['Tirana, Albania', 41.3275, 19.81889],
+	  ['Berat, Albania', 40.70583, 19.95222],
+	  ['Vienna, Austria', 48.20849, 16.37208],
+	  ['Brussels, Belgium', 50.85045, 4.34878],
+	  ['Sarajevo, Bosnia & Herzegovina', 43.857345, 18.406056],
+	  ['Mostar, Bosnia & Herzegovina', 43.34333, 17.80806],
+	  ['Sofia, Bulgaria', 42.69751, 23.32415],
+	  ['Veliko Tarnovo, Bulgaria', 43.08124, 25.62904],
+	  ['Osijek, Croatia', 45.55111, 18.69389],
+	  ['Split, Croatia', 43.50891, 16.43915],
+	  ['Dubrovnik, Croatia', 42.64807, 18.09216],
+	  ['Zagreb, Croatia', 45.81444, 15.97798],
+	  ['Copenhagen, Denmark', 55.676097, 12.568337],
+	  ['Vejle, Denmark', 55.711311, 9.536354],
+	  ['Bath, England', 51.375801, -2.359904],
+	  ['London, England', 51.50853, -0.12574],
+	  ['Bristol, England', 51.454513, -2.58791],
+	  ['Salisbury, England', 51.06931, -1.79569],
+	  ['Seaton, England', 50.705313, -3.071873],
+	  ['Tallinn, Estonia', 59.43696, 24.75353],
+	  ['Helsinki, Finland', 60.16952, 24.93545],
+	  ['Paris, France', 48.85341, 2.3488],
+	  ['Cologne, Germany', 50.937531, 6.960279],
+	  ['Frankfurt, Germany', 50.110922, 8.682127],
+	  ['Budapest, Hungary', 47.497912, 19.040235],
+	  ['Reykjavik, Iceland', 64.126521, -21.817439],
+	  ['Vik, Iceland', 63.418631, -19.006048],
+	  ['Egilsstaðir, Iceland', 65.266874, -14.394847],
+	  ['Seyðisfjörður, Iceland', 65.259849, -14.010116],
+	  ['Stykkishólmur, Iceland', 65.072898, -22.735731],
+	  ['Akureyri, Iceland', 65.688492, -18.126169],
+	  ['Höfn, Iceland', 64.249703, -15.202008],
+	  ['St. Helier, Jersey', 49.186148, -2.106397],
+	  ['Pristina, Kosovo', 42.662914, 21.165503],
+	  ['Riga, Latvia', 56.949649, 24.105186],
+	  ['Vilnius, Lithuania', 54.687156, 25.279651],
+	  ['Luxembourg City, Luxembourg', 49.611621, 6.131935],
+	  ['Skopje, Macedonia', 41.997346, 21.427996],
+	  ['Ohrid, Macedonia', 41.123098, 20.801648],
+	  ['Chisinau, Moldova', 47.010453, 28.86381],
+	  ['Kotor, Montenegro', 42.424662, 18.771234],
+	  ['Žabljak, Montenegro', 43.155515, 19.122602],
+	  ['Nikšić, Montenegro', 42.780473, 18.956166],
+	  ['Podgorica, Montenegro', 42.430420, 19.259364],
+	  ['Mojkovac, Montenegro', 42.960077, 19.583587],
+	  ['Amsterdam, The Netherlands', 52.370216, 4.895168],
+	  ['Oslo, Norway', 59.913869, 10.752245],
+	  ['Warsaw, Poland', 52.229676, 21.012229],
+	  ['Braga, Portugal', 41.545449, -8.426507],
+	  ['Porto, Portugal', 41.157944, -8.629105],
+	  ['Lisbon, Portugal', 38.722252, -9.139337],
+	  ['Bucharest, Romania', 44.426767, 26.102538],
+	  ['Sinaia, Romania', 45.331043, 25.56235],
+	  ['Edinburgh, Scotland', 55.953252, -3.188267],
+	  ['Glasgow, Scotland', 55.864237, -4.251806],
+	  ['Novi Sad, Serbia', 45.267135, 19.83355],
+	  ['Belgrade, Serbia', 44.786568, 20.448922],
+	  ['Bratislava, Slovakia', 48.145892, 17.107137],
+	  ['Ljubljana, Slovenia', 46.056947, 14.505751],
+	  ['Bled, Slovenia', 46.368327, 14.11458],
+	  ['Segovia, Spain', 40.942903, -4.108807],
+	  ['Toledo, Spain', 39.862832, -4.027323],
+	  ['Madrid, Spain', 40.416775, -3.70379],
+	  ['Malmo, Sweden', 55.604981, 13.003822],
+	  ['Stockholm, Sweden', 59.329323, 18.068581],
+	  ['Tiraspol, Transnistria', 46.848185, 29.596805],
+	  ['Odessa, Ukraine', 46.482526, 30.72331],
+	  ['Kiev, Ukraine', 50.450100, 30.5234],
+	  
+	<!--********North America*******-->
+	  ['Denver, CO, USA', 39.739236, -104.990251],
+	  ['Los Angeles, CA, USA', 34.052234, -118.243685],
+	  ['Marin Headlands, CA, USA', 37.826192, -122.499704],
+	  ['Tulelake, CA, USA', 41.955988, -121.477492],
+	  ['Joshua Tree, CA, USA',34.134728, -116.313066],
+	  ['Hilo, HI, USA', 19.729722, -155.09],
+	  ['Seattle, WA, USA', 47.606209, -122.332071]
+	<!--********Oceania********-->
+	<!--********South America********-->
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 2,
+      center: new google.maps.LatLng(23.463919, 12.039636),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+        title: locations[i][0]
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+  </center>
+  </div>
+  <!--********END MAP CONTAINER********-->
+  <div class="continent-container w-container">
+    <div class="countries-visited w-row">
+      <div class="continent-column w-col w-col-2">
+        <div class="continent">AFRICA</div>
+		<div class="dropdown-container">
+		<!-------INSERT DIV CLASS='CONTAINER' AND LINKS IN HERE ------->
+		</div>
+      </div>
+      <div class="continent-column w-col w-col-2">
+        <div class="continent">ASIA</div>
+		<div class="dropdown-container">
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Cambodia</option>
+			<option value="/asia/cambodia/cambodiafldwrk.html">Field Work Trip</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>China</option>
+			<option value="/asia/china/beijingtoc.html">Beijing</option>
+			<option value="/asia/china/daliantoc.html">Dalian</option> 
+			<option value="/asia/china/dandong.html">Dandong</option> 
+			<option value="/asia/china/harbintoc.html">Harbin</option> 
+			<option value="/asia/china/shenyangtoc.html">Shenyang</option> 
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Hong Kong</option>
+			<option value="/asia/hongkong/hongkongtoc.html">Hong Kong</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>India</option>
+			<option value="/asia/india/mumbai.html">Mumbai</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Indonesia</option>
+			<option value="/asia/indonesia/balitoc.html">Bali</option>
+			<option value="/asia/indonesia/jakarta.html">Jakarta</option>
+			<option value="/asia/indonesia/pulaukarimun.html">Pulau Karimun</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Macau</option>
+			<option value="/asia/macau/macau.html">Macau</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Malaysia</option>
+			<option value="/asia/malaysia/cameronhighlands.html">Cameron Highlands</option>
+			<option value="/asia/malaysia/georgetown.html">George Town</option>
+			<option value="/asia/malaysia/ipohtoc.html">Ipoh</option>
+			<option value="/asia/malaysia/johorbahru.html">Johor Bahru</option>
+			<option value="/asia/malaysia/kualalumpur.html">Kuala Lumpur</option>
+			<option value="/asia/malaysia/langkawi.html">Langkawi</option>
+			<option value="/asia/malaysia/melaka.html">Melaka</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Maldives</option>
+			<option value="/asia/maldives/maldives1.html">Hulhumale</option>
+			<option value="/asia/maldives/maldives1.html">Maafushi</option>
+			<option value="/asia/maldives/maldives1.html">Malé</option>
+			<option value="/asia/maldives/maldives1.html">Villimale</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Myanmar</option>
+			<option value="/asia/myanmar/bagan.html">Bagan</option>
+			<option value="/asia/myanmar/yangon.html">Yangon</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>The Philippines</option>
+			<option value="/asia/philippines/manila.html">Manila</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Singapore</option>
+			<option value="/current.html">Singapore</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Taiwan</option>
+			<option value="/asia/taiwan/datong.html">Datong</option>
+			<option value="/asia/taiwan/jiufenjinguashi.html">Jiufen</option>
+			<option value="/asia/taiwan/jiufenjinguashi.html">Jinguashi</option>
+			<option value="/asia/taiwan/keelungjinshan.html">Jinshan</option>
+			<option value="/asia/taiwan/kaohsiungtoc.html">Kaohsiung</option>
+			<option value="/asia/taiwan/keelungjinshan.html">Keelung</option>
+			<option value="/asia/taiwan/tainan.html">Tainan</option>
+			<option value="/asia/taiwan/taipeitoc.html">Taipei</option>
+			<option value="/asia/taiwan/wulai.html">Wulai</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Thailand</option>
+			<option value="/asia/thailand/bangkok.html">Bangkok</option>
+			<option value="/asia/thailand/kohsamui.html">Koh Samui</option>
+			<option value="/asia/thailand/pattaya.html">Pattaya</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Sri Lanka</option>
+			<option value="/asia/srilanka/colombo.html">Colombo</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>United Arab Emirates</option>
+			<option value="/asia/unitedarabemirates/dubai.html">Dubai</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Vietnam</option>
+			<option value="/asia/vietnam/danang.html">Da Nang</option>
+			<option value="/asia/vietnam/hochiminhcity.html">Ho Chi Minh City</option>
+			<option value="/asia/vietnam/hoian.html">Hoi An</option>
+			</select></div>
+		</div> <!--This Div ends the Asia dropbox-container formatting-->
+      </div>
+	  
+      <div class="continent-column w-col w-col-2">
+        <div class="continent">EUROPE</div>
+		<div class="dropdown-container">
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Albania</option>
+			<option value="/europe/albania/berat.html">Berat</option>
+			<option value="/europe/albania/tirana.html">Tirana</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Austria</option>
+			<option value="europe/austria/vienna.html">Vienna</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Belgium</option>
+			<option value="/europe/belgium/brussels.html">Brussels</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Bosnia & Herzegovina</option>
+			<option value="/europe/bosherz/mostar.html">Mostar</option>
+			<option value="/europe/bosherz/sarajevo.html">Sarajevo</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Bulgaria</option>
+			<option value="/europe/bulgaria/sofia.html">Sofia</option>
+			<option value="/europe/bulgaria/velikotarnovo.html">Veliko Tarnovo</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Croatia</option>
+			<option value="/europe/croatia/dubrovnik.html">Dubrovnik</option>
+			<option value="/europe/croatia/osijek.html">Osijek</option>
+			<option value="/europe/croatia/split.html">Split</option>
+			<option value="/europe/croatia/zagreb.html">Zagreb</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Denmark</option>
+			<option value="/europe/denmark/copenhagen.html">Copenhagen</option>
+			<option value="/europe/denmark/vejle.html">Vejle</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>England</option>
+			<option value="/europe/england/bristol.html">Bristol</option>
+			<option value="/europe/england/london/londontoc.html">London</option>
+			<option value="/europe/england/salisbury.html">Salisbury</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Estonia</option>
+			<option value="/europe/estonia/tallinn.html">Tallinn</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Finland</option>
+			<option value="/europe/finland/helsinki.html">Helsinki</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>France</option>
+			<option value="/europe/france/paris.html">Paris</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Germany</option>
+			<option value="/europe/germany/cologne.html">Cologne</option>
+			<option value="/europe/germany/frankfurt.html">Frankfurt</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Hungary</option>
+			<option value="/europe/hungary/budapest.html">Budapest</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Iceland</option>
+			<option value="/europe/iceland/iceland.html">Akureyri</option>
+			<option value="/europe/iceland/iceland.html">Egilsstaðir</option>
+			<option value="/europe/iceland/iceland.html">Höfn</option>
+			<option value="/europe/iceland/iceland.html">Reykjavik</option>
+			<option value="/europe/iceland/iceland.html">Seyðisfjörður</option>
+			<option value="/europe/iceland/iceland.html">Stykkishólmur</option>
+			<option value="/europe/iceland/iceland.html">Vik</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Jersey (UK)</option>
+			<option value="/europe/jersey/jersey.html">St. Helier</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Kosovo</option>
+			<option value="/europe/kosovo/pristina.html">Pristina</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Latvia</option>
+			<option value="/europe/latvia/riga.html">Riga</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Lithuania</option>
+			<option value="/europe/lithuania/vilnius.html">Vilnius</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Luxembourg</option>
+			<option value="/europe/luxembourg/luxembourg.html">Luxembourg City</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Macedonia</option>
+			<option value="/europe/macedonia/ohrid.html">Ohrid</option>
+			<option value="/europe/macedonia/skopje.html">Skopje</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Moldova</option>
+			<option value="/europe/moldova/chisinau.html">Chisinau</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Montenegro</option>
+			<option value="/europe/montenegro/kotor.html">Kotor</option>
+			<option value="/europe/montenegro/montenegro.html">Mojkovac</option>
+			<option value="/europe/montenegro/montenegro.html">Niksic</option>
+			<option value="/europe/montenegro/montenegro.html">Podgorica</option>
+			<option value="/europe/montenegro/montenegro.html">Zabljak</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>The Netherlands</option>
+			<option value="/europe/netherlands/amsterdam.html">Amsterdam</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Norway</option>
+			<option value="/europe/norway/oslo.html">Oslo</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Poland</option>
+			<option value="/europe/poland/warsaw.html">Warsaw</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Portugal</option>
+			<option value="/europe/portugal/braga.html">Braga</option>
+			<option value="/europe/portugal/lisbon.html">Lisbon</option>
+			<option value="/europe/portugal/porto.html">Porto</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Romania</option>
+			<option value="/europe/romania/bucharest.html">Bucharest</option>
+			<option value="/europe/romania/sinaia.html">Sinaia</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Scotland</option>
+			<option value="construction.html">Edinburgh</option>
+			<option value="construction.html">Glasgow</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Serbia</option>
+			<option value="/europe/serbia/belgrade.html">Belgrade</option>
+			<option value="/europe/serbia/novisad.html">Novi Sad</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Slovakia</option>
+			<option value="/europe/slovakia/bratislava.html">Bratislava</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Slovenia</option>
+			<option value="/europe/slovenia/bled.html">Bled</option>
+			<option value="/europe/slovenia/ljubljana.html">Ljubljana</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Spain</option>
+			<option value="/europe/spain/madrid.html">Madrid</option>
+			<option value="/europe/spain/segovia.html">Segovia</option>
+			<option value="/europe/spain/toledo.html">Toledo</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Sweden</option>
+			<option value="/europe/sweden/malmo.html">Malmo</option>
+			<option value="/europe/sweden/stockholm.html">Stockholm</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Transnistria</option>
+			<option value="/europe/transnistria/tiraspol.html">Tiraspol</option>
+			</select></div>
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Ukraine</option>
+			<option value="/europe/ukraine/kiev.html">Kiev</option>
+			<option value="/europe/ukraine/odessa.html">Odessa</option>
+			</select></div>
+		</div>
+      </div>
+      <div class="continent-column w-col w-col-2">
+        <div class="continent">N. AMERICA</div>
+		<div class="dropdown-container">
+			<div class="dropdown">
+				<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+				<option value disabled selected>U.S.A.</option>
+				<option value disabled>California</option>
+				<option value="/namerica/usa/ca/joshuatree.html">Joshua Tree</option>
+				<option value="/namerica/usa/ca/losangeles.html">Tulelake</option>
+				<option value="/namerica/usa/ca/marinheadlands.html">Marin Headlands</option>
+				<option value="/namerica/usa/ca/tulelake.html">Tulelake</option>
+				<option value disabled>Colorado</option>
+				<option value="/namerica/usa/co/denver.html">Denver</option>
+				<option value disabled>Hawaii</option>
+				<option value="/namerica/usa/hi/hilo.html">Hilo</option>
+				<option value disabled>Washington</option>
+				<option value="/namerica/usa/wa/seattle.html">Seattle</option>
+				</select></div>	
+		</div>
+      </div>
+      <div class="continent-column w-col w-col-2">
+        <div class="continent">OCEANIA</div>
+      </div>
+      <div class="continent-column w-col w-col-2">
+        <div class="continent">S. AMERICA</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>
