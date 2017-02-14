@@ -1,3 +1,5 @@
+/* BEGIN OWN CODE*/
+
 .dropdown{
   position: relative;
   display: inline-block;
@@ -27,6 +29,18 @@
 select{
    width: 100%;
 }
+
+video.reLong{
+    max-width: 55%; /* you can use % */
+    max-height: auto;
+}
+
+video.reWide{
+    max-width: 75%; /* you can use % */
+    max-height: auto;
+}
+
+/*END OWN CODE*/
 
 h2 {
   margin-bottom: -10px;
