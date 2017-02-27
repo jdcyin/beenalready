@@ -38,7 +38,66 @@
       </div>
     </div>
   </div>
-  <div class="w-container"></div>
+  <div class="w-container">
+  
+  <center>
+<title>MapMultMarkers</title> 
+<script src="http://maps.google.com/maps/api/js?sensor=false" 
+          type="text/javascript"></script>
+
+  <div id="map" style="width: 90%; height: 400px;"></div>
+
+  <script type="text/javascript">
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 5,
+      center: new google.maps.LatLng(43.166420, 124.350398),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+	
+	var locations = [
+	  ['Dalian', 38.914003, 121.614682],
+	  ['Shenyang', 41.805699, 123.431472],
+	  ['Dandong', 40.000787, 124.354451],
+	  ['Harbin', 45.803775, 126.534967]
+	];
+	
+	var line = new google.maps.Polyline({
+    path: [
+      new google.maps.LatLng(38.914003, 121.614682),
+      new google.maps.LatLng(41.805699, 123.431472),
+	  new google.maps.LatLng(40.000787, 124.354451),
+	  new google.maps.LatLng(41.805699, 123.431472),
+	  new google.maps.LatLng(45.803775, 126.534967)
+    ],
+    strokeColor: "#000000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+    map: map
+   });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+        title: locations[i][0]
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+  </center>
+  
+  </div>
   <div class="w-container">
     <div class="blog-body w-richtext">
       <h4>JASON</h4>
