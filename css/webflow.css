@@ -1439,6 +1439,17 @@ textarea.w-select {
 .w-richtext figure.w-richtext-align-center[data-rt-type="image"] > div {
   max-width: 100%;
 }
+
+
+.w-richtext figure.w-richtext-align-center.w-richtext-figure-type-image-rotate > div,
+.w-richtext figure.w-richtext-align-center[data-rt-type="image"] > div {
+  max-width: 100%;
+  transform: rotate(90deg);
+}
+
+
+
+
 .w-richtext figure.w-richtext-align-normal {
   clear: both;
 }
