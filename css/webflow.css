@@ -1440,6 +1440,26 @@ textarea.w-select {
   max-width: 100%;
 }
 
+/** Begin Rotate Code**/
+
+.w-richtext .w-richtext-figure-selected.w-richtext-figure-type-image-rotate div,
+.w-richtext .w-richtext-figure-selected[data-rt-type="image"] div {
+  outline: 2px solid #2895f7;
+}
+
+.w-richtext figure.w-richtext-figure-type-image-rotate,
+.w-richtext figure[data-rt-type="image"] {
+  display: table;
+}
+.w-richtext figure.w-richtext-figure-type-image-rotate > div,
+.w-richtext figure[data-rt-type="image"] > div {
+  display: inline-block;
+}
+.w-richtext figure.w-richtext-figure-type-image-rotate > figcaption,
+.w-richtext figure[data-rt-type="image"] > figcaption {
+  display: table-caption;
+  caption-side: bottom;
+}
 
 .w-richtext figure.w-richtext-align-center.w-richtext-figure-type-image-rotate > div,
 .w-richtext figure.w-richtext-align-center[data-rt-type="image"] > div {
@@ -1447,7 +1467,7 @@ textarea.w-select {
   transform: rotate(90deg);
 }
 
-
+/**End Rotate Code**/
 
 
 .w-richtext figure.w-richtext-align-normal {
