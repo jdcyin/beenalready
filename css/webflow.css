@@ -1445,6 +1445,7 @@ textarea.w-select {
 .w-richtext figure.w-richtext-figure-type-image-rotate,
 .w-richtext figure[data-rt-type="image"] {
   display: table;
+  transform: rotate(90deg);
 }
 .w-richtext figure.w-richtext-figure-type-image-rotate > div,
 .w-richtext figure[data-rt-type="image"] > div {
