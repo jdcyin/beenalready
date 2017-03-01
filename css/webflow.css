@@ -1433,8 +1433,6 @@ textarea.w-select {
 .w-richtext figure.w-richtext-align-center {
   margin-right: auto;
   margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
   clear: both;
 }
 .w-richtext figure.w-richtext-align-center.w-richtext-figure-type-image > div,
@@ -1444,18 +1442,15 @@ textarea.w-select {
 
 /** Begin Rotate Code**/
 
-.w-richtext .w-richtext-figure-selected.w-richtext-figure-type-image-rotate div,
-.w-richtext .w-richtext-figure-selected[data-rt-type="image"] div {
-  outline: 2px solid #2895f7;
-}
-
 .w-richtext figure.w-richtext-figure-type-image-rotate,
 .w-richtext figure[data-rt-type="image"] {
   display: table;
+  transform: rotate(90deg);
 }
 .w-richtext figure.w-richtext-figure-type-image-rotate > div,
 .w-richtext figure[data-rt-type="image"] > div {
   display: inline-block;
+  transform: rotate(90deg);
 }
 .w-richtext figure.w-richtext-figure-type-image-rotate > figcaption,
 .w-richtext figure[data-rt-type="image"] > figcaption {
