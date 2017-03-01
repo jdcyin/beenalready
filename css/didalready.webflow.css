@@ -1,5 +1,11 @@
 /* BEGIN OWN CODE*/
 
+img.reRotate{
+    max-width: 75%; /* you can use % */
+    max-height: auto;
+	transform: rotate(90degrees);
+}
+
 .dropdown{
   position: relative;
   display: inline-block;
