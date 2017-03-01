@@ -1433,6 +1433,8 @@ textarea.w-select {
 .w-richtext figure.w-richtext-align-center {
   margin-right: auto;
   margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   clear: both;
 }
 .w-richtext figure.w-richtext-align-center.w-richtext-figure-type-image > div,
