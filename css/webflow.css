@@ -1453,7 +1453,7 @@ textarea.w-select {
 }
 .w-richtext figure.w-richtext-align-center.w-richtext-figure-type-image-rotate > div,
 .w-richtext figure.w-richtext-align-center[data-rt-type="image"] > div {
-  max-width: 100%;
+  max-height: 90%;
   transform: rotate(90deg);
   margin-top: 18%;
   margin-bottom: 15%;
