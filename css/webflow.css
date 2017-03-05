@@ -1445,11 +1445,6 @@ textarea.w-select {
 .w-richtext figure.w-richtext-figure-type-image-rotate,
 .w-richtext figure[data-rt-type="image"] {
   display: table;
-  transform: rotate(90deg);
-}
-.w-richtext figure.w-richtext-figure-type-image-rotate > div,
-.w-richtext figure[data-rt-type="image"] > div {
-  display: inline-block;
 }
 .w-richtext figure.w-richtext-figure-type-image-rotate > figcaption,
 .w-richtext figure[data-rt-type="image"] > figcaption {
@@ -1459,6 +1454,9 @@ textarea.w-select {
 .w-richtext figure.w-richtext-align-center.w-richtext-figure-type-image-rotate > div,
 .w-richtext figure.w-richtext-align-center[data-rt-type="image"] > div {
   max-width: 100%;
+  transform: rotate(90deg);
+  margin-top: 18%;
+  margin-bottom: 15%;
 }
 
 /**End Rotate Code**/
