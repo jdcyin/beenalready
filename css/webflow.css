@@ -1459,6 +1459,25 @@ textarea.w-select {
   margin-bottom: 15%;
 }
 
+
+
+
+.w-richtext figure.w-richtext-figure-type-image-rotate-left,
+.w-richtext figure[data-rt-type="image"] {
+  display: table;
+}
+.w-richtext figure.w-richtext-figure-type-image-rotate-left > figcaption,
+.w-richtext figure[data-rt-type="image"] > figcaption {
+  display: table-caption;
+  caption-side: bottom;
+}
+.w-richtext figure.w-richtext-align-center.w-richtext-figure-type-image-rotate-left > div,
+.w-richtext figure.w-richtext-align-center[data-rt-type="image"] > div {
+  max-height: 90%;
+  transform: rotate(-90deg);
+  margin-top: 18%;
+  margin-bottom: 15%;
+}
 /**End Rotate Code**/
 
 
