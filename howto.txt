@@ -1,3 +1,5 @@
+Change to the registry ../DidAlready
+
 git status , checks which updates there are
 git add . , adds all the changes
 git commit -m "test" , commits the changes
