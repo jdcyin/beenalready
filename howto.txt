@@ -1,6 +1,20 @@
+1) Pushing to web
+
 Change to the registry ../DidAlready
 
 git status , checks which updates there are
 git add . , adds all the changes
 git commit -m "test" , commits the changes
-git push , pushes it to github.io
+git push , pushes it to github.io ##This should work post-no-password phase 
+
+2) Image storage / depository
+#In GDrive Wipe, pictures were not linked. Change to hosted locally
+
+	A) FOR IMAGES IN POST
+	 i) Within each country folder, create "images" folder
+	 ii) nomenclature for images: nameOfPost_n, where nameOfPost=html file name; n=nth picture in post
+	
+	B) FOR THUMBNAILS (post thumbnail):
+	 i) in same "images" folder above: nameOfPost_tn, where tn stands for thumbnail
+#Original "images" folder in ../DidAlready is deleted. 
+
