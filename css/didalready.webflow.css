@@ -40,6 +40,63 @@ video.reWide{
     max-height: auto;
 }
 
+/* Carousel */
+.carousel {
+  display: flex;
+  align-items: stretch; /* make sure the children stretch to fill the carousel's height */
+  justify-content: center;
+  max-width: 80%; /* adjust this as needed */
+  margin: 0 auto; /* this will center the carousel horizontally */
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+.carousel button {
+  width: 20px;
+  height: 100%; /* make the button take up 100% of the carousel's height */
+  border-radius: 0; /* remove the border radius to make the button rectangle (remove this line if you want the buttons to be circular) */
+  border: none;
+  background-color: lightgrey;
+  color: black;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* center the arrow vertically */
+}
+
+#image-container {
+  width: calc(100% - 40px); /* subtract the total width of the two buttons */
+  height: 100%;
+  overflow: hidden;
+}
+
+#carousel-image {
+  width: 100%;
+  height: 100%; /* make the image take up 100% of the image container's height */
+  object-fit: cover;
+}
+
+/* Media query for smaller screens like mobile devices */
+@media (max-width: 600px) {
+  .carousel {
+    flex-direction: column;
+  }
+
+  .carousel button {
+    width: 100%;
+    height: 40px; /* make the buttons shorter on small screens */
+  }
+
+  #image-container {
+    width: 100%; /* on small screens, the image container can take up the full width */
+  }
+}
+
+/*Images no gap above images*/
+img {
+  display: inline-block;
+  vertical-align: top;
+}
 /*END OWN CODE*/
 
 
@@ -95,7 +152,6 @@ p {
 img {
   display: inline-block;
   max-width: 100%;
-  margin-top: 20px;
 }
 
 figcaption {

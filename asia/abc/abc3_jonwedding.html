@@ -53,72 +53,67 @@
 	  <p>Thank you for your companionship for 30 years, which taught me that friendship is the foundation of love. May you cherish Melody as a wife as you have done for me as a brother, and may you share your charisma and pillow talks with her now. Remind me to thank Melody for taking you off our hands. May you both be at the center of each other’s lives, never growing apart as is so often the case with time and distance. May you never miss out on small moments that are so often taken for granted, but are essential to make a union strong.
 	  <p>Love,<br>Jason
 	  
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_1.jpg">
-        </div>
-        <figcaption>‍ First look - my brother seeing his wife for the first time</figcaption>
-      </figure>
+	  
+	  <div class="carousel">
+		<div id="prev-button" class="carousel-button">
+			<button id="prev">&#8592;</button>
+		</div>
+		<div id="image-container">
+		  <img id="carousel-image" alt="Carousel Image">
+		</div>
+		<div id="next-button" class="carousel-button">
+			<button id="next">&#8594;</button>
+		</div>  
+	  </div>
 
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_2.jpg">
-        </div>
-        <figcaption>Pre-wedding stuff</figcaption>
-      </figure> 
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_3.jpg">
-        </div>
-        <figcaption>‍Pre-wedding stuff</figcaption>
-      </figure>
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_4.jpg">
-        </div>
-        <figcaption>‍Brother, waiting for wife to arrive</figcaption>
-      </figure>
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_5.jpg">
-        </div>
-        <figcaption>‍Groomsmen</figcaption>
-      </figure>
-
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_6.jpg">
-        </div>
-        <figcaption>‍Bride and Groom</figcaption>
-      </figure>
-
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_7.jpg">
-        </div>
-        <figcaption>‍Mom's side of the family</figcaption>
-      </figure>  
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_8.jpg">
-        </div>
-        <figcaption>‍Dad's side of the family</figcaption>
-      </figure>
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_9.jpg">
-        </div>
-        <figcaption>‍Dancing party</figcaption>
-      </figure> 
-
-	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
-        <div><img src="images/abc3_jonwedding_10.jpg">
-        </div>
-        <figcaption>Cake</figcaption>
-      </figure>
 
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="../../js/webflow.js" type="text/javascript"></script>
+  
+
+  <script>
+		var images = [
+		  'images/abc3_jonwedding_1.jpg',
+		  'images/abc3_jonwedding_2.jpg',
+		  'images/abc3_jonwedding_3.jpg',
+		  'images/abc3_jonwedding_4.jpg',
+		  'images/abc3_jonwedding_5.jpg',
+		  'images/abc3_jonwedding_6.jpg',
+		  'images/abc3_jonwedding_7.jpg',
+		  'images/abc3_jonwedding_8.jpg',
+		  'images/abc3_jonwedding_9.jpg',
+		  'images/abc3_jonwedding_10.jpg'
+		  // add more image URLs as needed
+		];
+
+		var currentIndex = 0;
+		var imgElement = document.getElementById('carousel-image');
+
+		function showImage() {
+		  imgElement.src = images[currentIndex];
+		}
+
+		document.getElementById('prev').addEventListener('click', function() {
+		  currentIndex--;
+		  if (currentIndex < 0) {
+			currentIndex = images.length - 1;
+		  }
+		  showImage();
+		});
+
+		document.getElementById('next').addEventListener('click', function() {
+		  currentIndex++;
+		  if (currentIndex >= images.length) {
+			currentIndex = 0;
+		  }
+		  showImage();
+		});
+
+		showImage(); // show the first image initially	
+  </script>
+  
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>
