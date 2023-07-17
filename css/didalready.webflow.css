@@ -65,6 +65,7 @@ video.reWide{
 }
 
 #image-container {
+  position: relative; /* Make sure the caption is positioned relative to image container */
   width: calc(100% - 40px); /* subtract the total width of the two buttons */
   height: 100%;
   overflow: hidden;
@@ -74,6 +75,20 @@ video.reWide{
   width: 100%;
   height: 100%; /* make the image take up 100% of the image container's height */
   object-fit: cover;
+}
+
+#carousel-caption {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 1em;
+    padding: 10px 0; 
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent black background */
+	font-family: Computer Modern; /* replace with your preferred font */
+	font-size: 12pt;
 }
 
 /* Media query for smaller screens like mobile devices */

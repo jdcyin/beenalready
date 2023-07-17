@@ -54,17 +54,18 @@
 	  <p>Love,<br>Jason
 	  
 	  
-	  <div class="carousel">
+	<div class="carousel">
 		<div id="prev-button" class="carousel-button">
 			<button id="prev">&#8592;</button>
 		</div>
 		<div id="image-container">
-		  <img id="carousel-image" alt="Carousel Image">
+			<img id="carousel-image" alt="Carousel Image">
+			<div id="carousel-caption" class="carousel-caption"></div>
 		</div>
 		<div id="next-button" class="carousel-button">
 			<button id="next">&#8594;</button>
 		</div>  
-	  </div>
+	</div>
 
 
     </div>
@@ -73,46 +74,48 @@
   <script src="../../js/webflow.js" type="text/javascript"></script>
   
 
-  <script>
-		var images = [
-		  'images/abc3_jonwedding_1.jpg',
-		  'images/abc3_jonwedding_2.jpg',
-		  'images/abc3_jonwedding_3.jpg',
-		  'images/abc3_jonwedding_4.jpg',
-		  'images/abc3_jonwedding_5.jpg',
-		  'images/abc3_jonwedding_6.jpg',
-		  'images/abc3_jonwedding_7.jpg',
-		  'images/abc3_jonwedding_8.jpg',
-		  'images/abc3_jonwedding_9.jpg',
-		  'images/abc3_jonwedding_10.jpg'
-		  // add more image URLs as needed
-		];
+<script>
+    var images = [
+        {src: 'images/abc3_jonwedding_1.jpg', caption: 'First look'},
+        {src: 'images/abc3_jonwedding_2.jpg', caption: 'Groom getting ready'},
+        {src: 'images/abc3_jonwedding_3.jpg', caption: 'Groomsmen'},
+        {src: 'images/abc3_jonwedding_4.jpg', caption: 'Groomsmen, wedding shot'},
+        {src: 'images/abc3_jonwedding_5.jpg', caption: 'Groomsmen formal'},
+        {src: 'images/abc3_jonwedding_6.jpg', caption: 'Kiss as a wedded couple'},
+        {src: 'images/abc3_jonwedding_7.jpg', caption: 'Fam: Mother'},
+        {src: 'images/abc3_jonwedding_8.jpg', caption: 'Fam: Father'},
+        {src: 'images/abc3_jonwedding_9.jpg', caption: 'Dirty Dancing'},
+        {src: 'images/abc3_jonwedding_10.jpg', caption: 'Cake cutting fun'}
+        // add more image URLs as needed
+    ];
 
-		var currentIndex = 0;
-		var imgElement = document.getElementById('carousel-image');
+    var currentIndex = 0;
+    var imgElement = document.getElementById('carousel-image');
+    var captionElement = document.getElementById('carousel-caption');
 
-		function showImage() {
-		  imgElement.src = images[currentIndex];
-		}
+    function showImage() {
+        imgElement.src = images[currentIndex].src;
+        captionElement.innerText = images[currentIndex].caption;
+    }
 
-		document.getElementById('prev').addEventListener('click', function() {
-		  currentIndex--;
-		  if (currentIndex < 0) {
-			currentIndex = images.length - 1;
-		  }
-		  showImage();
-		});
+    document.getElementById('prev').addEventListener('click', function() {
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = images.length - 1;
+        }
+        showImage();
+    });
 
-		document.getElementById('next').addEventListener('click', function() {
-		  currentIndex++;
-		  if (currentIndex >= images.length) {
-			currentIndex = 0;
-		  }
-		  showImage();
-		});
+    document.getElementById('next').addEventListener('click', function() {
+        currentIndex++;
+        if (currentIndex >= images.length) {
+            currentIndex = 0;
+        }
+        showImage();
+    });
 
-		showImage(); // show the first image initially	
-  </script>
+    showImage(); // show the first image initially  
+</script>
   
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
