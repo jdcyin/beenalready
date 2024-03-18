@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Mon Feb 27 2017 12:52:42 GMT+0000 (UTC)  -->
+<html data-wf-page="58b3bb31f3dbd88e3cf8c624" data-wf-site="58871881358a5fed55e35ef0">
+<head>
+  <meta charset="utf-8">
+  <title>didalready: Onsen Ski Trip 2024</title>
+  <meta content="Onsen ski trip let's go" name="description">
+  <meta content="didalready: Onsen ski trip" property="og:title">
+  <meta content="Onsen ski trip let's go" property="og:description">
+  <meta content="summary" name="twitter:card">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="../../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../../css/didalready.webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Bitter:400,700,400italic","Vollkorn:400,400italic,700,700italic","Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic","Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Oswald:300,400,700","Droid Sans:400,700"]
+      }
+    });
+  </script>
+  <script src="../../js/modernizr.js" type="text/javascript"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="../../favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="../../manifest.json">
+  <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">   
+</head>
+<body>
+  <div class="hero"><a class="header-link w-button" href="../../index.html">DID ALREADY</a>
+  </div>
+  <div class="navigation-bar w-nav" data-animation="default" data-collapse="none" data-duration="400" data-no-scroll="1">
+    <div class="navigation-container w-container">
+      <nav class="w-nav-menu" role="navigation"><a class="navigation-link w-nav-link" href="../../about.html">ABOUT</a><a class="navigation-link w-nav-link" href="../../map.html">MAP</a><a class="navigation-link w-nav-link" href="../../current.html">CURRENT</a><a class="navigation-link w-nav-link" href="../../went.html">WENT</a><a class="navigation-link w-nav-link" href="../../snapped.html">SNAPPED</a><a class="navigation-link w-nav-link" href="../../contact.html">CONTACT</a>
+      </nav>
+      <div class="w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mapcontainer w-container">
+  
+  <center>
+	<title>MapMultMarkers</title> 
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyDeX5b8cFm6IZHgIjmQAMWM9PGZGIbu8Ic&callback=initMap" 
+          type="text/javascript"></script>
+
+  <div id="map" style="width: 90%; height: 400px;"></div>
+
+  <script type="text/javascript">
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 9,
+      center: new google.maps.LatLng(35.433543125095056,137.1306117035634),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+	
+	var locations = [
+	  ['Nagoya', 35.181446,136.906403],
+	  ['Gujo Hachiman', 35.749490,136.959670],
+	  ['Gero', 35.8057842, 137.2396173],
+	  ['Magome', 35.5266819,137.5672281],
+	  ['Nakatsugawa', 35.490562998218714,137.5004808567998],
+	  ['Iwamura', 35.3689033, 137.434364],
+	];
+	
+	var line = new google.maps.Polyline({
+    path: [
+      new google.maps.LatLng(35.181446,136.906403),
+      new google.maps.LatLng(35.749490,136.959670),
+	  new google.maps.LatLng(35.8057842, 137.2396173),
+	  new google.maps.LatLng(35.5266819,137.5672281),
+	  new google.maps.LatLng(35.490562998218714,137.5004808567998),
+	  new google.maps.LatLng(35.3689033, 137.434364),
+	  new google.maps.LatLng(35.181446,136.906403)
+    ],
+	icons: [{
+		icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
+        offset: '100%',
+		repeat: '80px'
+    }],
+    strokeColor: "#000000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+    map: map
+   });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+        title: locations[i][0]
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+  </center>
+  </div>
+  
+  <div class="w-container">
+    <div class="blog-body w-richtext">
+      <p> Onsen ski trip 2024, let's go!
+    </div>
+  </div>
+  <div class="flexwrap w-container">
+
+     <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/iwamura.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/iwamura_7.JPG" srcset="images/iwamura_7.JPG 500w, images/iwamura_7.JPG 800w, images/iwamura_7.JPG 1080w, images/iwamura_7.JPG 1600w, images/iwamura_7.JPG 2000w, images/iwamura_7.JPG 2600w, images/iwamura_7.JPG 3200w, images/iwamura_7.JPG 4896w">
+      </a>
+      <div class="category-div"><a class="category-link-went" href="../../went.html">WENT</a>
+      </div><a class="entry-title" href="../../asia/japan/iwamura.html">Iwamura, Day 7, 8</a><a class="entry-date" href="../../asia/japan/iwamura.html">2024-03-12 to 2024-03-13</a>
+    </div>
+
+     <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/nakatsugawa.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/nakatsugawa_2.JPG" srcset="images/nakatsugawa_2.JPG 500w, images/nakatsugawa_2.JPG 800w, images/nakatsugawa_2.JPG 1080w, images/nakatsugawa_2.JPG 1600w, images/nakatsugawa_2.JPG 2000w, images/nakatsugawa_2.JPG 2600w, images/nakatsugawa_2.JPG 3200w, images/nakatsugawa_2.JPG 4896w">
+      </a>
+      <div class="category-div"><a class="category-link-went" href="../../went.html">WENT</a>
+      </div><a class="entry-title" href="../../asia/japan/nakatsugawa.html">Nakatsugawa, Day 6, 7</a><a class="entry-date" href="../../asia/japan/nakatsugawa.html">2024-03-11 to 2024-03-12</a>
+    </div>
+  
+     <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/magome.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/magome_8.JPG" srcset="images/magome_8.JPG 500w, images/magome_8.JPG 800w, images/magome_8.JPG 1080w, images/magome_8.JPG 1600w, images/magome_8.JPG 2000w, images/magome_8.JPG 2600w, images/magome_8.JPG 3200w, images/magome_8.JPG 4896w">
+      </a>
+      <div class="category-div"><a class="category-link-went" href="../../went.html">WENT</a>
+      </div><a class="entry-title" href="../../asia/japan/magome.html">Magome, Day 6</a><a class="entry-date" href="../../asia/japan/magome.html">2024-03-11</a>
+    </div>
+
+     <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/gero.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/gero_8.JPG" srcset="images/gero_8.JPG 500w, images/gero_8.JPG 800w, images/gero_8.JPG 1080w, images/gero_8.JPG 1600w, images/gero_8.JPG 2000w, images/gero_8.JPG 2600w, images/gero_8.JPG 3200w, images/gero_8.JPG 4896w">
+      </a>
+      <div class="category-div"><a class="category-link-went" href="../../went.html">WENT</a>
+      </div><a class="entry-title" href="../../asia/japan/gero.html">Gero, Day 5, 6</a><a class="entry-date" href="../../asia/japan/gero.html">2024-03-10 to 2024-03-11</a>
+    </div>
+
+     <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/gujohachiman3.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/gujohachiman3_1.JPG" srcset="images/gujohachiman3_1.JPG 500w, images/gujohachiman3_1.JPG 800w, images/gujohachiman3_1.JPG 1080w, images/gujohachiman3_1.JPG 1600w, images/gujohachiman3_1.JPG 2000w, images/gujohachiman3_1.JPG 2600w, images/gujohachiman3_1.JPG 3200w, images/gujohachiman3_1.JPG 4896w">
+      </a>
+      <div class="category-div"><a class="category-link-went" href="../../went.html">WENT</a>
+      </div><a class="entry-title" href="../../asia/japan/gujohachiman3.html">Gujo Hachiman, Day 4, 5</a><a class="entry-date" href="../../asia/japan/gujohachiman3.html">2024-03-09 to 2024-03-10</a>
+    </div>
+
+     <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/gujohachiman2.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/gujohachiman2_1.JPG" srcset="images/gujohachiman2_1.JPG 500w, images/gujohachiman2_1.JPG 800w, images/gujohachiman2_1.JPG 1080w, images/gujohachiman2_1.JPG 1600w, images/gujohachiman2_1.JPG 2000w, images/gujohachiman2_1.JPG 2600w, images/gujohachiman2_1.JPG 3200w, images/gujohachiman2_1.JPG 4896w">
+      </a>
+      <div class="category-div"><a class="category-link-went" href="../../went.html">WENT</a>
+      </div><a class="entry-title" href="../../asia/japan/gujohachiman2.html">Gujo Hachiman, Day 2, 3</a><a class="entry-date" href="../../asia/japan/gujohachiman2.html">2024-03-07 to 2024-03-08</a>
+    </div>
+	
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/gujohachiman.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/gujohachiman_4.JPG" srcset="images/gujohachiman_4.JPG 500w, images/gujohachiman_4.JPG 800w, images/gujohachiman_4.JPG 1080w, images/gujohachiman_4.JPG 1600w, images/gujohachiman_4.JPG 2000w, images/gujohachiman_4.JPG 2600w, images/gujohachiman_4.JPG 3200w, images/gujohachiman_4.JPG 4896w">
+      </a>
+      <div class="category-div"><a class="category-link-went" href="../../went.html">WENT</a>
+      </div><a class="entry-title" href="../../asia/japan/gujohachiman.html">Gujo Hachiman, Day 1</a><a class="entry-date" href="../../asia/japan/gujohachiman.html">2024-03-06</a>
+    </div>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="../../js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>
