@@ -3,6 +3,14 @@
 <!--  Last Published: Sun Feb 12 2017 09:15:59 GMT+0000 (UTC)  -->
 <html data-wf-page="588f0386c498fd3f484cbd99" data-wf-site="58871881358a5fed55e35ef0">
 <head>
+
+  <style>
+    option:disabled {
+      color: maroon;
+      font-weight: bold; /* Make the text bold */
+    }
+  </style>
+  
   <meta charset="utf-8">
   <title>didalready: Map</title>
   <meta content="Come take a look at where we&#39;ve been!" name="description">
@@ -68,6 +76,7 @@
 	  ['Dandong, China', 40.000787, 124.354451],
 	  ['Guangzhou, China', 23.129110,113.264381],
 	  ['Harbin, China', 45.622442, 126.243381],
+	  ['Pingdingshan, China', 33.7374744, 113.2981436],
 	  ['Shenyang, China', 41.805699, 123.431472],
 	  ['Shenzhen, China', 22.543096, 114.057865],
 	  ['Hong Kong, Hong Kong', 22.28552, 114.15769],
@@ -260,13 +269,19 @@
 			<div class="dropdown">
 			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
 			<option value disabled selected>China</option>
+			<option value disabled>Beijing</option>
 			<option value="asia/china/beijingtoc.html">Beijing</option>
+			<option value disabled>Guangdong</option>
+			<option value="asia/china/guangzhou.html">Guangzhou</option>
+			<option value="asia/china/shenzhen.html">Shenzhen</option>
+			<option value disabled>Heilongjiang</option>
+			<option value="asia/china/harbintoc.html">Harbin</option>
+			<option value disabled>Henan</option>
+			<option value="asia/china/pingdingshan.html">Pingdingshan</option>
+			<option value disabled>Liaoning</option>
 			<option value="asia/china/daliantoc.html">Dalian</option> 
 			<option value="asia/china/dandong.html">Dandong</option> 
-			<option value="asia/china/guangzhou.html">Guangzhou</option>
-			<option value="asia/china/harbintoc.html">Harbin</option> 
 			<option value="asia/china/shenyangtoc.html">Shenyang</option>
-			<option value="asia/china/shenzhen.html">Shenzhen</option> 
 			</select></div>
 			<div class="dropdown">
 			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
