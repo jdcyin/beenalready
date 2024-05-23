@@ -19,7 +19,7 @@
     margin-right: 10px;
   }
   .dropdown-container {
-    flex-flow: row;
+    flex-flow: column;
 	flex-wrap: wrap;
     justify-content: center;
   }
@@ -466,7 +466,7 @@ figcaption {
 
 .continent-column {
   position: relative;
-  display: inline-block;
+  display: block;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -483,7 +483,7 @@ figcaption {
   padding-bottom: 18px;
   font-family: Exo, sans-serif;
   color: #911717;
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 700;
   text-align: center;
 }
