@@ -11,6 +11,7 @@
 .dropdown-container {
   display: flex;
   flex-flow: column;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 750px) {
@@ -22,6 +23,7 @@
     flex-flow: column;
 	flex-wrap: wrap;
     justify-content: center;
+	width: 80%;
   }
 }
 
