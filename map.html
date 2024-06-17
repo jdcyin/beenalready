@@ -66,11 +66,11 @@
     var locations = [
 	<!--********Africa********-->
     <!--********Asia********-->
-	  ['J: Kampong Speu, Cambodia', 11.615511, 104.379191],
-	  ['J: Kampong Trach, Cambodia', 10.556941, 104.467963],
-	  ['J: Kampot, Cambodia', 10.594242, 104.164035],
-	  ['J: Kirivong, Cambodia', 10.637675, 104.874651],
-	  ['J: Takeo, Cambodia', 10.932152, 104.798771],
+	  ['Kampong Speu, Cambodia', 11.615511, 104.379191],
+	  ['Kampong Trach, Cambodia', 10.556941, 104.467963],
+	  ['Kampot, Cambodia', 10.594242, 104.164035],
+	  ['Kirivong, Cambodia', 10.637675, 104.874651],
+	  ['Takeo, Cambodia', 10.932152, 104.798771],
 	  ['Beijing, China', 39.904211, 116.407395],
 	  ['Dalian, China', 38.914003, 121.614682],
 	  ['Dandong, China', 40.000787, 124.354451],
@@ -88,7 +88,7 @@
 	  ['Leh, Ladakh', 45.803775, 126.534967],
 	  ['Mahabalipuram, India', 12.626927, 80.192711],
 	  ['Mumbai, India', 19.07283, 72.88261],
-	  ['J: Bedugul, Bali, Indonesia', -8.282111, 115.162308],
+	  ['Bedugul, Bali, Indonesia', -8.282111, 115.162308],
 	  ['Canggu, Bali, Indonesia', -8.647818, 115.138519],
 	  ['Ubud, Bali, Indonesia', -8.497726, 115.263014],
 	  ['Jakarta, Indonesia', -6.175392, 106.827153],
@@ -130,7 +130,7 @@
 	  ['Tainan, Taiwan', 22.999900, 120.226876],
 	  ['Taipei, Taiwan', 25.032969, 121.565418],
 	  ['Wulai, New Taipei City, Taiwan', 24.864618, 121.551869],
-	  ['J: Koh Samui, Thailand', 9.512017, 100.013593],
+	  ['Koh Samui, Thailand', 9.512017, 100.013593],
 	  ['Pattaya, Thailand', 12.927608, 100.877081],
 	  ['Bangkok, Thailand', 13.756331, 100.501765],
 	  ['Colombo, Sri Lanka', 6.927079, 79.861243],
@@ -655,6 +655,11 @@
       <div class="continent-column w-col w-col-2">
         <div class="continent">LONG TRIPS</div>
 		<div class="dropdown-container">
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Cambodia</option>
+			<option value="asia/taiwan/cambodiafldwrk.html">Cambodia Field Work 2016</option>
+			</select></div>	
 			<div class="dropdown">
 			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
 			<option value disabled selected>China</option>
