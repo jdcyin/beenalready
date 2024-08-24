@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html data-wf-page="58a15891cf4e78737d598b34" data-wf-site="58871881358a5fed55e35ef0">
+<head>
+  <meta charset="utf-8">
+  <title>didalready: Brother's wedding, California, USA</title>
+  <meta content="My stepbrother is finally getting married." name="description">
+  <meta content="didalready: Brother's wedding, California, USA" property="og:title">
+  <meta content="My stepbrother is finally getting married." property="og:description">
+  <meta content="summary" name="twitter:card">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="../../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../../css/didalready.webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Bitter:400,700,400italic","Vollkorn:400,400italic,700,700italic","Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic","Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Oswald:300,400,700","Droid Sans:400,700"]
+      }
+    });
+  </script>
+  <script src="../../js/modernizr.js" type="text/javascript"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="../../favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="../../manifest.json">
+  <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">  
+</head>
+<body>
+  <div class="hero"><a class="header-link w-button" href="../../index.html">DID ALREADY</a>
+  </div>
+  <div class="navigation-bar w-nav" data-animation="default" data-collapse="none" data-duration="400" data-no-scroll="1">
+    <div class="navigation-container w-container">
+      <nav class="w-nav-menu" role="navigation"><a class="navigation-link w-nav-link" href="../../about.html">ABOUT</a><a class="navigation-link w-nav-link" href="../../map.html">MAP</a><a class="navigation-link w-nav-link" href="../../current.html">CURRENT</a><a class="navigation-link w-nav-link" href="../../went.html">WENT</a><a class="navigation-link w-nav-link" href="../../snapped.html">SNAPPED</a><a class="navigation-link w-nav-link" href="../../contact.html">CONTACT</a>
+      </nav>
+      <div class="w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  <div class="w-container">
+    <div class="blog-body w-richtext">
+      <h2>Brother's wedding, California</h2>
+	  <h3>Sites: Selby's (Redwood City), Stanford Church, The Alexandria (San Carlos), Mastro's in Santana Row</h3>
+      <h4>2024-08-24</h4>
+
+      <p></p>
+	  <p> My stepbrother finally married.
+	  <p> The entire ordeal was family-centric, consisting of a rehearsal and rehearsal dinner (family only), the ceremony, and the after-ceremony lunch (family only). Great to see everyone and meet the extended family. Pictures speak louder than words at these events. But, I only have pictures of the rehearsal dinner and the after-ceremony lunch. 
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_1.JPG">
+        </div>
+        <figcaption>Arches in marble mountain</figcaption>
+      </figure>
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_2.JPG">
+        </div>
+        <figcaption>More arches</figcaption>
+      </figure>
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_3.JPG">
+        </div>
+        <figcaption>Cave temple</figcaption>
+      </figure>
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_4.JPG">
+        </div>
+        <figcaption>Cave temple shrine</figcaption>
+      </figure>
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_5.JPG">
+        </div>
+        <figcaption>A smiling tiger</figcaption>
+      </figure>
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_6.JPG">
+        </div>
+        <figcaption>Looking out into the countryside</figcaption>
+      </figure>
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_7.JPG">
+        </div>
+        <figcaption>"The hole which clouds pass through"</figcaption>
+      </figure>
+	  
+	  <p> Congratulations to Minh, Jimmy.
+	  
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_17.JPG">
+        </div>
+        <figcaption>Thorin at Da Nang beach</figcaption>
+      </figure>	  
+
+	  <figure class="w-richtext-figure-type-image w-richtext-align-center">
+        <div><img src="images/danang2_18.JPG">
+        </div>
+        <figcaption>Skyline at Da Nang Beach</figcaption>
+      </figure>	  
+	  
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="../../js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>
