@@ -66,6 +66,7 @@
     var locations = [
 	<!--********Africa********-->
     <!--********Asia********-->
+	  ['Sydney, Australia', 33.8688, 151.2093],
 	  ['Kampong Speu, Cambodia', 11.615511, 104.379191],
 	  ['Kampong Trach, Cambodia', 10.556941, 104.467963],
 	  ['Kampot, Cambodia', 10.594242, 104.164035],
@@ -265,6 +266,11 @@
       <div class="continent-column w-col w-col-2">
         <div class="continent">ASIA PACIFIC</div>
 		<div class="dropdown-container">
+			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Australia</option>
+			<option value="asia/australia/sydney.html">Sydney</option>
+			</select></div>
 			<div class="dropdown">
 			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
 			<option value disabled selected>Cambodia</option>
@@ -663,7 +669,7 @@
 			<div class="dropdown">
 			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
 			<option value disabled selected>Cambodia</option>
-			<option value="asia/taiwan/cambodiafldwrk.html">Cambodia Field Work 2016</option>
+			<option value="asia/cambodia/cambodiafldwrk.html">Cambodia Field Work 2016</option>
 			</select></div>	
 			<div class="dropdown">
 			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
