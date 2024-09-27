@@ -3,7 +3,7 @@
 .dropdown{
   position: relative;
   display: inline-block;
-  font-family: Bitter, serif;
+  font-family: Bitter, sans-serif;
   font-size: 18px;
   margin-bottom: 15px;
 }
