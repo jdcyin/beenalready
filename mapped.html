@@ -218,13 +218,16 @@
 	  ['Kiev, Ukraine', 50.450100, 30.5234],
 	  
 	<!--********Americas*******-->
-	  ['Denver, CO, USA', 39.739236, -104.990251],
+	  ['Toronto, Canada', 43.653225, -79.383186],
 	  ['Los Angeles, CA, USA', 34.052234, -118.243685],
 	  ['Marin Headlands, CA, USA', 37.826192, -122.499704],
 	  ['Santa Cruz, CA, USA', 36.97685241699219, -122.03187561035156],
 	  ['Tulelake, CA, USA', 41.955988, -121.477492],
 	  ['Joshua Tree, CA, USA',34.134728, -116.313066],
+	  ['Denver, CO, USA', 39.739236, -104.990251],
+	  ['Washington D.C., DC, USA', 40.712776, -74.005974],
 	  ['Hilo, HI, USA', 19.729722, -155.09],
+	  ['New York City, NY, USA', 40.712776, -74.005974],
 	  ['Seattle, WA, USA', 47.606209, -122.332071],
 	<!--********Oceania********-->
     ];
@@ -650,6 +653,11 @@
         <div class="continent">AMERICAS</div>
 		<div class="dropdown-container">
 			<div class="dropdown">
+			<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
+			<option value disabled selected>Canada</option>
+			<option value="americas/canada/toronto.html">Toronto</option>
+			</select></div>
+			<div class="dropdown">
 				<select onchange="window.open(this.options[this.selectedIndex].value,'new_window')">
 				<option value disabled selected>U.S.A.</option>
 				<option value disabled>California</option>
@@ -663,9 +671,15 @@
 				<option value="americas/usa/co/denver.html">Denver</option>
 				<option value disabled>Hawaii</option>
 				<option value="americas/usa/hi/hilo.html">Hilo</option>
+				<option value disabled>New York</option>
+				<option value="americas/usa/ny/newyorkcity.html">New York City</option>
 				<option value disabled>Washington</option>
 				<option value="americas/usa/wa/seattle.html">Seattle</option>
+				<option value disabled>Washington D.C.</option>
+				<option value="americas/usa/dc/washingtondc.html">Washington D.C.</option>
+				
 				</select></div>	
+
 		</div>
       </div>
       <div class="continent-column w-col w-col-2">
