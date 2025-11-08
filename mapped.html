@@ -7,7 +7,7 @@
   <style>
     option:disabled {
       color: maroon;
-      font-weight: bold; /* Make the text bold */;
+      font-weight: bold;
     }
   </style>
   
@@ -49,18 +49,26 @@
   <style>
   /* Apply your site’s font to the map container */
   #map.leaflet-container {
-    font-family: Bitter, serif !important;  /* use your page font stack */
-    font-size: 16px !important;             /* optional */
-    line-height: 1.4 !important;            /* optional */
-    color: inherit;                          /* match your page text color */
+    font-family: Bitter, serif !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    color: inherit;
   }
-  /* Ensure popups/tooltips inherit from the container */
   #map .leaflet-popup-content,
   #map .leaflet-tooltip {
     font-family: inherit !important;
     font-size: inherit !important;
     line-height: inherit !important;
     color: inherit;
+  }
+  /* Nice link styling inside popups */
+  #map .leaflet-popup-content a {
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  #map .leaflet-popup-content a:hover {
+    text-decoration: underline;
   }
   </style>
 
@@ -88,7 +96,7 @@
   <!-- Map container -->
   <div id="map" style="width: 90%; height: 400px;"></div>
 
-  <!-- Your markers array (unchanged) + Leaflet map code -->
+  <!-- Your markers array (unchanged) -->
   <script type="text/javascript">
     var locations = [
 	<!--********Africa********-->
@@ -262,9 +270,78 @@
 	<!--********Oceania********-->
     ];
 
-    // ---- Leaflet Map Setup (replaces Google Maps) ----
-    // Include Leaflet JS (loaded at end of body) and then run this:
+    // ---- Leaflet Map Setup with popup links ----
     function initLeaflet() {
+      // Helper: normalize text (lowercase, remove accents, strip parentheses)
+      function norm(s) {
+        return s
+          .toString()
+          .replace(/\(.*?\)/g, '')                 // remove things in ( )
+          .normalize('NFD').replace(/\p{Diacritic}/gu, '') // strip accents
+          .toLowerCase()
+          .replace(/[^a-z0-9\s,-]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+
+      // Helper: get "city" part before the first comma
+      function cityFromTitle(title) {
+        var parts = title.split(',');
+        return parts[0].trim();
+      }
+
+      // Build a lookup of city name -> best URL by scanning your dropdowns.
+      // If multiple URLs for the same city exist, prefer one containing "toc".
+      var urlLookup = {}; // key: normalized city name, value: url
+
+      var dropdownOptions = document.querySelectorAll('.dropdown-container select option[value]');
+      dropdownOptions.forEach(function(opt){
+        // skip disabled placeholders or empty values
+        if (opt.disabled) return;
+        var val = (opt.getAttribute('value') || '').trim();
+        if (!val || val === 'disabled') return;
+
+        // Normalize the visible text (city label)
+        var label = opt.textContent || '';
+        var city = label.replace(/\(.*?\)/g, '').trim(); // strip "(Vacation)" etc.
+        var key = norm(city);
+
+        if (!urlLookup[key]) {
+          urlLookup[key] = val;
+        } else {
+          // prefer *toc pages when there is a choice
+          var hasTocExisting = /toc\.html$/i.test(urlLookup[key]);
+          var hasTocNew = /toc\.html$/i.test(val);
+          if (hasTocNew && !hasTocExisting) {
+            urlLookup[key] = val;
+          }
+        }
+      });
+
+      // Some markers include state/country in title; broaden matching:
+      function findUrlFor(title) {
+        var city = cityFromTitle(title);
+        var keyCity = norm(city);
+        var keyFull = norm(title);
+
+        // 1) exact city match (preferred)
+        if (urlLookup[keyCity]) return urlLookup[keyCity];
+
+        // 2) try a loose contains search across keys
+        //    (e.g., "New York City, NY, USA" vs "New York City")
+        var best = null;
+        Object.keys(urlLookup).forEach(function(k){
+          if (keyFull.includes(k) || keyCity.includes(k) || k.includes(keyCity)) {
+            // prefer toc
+            if (!best) best = urlLookup[k];
+            var bestIsToc = /toc\.html$/i.test(best);
+            var candidateIsToc = /toc\.html$/i.test(urlLookup[k]);
+            if (candidateIsToc && !bestIsToc) best = urlLookup[k];
+          }
+        });
+        return best; // may be undefined
+      }
+
       // Create map
       var map = L.map('map');
 
@@ -282,9 +359,15 @@
         var lat = locations[i][1];
         var lng = locations[i][2];
 
-        // Guard against bad coords (optional)
         if (typeof lat === 'number' && typeof lng === 'number' && !isNaN(lat) && !isNaN(lng)) {
-          L.marker([lat, lng]).addTo(group).bindPopup(title);
+          var url = findUrlFor(title);
+
+          // If we found a URL, make the popup a link (prefer TOC when available)
+          var popupHTML = url
+            ? '<a href="' + url + '" target="_blank" rel="noopener">' + title + '</a>'
+            : title; // fallback to plain text if no page found
+
+          L.marker([lat, lng]).addTo(group).bindPopup(popupHTML);
         }
       }
 
@@ -771,7 +854,6 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
-  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
-  
 </html>

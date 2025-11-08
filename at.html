@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Sun Feb 12 2017 09:15:59 GMT+0000 (UTC)  -->
 <html data-wf-page="588f03c7d26b9d7d48f6319a" data-wf-site="58871881358a5fed55e35ef0">
 <head>
   <meta charset="utf-8">
@@ -10,25 +8,19 @@
   <meta content="Where am I currently @?" property="og:description">
   <meta content="summary" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/didalready.webflow.css" rel="stylesheet" type="text/css">
+
+  <!-- Webfonts -->
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
   <script type="text/javascript">
     WebFont.load({
       google: {
-        families: ["Bitter:400,700,400italic","Vollkorn:400,400italic,700,700italic","Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic","Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Oswald:300,400,700","Droid Sans:400,700"]
+        families: ["Bitter:400,700,400italic","Vollkorn:400,400italic,700,700italic","Ubuntu:300,400,500,700","Exo:300,400,500,600,700,800,900","Oswald:300,400,700","Droid Sans:400,700"]
       }
     });
   </script>
-  <script src="js/modernizr.js" type="text/javascript"></script>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="theme-color" content="#ffffff">
 
   <!-- Leaflet CSS -->
   <link
@@ -37,92 +29,95 @@
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
-  
-  <!-- Making pinpoint font inherited -->
+
+  <!-- Force Leaflet to use site font -->
   <style>
-  /* Apply your site’s font to the map container */
-  #map.leaflet-container {
-    font-family: Bitter, serif !important;  /* use your page font stack */
-    font-size: 16px !important;             /* optional */
-    line-height: 1.4 !important;            /* optional */
-    color: inherit;                          /* match your page text color */
-  }
-  /* Ensure popups/tooltips inherit from the container */
-  #map .leaflet-popup-content,
-  #map .leaflet-tooltip {
-    font-family: inherit !important;
-    font-size: inherit !important;
-    line-height: inherit !important;
-    color: inherit;
-  }
+    #map.leaflet-container {
+      font-family: Bitter, serif !important;
+      font-size: 16px !important;
+      line-height: 1.4 !important;
+      color: inherit;
+    }
+    #map .leaflet-popup-content,
+    #map .leaflet-tooltip {
+      font-family: inherit !important;
+      font-size: inherit !important;
+      color: inherit;
+    }
+    /* make links inside popup styled nicely */
+    .leaflet-popup-content a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .leaflet-popup-content a:hover {
+      text-decoration: underline;
+    }
   </style>
-  
-  
 </head>
+
 <body>
-  <div class="hero"><a class="header-link w-button" href="index.html">BEEN ALREADY</a>
-  </div>
-  <div class="navigation-bar w-nav" data-animation="default" data-collapse="none" data-duration="400">
+  <div class="hero"><a class="header-link w-button" href="index.html">BEEN ALREADY</a></div>
+  <div class="navigation-bar w-nav">
     <div class="navigation-container w-container">
-      <nav class="w-nav-menu" role="navigation"><a class="navigation-link w-nav-link" href="about.html">ABOUT</a><a class="navigation-link w-nav-link" href="mapped.html">MAPPED</a><a class="navigation-link w-nav-link" href="at.html">@</a><a class="navigation-link w-nav-link" href="wrapped.html">WRAPPED</a><a class="navigation-link w-nav-link" href="contact.html">CONTACT</a>
+      <nav class="w-nav-menu" role="navigation">
+        <a class="navigation-link w-nav-link" href="about.html">ABOUT</a>
+        <a class="navigation-link w-nav-link" href="mapped.html">MAPPED</a>
+        <a class="navigation-link w-nav-link" href="at.html">@</a>
+        <a class="navigation-link w-nav-link" href="wrapped.html">WRAPPED</a>
+        <a class="navigation-link w-nav-link" href="contact.html">CONTACT</a>
       </nav>
-      <div class="w-nav-button">
-        <div class="w-icon-nav-menu"></div>
-      </div>
     </div>
   </div>
+
   <div class="page-title-container">
     <div class="page-title">WHERE I'M @</div>
   </div>
+
   <!-- Leaflet Map -->
   <div class="currentmap w-container">
     <center>
-      <title>MapMultMarkers</title>
-
       <div id="map" style="width: 90%; height: 400px;"></div>
 
       <script type="text/javascript">
-        // Your original locations array (unchanged)
+        // Locations with links
         var locations = [
-          ['Tai Po', 22.442322, 114.165506],
-          ['Chi Lin Nunnery', 22.340714, 114.205352],
-          ['Wai Chun National Day', 22.442874, 114.096066],
-          ['Tai Long Wan Camping', 22.415055, 114.380035],
-          ['Hike: Ma On Shan', 22.396809, 114.252896]
+          ['Tai Po', 22.442322, 114.165506, 'asia/hongkong/waitsuen.html'],
+          ['Chi Lin Nunnery', 22.340714, 114.205352, 'asia/hongkong/chilin.html'],
+          ['Wai Chun National Day', 22.442874, 114.096066, 'asia/hongkong/waitsuen.html'],
+          ['Tai Long Wan Camping', 22.415055, 114.380035, 'asia/hongkong/tailongwan.html'],
+          ['Hike: Ma On Shan', 22.396809, 114.252896, 'asia/hongkong/hike_maonshan.html']
         ];
 
         function initLeaflet() {
-          // Create map
           var map = L.map('map');
 
-          // Basemap tiles (CARTO Light); includes required attribution
           L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             maxZoom: 19,
             attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
           }).addTo(map);
 
-          // Add markers + popups; auto-fit to bounds
           var group = L.featureGroup().addTo(map);
 
           for (var i = 0; i < locations.length; i++) {
             var title = locations[i][0];
             var lat = locations[i][1];
             var lng = locations[i][2];
+            var url = locations[i][3];
 
-            if (typeof lat === 'number' && typeof lng === 'number' && !isNaN(lat) && !isNaN(lng)) {
-              L.marker([lat, lng]).addTo(group).bindPopup(title);
+            if (!isNaN(lat) && !isNaN(lng)) {
+              var popupHTML = '<a href="' + url + '" target="_blank">' + title + '</a>';
+              L.marker([lat, lng]).addTo(group).bindPopup(popupHTML);
             }
           }
 
           if (group.getLayers().length > 0) {
             map.fitBounds(group.getBounds(), { padding: [30, 30] });
           } else {
-            // Fallback to your original center/zoom
             map.setView([22.442322, 114.165506], 10);
           }
         }
 
-        // Initialize after Leaflet JS loads
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', initLeaflet);
         } else {
@@ -134,45 +129,46 @@
   <!-- End Leaflet Map -->
 
   <div class="flexwrap w-container">
-
     <div class="entrytest">
-      <a class="w-inline-block" href="asia/hongkong/hike_maonshan.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/P1010098.jpg" srcset="images/P1010098.jpg 500w, images/P1010098.jpg 800w, images/P1010098.jpg 1080w, images/P1010098.jpg 1600w, images/P1010098.jpg 2000w, images/P1010098.jpg 2600w, images/P1010098.jpg 3200w, images/P1010098.jpg 4896w">
+      <a class="w-inline-block" href="asia/hongkong/hike_maonshan.html">
+        <img class="post-image" src="images/P1010098.jpg" alt="Hike Ma On Shan" />
       </a>
-      
-      <a class="entry-title" href="asia/hongkong/hike_maonshan.html">Hike: Ma On Shan, Hong Kong</a><a class="entry-date" href="asia/hongkong/hike_maonshan.html">2018-02-10</a>
-    </div>
-  
-    <div class="entrytest">
-      <a class="w-inline-block" href="asia/hongkong/tailongwan.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/DSC13416.JPG" srcset="images/DSC13416.JPG 500w, images/DSC13416.JPG 800w, images/DSC13416.JPG 1080w, images/DSC13416.JPG 1600w, images/DSC13416.JPG 2000w, images/DSC13416.JPG 2600w, images/DSC13416.JPG 3200w, images/DSC13416.JPG 4896w">
-      </a>
-      
-      <a class="entry-title" href="asia/hongkong/tailongwan.html">Tai Long Wan, Hong Kong</a><a class="entry-date" href="asia/hongkong/tailongwan.html">2017-10-02 to 2017-10-03</a>
+      <a class="entry-title" href="asia/hongkong/hike_maonshan.html">Hike: Ma On Shan, Hong Kong</a>
+      <a class="entry-date" href="asia/hongkong/hike_maonshan.html">2018-02-10</a>
     </div>
 
     <div class="entrytest">
-      <a class="w-inline-block" href="asia/hongkong/waitsuen.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/DSC13217.JPG" srcset="images/DSC13217.JPG 500w, images/DSC13217.JPG 800w, images/DSC13217.JPG 1080w, images/DSC13217.JPG 1600w, images/DSC13217.JPG 2000w, images/DSC13217.JPG 2600w, images/DSC13217.JPG 3200w, images/DSC13217.JPG 4896w">
+      <a class="w-inline-block" href="asia/hongkong/tailongwan.html">
+        <img class="post-image" src="images/DSC13416.JPG" alt="Tai Long Wan" />
       </a>
-      
-      <a class="entry-title" href="asia/hongkong/waitsuen.html">Wai Tsuen, Hong Kong</a><a class="entry-date" href="asia/hongkong/waitsuen.html">2017-10-01</a>
+      <a class="entry-title" href="asia/hongkong/tailongwan.html">Tai Long Wan, Hong Kong</a>
+      <a class="entry-date" href="asia/hongkong/tailongwan.html">2017-10-02 to 2017-10-03</a>
     </div>
-  
+
     <div class="entrytest">
-      <a class="w-inline-block" href="asia/hongkong/chilin.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/DSC13181.JPG" srcset="images/DSC13181.JPG 500w, images/DSC13181.JPG 800w, images/DSC13181.JPG 1080w, images/DSC13181.JPG 1600w, images/DSC13181.JPG 2000w, images/DSC13181.JPG 2600w, images/DSC13181.JPG 3200w, images/DSC13181.JPG 4896w">
+      <a class="w-inline-block" href="asia/hongkong/waitsuen.html">
+        <img class="post-image" src="images/DSC13217.JPG" alt="Wai Tsuen" />
       </a>
-      
-      <a class="entry-title" href="asia/hongkong/chilin.html">Chi Lin Nunnery, Hong Kong</a><a class="entry-date" href="asia/hongkong/chilin.html">2017-09-21</a>
+      <a class="entry-title" href="asia/hongkong/waitsuen.html">Wai Tsuen, Hong Kong</a>
+      <a class="entry-date" href="asia/hongkong/waitsuen.html">2017-10-01</a>
     </div>
-   
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="asia/hongkong/chilin.html">
+        <img class="post-image" src="images/DSC13181.JPG" alt="Chi Lin Nunnery" />
+      </a>
+      <a class="entry-title" href="asia/hongkong/chilin.html">Chi Lin Nunnery, Hong Kong</a>
+      <a class="entry-date" href="asia/hongkong/chilin.html">2017-09-21</a>
+    </div>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-  <script src="js/webflow.js" type="text/javascript"></script>
-  <!-- Leaflet JS -->
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="js/webflow.js"></script>
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
-  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>
