@@ -779,3 +779,12 @@ figcaption {
   }
 }
 
+
+/* Leaflet popup + tooltip font inherits from page */
+.leaflet-container .leaflet-popup-content-wrapper,
+.leaflet-container .leaflet-tooltip,
+.leaflet-container .leaflet-popup-content {
+  font-family: inherit !important; /* use whatever the page/body font is */
+  font-size: inherit;
+  color: inherit;
+}

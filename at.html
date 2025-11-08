@@ -37,6 +37,27 @@
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
+  
+  <!-- Making pinpoint font inherited -->
+  <style>
+  /* Apply your site’s font to the map container */
+  #map.leaflet-container {
+    font-family: Bitter, serif !important;  /* use your page font stack */
+    font-size: 16px !important;             /* optional */
+    line-height: 1.4 !important;            /* optional */
+    color: inherit;                          /* match your page text color */
+  }
+  /* Ensure popups/tooltips inherit from the container */
+  #map .leaflet-popup-content,
+  #map .leaflet-tooltip {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    color: inherit;
+  }
+  </style>
+  
+  
 </head>
 <body>
   <div class="hero"><a class="header-link w-button" href="index.html">BEEN ALREADY</a>
