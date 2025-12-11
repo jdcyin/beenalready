@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>beenalready: @</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <!-- Webfonts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Bitter:400,700,400italic","Vollkorn:400,400italic,700,700italic","Ubuntu:300,400,500,700","Exo:300,400,500,600,700,800,900","Oswald:300,400,700","Droid Sans:400,700"]
+      }
+    });
+  </script>
+
+  <style>
+    /* Fullscreen map */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: "Bitter", serif; /* inherits the same font as your site */
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Popup styling */
+    #map .leaflet-popup-content a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    #map .leaflet-popup-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Centered 'ABOUT' link */
+    .about-link {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      font-family: inherit;
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+    }
+    .about-link:hover {
+      background: rgba(255, 255, 255, 1);
+      color: #0077cc;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top-centered About link -->
+  <a href="about.html" class="about-link">ABOUT</a>
+
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script>
+    // Location data
+    var locations = [
+      ['Tai Po', 22.442322, 114.165506, 'asia/hongkong/waitsuen.html'],
+      ['Chi Lin Nunnery', 22.340714, 114.205352, 'asia/hongkong/chilin.html'],
+      ['Wai Chun National Day', 22.442874, 114.096066, 'asia/hongkong/waitsuen.html'],
+      ['Tai Long Wan Camping', 22.415055, 114.380035, 'asia/hongkong/tailongwan.html'],
+      ['Hike: Ma On Shan', 22.396809, 114.252896, 'asia/hongkong/hike_maonshan.html']
+    ];
+
+    // Yellow marker icon
+    var yellowIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+    // Initialize map
+    var map = L.map('map');
+
+    // Base map layer
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+
+    // Add markers
+    var group = L.featureGroup().addTo(map);
+    for (var i = 0; i < locations.length; i++) {
+      var title = locations[i][0];
+      var lat = locations[i][1];
+      var lng = locations[i][2];
+      var url = locations[i][3];
+
+      if (!isNaN(lat) && !isNaN(lng)) {
+        var popupHTML = '<a href="' + url + '" target="_blank">' + title + '</a>';
+        L.marker([lat, lng], { icon: yellowIcon }).addTo(group).bindPopup(popupHTML);
+      }
+    }
+
+    // Fit bounds to markers
+    if (group.getLayers().length > 0) {
+      map.fitBounds(group.getBounds(), { padding: [30, 30] });
+    } else {
+      map.setView([22.442322, 114.165506], 10);
+    }
+  </script>
+</body>
+</html>
