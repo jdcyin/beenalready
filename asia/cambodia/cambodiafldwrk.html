@@ -42,58 +42,85 @@
       </div>
     </div>
   </div>
-  <div class="mapcontainer w-container">
   
-	<center>
-	<title>MapMultMarkers</title> 
-	<script src="https://maps.google.com/maps/api/js?key=AIzaSyBcZ3wY5lXtukgrbRDlcnss0T4-OW1EiJY&callback=initMap" 
-			  type="text/javascript"></script>
+  
+<div class="mapcontainer w-container">
+  <div id="map" style="width: 90%; height: 400px; margin: 0 auto;"></div>
 
-	  <div id="map" style="width: 90%; height: 400px;"></div>
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
 
-	  <script type="text/javascript">
-	  
-	  	var locations = [
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
 
-	  ['Dec 5, 6: OD: Chhouk', 10.835973, 104.457773],
-	  ['Dec 5: OD: Kampong Trach, Center: Phnom Lngieng', 10.556941, 104.467963],
-	  ['Dec 7, 12, 15: Takeo Province / OD', 10.932152, 104.798771],
-	  ['Dec 8: OD: Daun Keo', 10.987706, 104.7871],
-	  ['Dec 9, 13: OD: Kirivong', 10.637675, 104.874651],
-	  ['Dec 10: Kep Beach', 10.479064, 104.294199],
-	  ['Dec 10,11: Phnom Penh', 11.544873, 104.892167],
-	  ['Dec 14: OD: Kampong Speu', 11.615511, 104.379191],
-	  ['Dec 16: Bokor Mountain', 10.642223, 104.027374]
-	  
-		];
+  <script>
+    (function () {
 
-		var map = new google.maps.Map(document.getElementById('map'), {
-		  zoom: 7,
-		  center: new google.maps.LatLng(12.565679, 104.990963),
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
+      // Same locations + order as your original Google Maps code
+      var locations = [
+        ['Dec 5, 6: OD: Chhouk', 10.835973, 104.457773],
+        ['Dec 5: OD: Kampong Trach, Center: Phnom Lngieng', 10.556941, 104.467963],
+        ['Dec 7, 12, 15: Takeo Province / OD', 10.932152, 104.798771],
+        ['Dec 8: OD: Daun Keo', 10.987706, 104.7871],
+        ['Dec 9, 13: OD: Kirivong', 10.637675, 104.874651],
+        ['Dec 10: Kep Beach', 10.479064, 104.294199],
+        ['Dec 10,11: Phnom Penh', 11.544873, 104.892167],
+        ['Dec 14: OD: Kampong Speu', 11.615511, 104.379191],
+        ['Dec 16: Bokor Mountain', 10.642223, 104.027374]
+      ];
 
-		var infowindow = new google.maps.InfoWindow();
+      function initLeafletMap() {
+        var mapEl = document.getElementById('map');
+        if (!mapEl || typeof L === 'undefined') return;
 
-		var marker, i;
+        var map = L.map(mapEl, { scrollWheelZoom: true });
 
-		for (i = 0; i < locations.length; i++) {  
-		  marker = new google.maps.Marker({
-			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-			map: map,
-			title: locations[i][0]
-		  });
+        L.tileLayer(
+          'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+          {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+          }
+        ).addTo(map);
 
-		  google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {
-			  infowindow.setContent(locations[i][0]);
-			  infowindow.open(map, marker);
-			}
-		  })(marker, i));
-		}
-	  </script>
-	  </center>
-  </div>
+        var bounds = L.latLngBounds([]);
+
+        for (var i = 0; i < locations.length; i++) {
+          var title = locations[i][0];
+          var lat = locations[i][1];
+          var lng = locations[i][2];
+
+          L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup(title);
+
+          bounds.extend([lat, lng]);
+        }
+
+        map.fitBounds(bounds, { padding: [30, 30] });
+
+        // Webflow sizing fix
+        setTimeout(function () { map.invalidateSize(); }, 250);
+        setTimeout(function () { map.invalidateSize(); }, 1000);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLeafletMap);
+      } else {
+        initLeafletMap();
+      }
+
+    })();
+  </script>
+</div>
+
   
   <div class="w-container">
     <div class="blog-body w-richtext">

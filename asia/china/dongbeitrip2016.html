@@ -43,65 +43,230 @@
     </div>
   </div>
   
-  <div class="mapcontainer w-container">
-  
-  <center>
-	<title>MapMultMarkers</title> 
-	<script src="https://maps.google.com/maps/api/js?key=AIzaSyDeX5b8cFm6IZHgIjmQAMWM9PGZGIbu8Ic&callback=initMap" 
-          type="text/javascript"></script>
+<div class="mapcontainer w-container">
+  <div id="map" style="width: 90%; height: 400px; margin: 0 auto;"></div>
 
-  <div id="map" style="width: 90%; height: 400px;"></div>
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
 
-  <script type="text/javascript">
+  <style>
+    /* Match your mapped.html popup font/link styling */
+    #map.leaflet-container {
+      font-family: Bitter, serif !important;
+      font-size: 16px !important;
+      line-height: 1.4 !important;
+      color: inherit;
+    }
+    #map .leaflet-popup-content,
+    #map .leaflet-tooltip {
+      font-family: inherit !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+      color: inherit;
+    }
+    #map .leaflet-popup-content a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    #map .leaflet-popup-content a:hover {
+      text-decoration: underline;
+    }
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 5,
-      center: new google.maps.LatLng(43.166420, 124.350398),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-	
-	var locations = [
-	  ['Dalian', 38.914003, 121.614682],
-	  ['Shenyang', 41.805699, 123.431472],
-	  ['Dandong', 40.000787, 124.354451],
-	  ['Harbin', 45.803775, 126.534967]
-	];
-	
-	var line = new google.maps.Polyline({
-    path: [
-      new google.maps.LatLng(38.914003, 121.614682),
-      new google.maps.LatLng(41.805699, 123.431472),
-	  new google.maps.LatLng(40.000787, 124.354451),
-	  new google.maps.LatLng(41.805699, 123.431472),
-	  new google.maps.LatLng(45.803775, 126.534967)
-    ],
-    strokeColor: "#000000",
-    strokeOpacity: 1.0,
-    strokeWeight: 2,
-    map: map
-   });
+    #map .popup-title { font-weight: 700; margin: 0 0 6px 0; }
+    #map .popup-links { margin: 0; padding-left: 18px; }
+    #map .popup-links li { margin: 2px 0; }
 
-    var infowindow = new google.maps.InfoWindow();
+    /* Arrow styling */
+    .arrow-icon { width: 14px; height: 14px; background: transparent; border: none; }
+    .arrow-icon > div {
+      margin-left: -1px;
+      margin-top: -3px;
+      transform-origin: center center;
+      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+      color: #000;
+      text-shadow: 0 0 2px rgba(255,255,255,0.9);
+      user-select: none;
+      pointer-events: none;
+    }
+  </style>
 
-    var marker, i;
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
 
-    for (i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map,
-        title: locations[i][0]
+  <script>
+    (function () {
+      // [markerTitle, lat, lng, [ {label, url}, ... ] ]
+      var locations = [
+        ["Dalian", 38.914003, 121.614682, [
+          { label: "Day 1: Dalian", url: "../../asia/china/dalian.html" },
+          { label: "Day 2: Dalian", url: "../../asia/china/dalian2.html" },
+          { label: "Day 3: Dalian", url: "../../asia/china/dalian3.html" },
+          { label: "Days 14 & 15: Dalian", url: "../../asia/china/dalian4.html" }
+        ]],
+
+        ["Shenyang", 41.805699, 123.431472, [
+          { label: "Day 4: Shenyang", url: "../../asia/china/shenyang.html" },
+          { label: "Day 6: Shenyang", url: "../../asia/china/shenyang2.html" },
+          { label: "Day 7: Shenyang", url: "../../asia/china/shenyang3.html" },
+          { label: "Days 12 & 13: Shenyang", url: "../../asia/china/shenyang4.html" }
+        ]],
+
+        ["Dandong", 40.000787, 124.354451, [
+          { label: "Day 5: Dandong", url: "../../asia/china/dandong.html" }
+        ]],
+
+        ["Harbin", 45.803775, 126.534967, [
+          { label: "Day 8: Harbin", url: "../../asia/china/harbin.html" },
+          { label: "Day 9: Harbin", url: "../../asia/china/harbin2.html" },
+          { label: "Day 10: Harbin", url: "../../asia/china/harbin3.html" }
+        ]]
+      ];
+
+      // Green start marker (Dalian)
+      var greenIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
       });
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent(locations[i][0]);
-          infowindow.open(map, marker);
+      // ---- Arrow helpers ----
+      function Point(x, y, round) { this.x = (round ? Math.round(x) : x); this.y = (round ? Math.round(y) : y); }
+      function distanceTo(p1, p2) { var x = p2.x - p1.x, y = p2.y - p1.y; return Math.sqrt(x*x + y*y); }
+      function myMidPoint(latlng1, latlng2, per, mapObj) {
+        var p1 = mapObj.project(new L.latLng(latlng1));
+        var p2 = mapObj.project(new L.latLng(latlng2));
+        var halfDist = distanceTo(p1, p2) * per;
+        if (halfDist === 0) return mapObj.unproject(p1);
+        var dist = distanceTo(p1, p2);
+        if (dist > halfDist) {
+          var ratio = (dist - halfDist) / dist;
+          var res = mapObj.unproject(new Point(
+            p2.x - ratio * (p2.x - p1.x),
+            p2.y - ratio * (p2.y - p1.y)
+          ));
+          return [res.lat, res.lng];
         }
-      })(marker, i));
-    }
+      }
+      function getAngle(latLng1, latlng2, coef) {
+        var dy = latlng2[0] - latLng1[0];
+        var dx = Math.cos(Math.PI / 180 * latLng1[0]) * (latlng2[1] - latLng1[1]);
+        var ang = ((Math.atan2(dy, dx) / Math.PI) * 180 * coef);
+        return (+ang).toFixed(2);
+      }
+      function getArrows(arrLatlngs, color, arrowCount, mapObj) {
+        if (!arrLatlngs || arrLatlngs.length < 2) return [];
+        if (arrowCount == null) arrowCount = 1;
+
+        var styleColor = color ? "color:" + color : "";
+        var result = [];
+
+        for (var i = 1; i < arrLatlngs.length; i++) {
+          var icon = L.divIcon({
+            className: "arrow-icon",
+            html: '<div style="' + styleColor + ';transform: rotate(' +
+              getAngle(arrLatlngs[i - 1], arrLatlngs[i], -1) +
+              'deg)">▶</div>'
+          });
+
+          for (var c = 1; c <= arrowCount; c++) {
+            var pt = myMidPoint(arrLatlngs[i], arrLatlngs[i - 1], (c / (arrowCount + 1)), mapObj);
+            if (pt) result.push(L.marker(pt, { icon: icon, interactive: false }));
+          }
+        }
+        return result;
+      }
+
+      function buildPopup(title, links) {
+        if (!links || !links.length) return '<div class="popup-title">' + title + "</div>";
+
+        // Sort by day number where possible so it feels consistent
+        var sorted = links.slice().sort(function(a, b){
+          function dayNum(label){
+            var m = label.match(/Day\s+(\d+)/i);
+            return m ? parseInt(m[1], 10) : 9999;
+          }
+          return dayNum(a.label) - dayNum(b.label);
+        });
+
+        var list = sorted.map(function (l) {
+          return '<li><a href="' + l.url + '" target="_blank" rel="noopener">' + l.label + "</a></li>";
+        }).join("");
+
+        return '<div class="popup-title">' + title + '</div><ul class="popup-links">' + list + "</ul>";
+      }
+
+      function initLeafletTripMap() {
+        var mapEl = document.getElementById("map");
+        if (!mapEl || typeof L === "undefined") return;
+
+        var map = L.map(mapEl, { scrollWheelZoom: true });
+
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors &copy; CARTO"
+        }).addTo(map);
+
+        // Markers
+        for (var i = 0; i < locations.length; i++) {
+          var title = locations[i][0];
+          var lat = locations[i][1];
+          var lng = locations[i][2];
+          var links = locations[i][3];
+
+          var popupHTML = buildPopup(title, links);
+          var markerOpts = (title === "Dalian") ? { icon: greenIcon } : undefined;
+
+          L.marker([lat, lng], markerOpts).addTo(map).bindPopup(popupHTML);
+        }
+
+        // Route path (same order as your original Google path)
+        var routeLatLngs = [
+          [38.914003, 121.614682], // Dalian
+          [41.805699, 123.431472], // Shenyang
+          [40.000787, 124.354451], // Dandong
+          [41.805699, 123.431472], // Shenyang (back)
+          [45.803775, 126.534967]  // Harbin
+        ];
+
+        var routeLine = L.polyline(routeLatLngs, {
+          color: "#000000",
+          weight: 2,
+          opacity: 1.0
+        }).addTo(map);
+
+        // Arrows (2 per segment)
+        var arrows = getArrows(routeLatLngs, "#000000", 2, map);
+        L.featureGroup(arrows).addTo(map);
+
+        map.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
+
+        // Webflow sizing fix
+        setTimeout(function () { map.invalidateSize(); }, 250);
+        setTimeout(function () { map.invalidateSize(); }, 1000);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLeafletTripMap);
+      } else {
+        initLeafletTripMap();
+      }
+    })();
   </script>
-  </center>
-  </div>
+</div>
+
   
   <div class="w-container">
     <div class="blog-body w-richtext">
