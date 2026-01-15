@@ -788,3 +788,17 @@ figcaption {
   font-size: inherit;
   color: inherit;
 }
+
+/*Links within pages hold the same font as text */
+
+.blog-body a {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: underline; /* optional */
+}
+
+.nav-links {
+  text-align: center;
+}
