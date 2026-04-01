@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Mon Feb 27 2017 12:52:42 GMT+0000 (UTC)  -->
+<html data-wf-page="58b3bb31f3dbd88e3cf8c624" data-wf-site="58871881358a5fed55e35ef0">
+<head>
+  <meta charset="utf-8">
+  <title>beenalready: Michinoku Trail Hike 2026</title>
+  <meta content="Michinoku Trail: a coastal and urban walk in the Tohoku region of Japan's main island." name="description">
+  <meta content="beenalready: Michinoku Trail Hike 202" property="og:title">
+  <meta content="Michinoku Trail: a coastal and urban walk in the Tohoku region of Japan's main island." property="og:description">
+  <meta content="summary" name="twitter:card">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="../../css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../../css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="../../css/didalready.webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Bitter:400,700,400italic","Vollkorn:400,400italic,700,700italic","Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic","Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Oswald:300,400,700","Droid Sans:400,700"]
+      }
+    });
+  </script>
+  <script src="../../js/modernizr.js" type="text/javascript"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="../../favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="../../manifest.json">
+  <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">   
+</head>
+<body>
+  <div class="hero"><a class="header-link w-button" href="../../index.html">BEEN ALREADY</a>
+  </div>
+  <div class="navigation-bar w-nav" data-animation="default" data-collapse="none" data-duration="400" data-no-scroll="1">
+    <div class="navigation-container w-container">
+      <nav class="w-nav-menu" role="navigation"><a class="navigation-link w-nav-link" href="../../about.html">ABOUT</a><a class="navigation-link w-nav-link" href="../../mapped.html">MAPPED</a><a class="navigation-link w-nav-link" href="../../at.html">@</a><a class="navigation-link w-nav-link" href="../../wrapped.html">WRAPPED</a><a class="navigation-link w-nav-link" href="../../contact.html">CONTACT</a>
+      </nav>
+      <div class="w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  
+<div class="mapcontainer w-container">
+  <div id="map" style="width: 90%; height: 400px; margin: 0 auto;"></div>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    #map.leaflet-container {
+      font-family: Bitter, serif !important;
+      font-size: 16px !important;
+      line-height: 1.4 !important;
+      color: inherit;
+    }
+
+    #map .leaflet-popup-content,
+    #map .leaflet-tooltip {
+      font-family: inherit !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+      color: inherit;
+    }
+
+    #map .leaflet-popup-content a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    #map .leaflet-popup-content a:hover {
+      text-decoration: underline;
+    }
+
+    #map .popup-title {
+      font-weight: 700;
+      margin: 0 0 6px 0;
+    }
+
+    #map .popup-links {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    #map .popup-links li {
+      margin: 2px 0;
+    }
+
+    .arrow-icon {
+      width: 14px;
+      height: 14px;
+      background: transparent;
+      border: none;
+    }
+
+    .arrow-icon > div {
+      margin-left: -1px;
+      margin-top: -3px;
+      transform-origin: center center;
+      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+      color: #000;
+      text-shadow: 0 0 2px rgba(255,255,255,0.9);
+      user-select: none;
+    }
+  </style>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script type="text/javascript">
+    (function () {
+      /*
+        Add points in travel order.
+
+        pointType:
+          - "start" = green marker
+          - "stop"  = blue marker
+          - "via"   = yellow marker
+
+        lineFromPrevious:
+          - "solid"
+          - "dotted"
+
+        The first point does not need lineFromPrevious.
+      */
+
+      var locations = [
+        {
+          city: "Tokyo Station",
+          lat: 35.681236,
+          lng: 139.767125,
+          pointType: "start",
+          posts: [
+            { label: "Day 1: Tokyo (東京) > Hachinohe (八戸) > Kuji (久慈市)", url: "../../asia/japan/michinokutrail2026_01.html" }
+          ]
+        },
+        {
+          city: "Hachinohe",
+          lat: 40.512294,
+          lng: 141.488495,
+          pointType: "stop",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 1: Tokyo (東京) > Hachinohe (八戸) > Kuji (久慈市)", url: "../../asia/japan/michinokutrail2026_01.html" }
+          ]
+        },
+        {
+          city: "PLACE",
+          lat: 40.5315,
+          lng: 141.5607,
+          pointType: "via",
+          lineFromPrevious: "dotted",
+          posts: [
+            { label: "Tanesashi Coast", url: "../../asia/japan/tanesashi.html" }
+          ]
+        },
+        {
+          city: "Hashikami",
+          lat: 40.4072,
+          lng: 141.6923,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Hashikami", url: "../../asia/japan/hashikami.html" }
+          ]
+        },
+        {
+          city: "Kuji",
+          lat: 40.187423,
+          lng: 141.768578,
+          pointType: "stop",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 3: Kuji", url: "../../asia/japan/kuji.html" }
+          ]
+        }
+      ];
+
+      var greenIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      var blueIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      var yellowIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      function Point(x, y, round) {
+        this.x = round ? Math.round(x) : x;
+        this.y = round ? Math.round(y) : y;
+      }
+
+      function distanceTo(p1, p2) {
+        var x = p2.x - p1.x;
+        var y = p2.y - p1.y;
+        return Math.sqrt(x * x + y * y);
+      }
+
+      function pointAlongLine(startLatLng, endLatLng, per, mapObj) {
+        var p1 = mapObj.project(new L.latLng(startLatLng));
+        var p2 = mapObj.project(new L.latLng(endLatLng));
+
+        var x = p1.x + (p2.x - p1.x) * per;
+        var y = p1.y + (p2.y - p1.y) * per;
+
+        var res = mapObj.unproject(new Point(x, y));
+        return [res.lat, res.lng];
+      }
+
+      function getAngle(latLng1, latLng2, coef) {
+        var dy = latLng2[0] - latLng1[0];
+        var dx = Math.cos(Math.PI / 180 * latLng1[0]) * (latLng2[1] - latLng1[1]);
+        var ang = (Math.atan2(dy, dx) / Math.PI) * 180 * coef;
+        return (+ang).toFixed(2);
+      }
+
+      function buildPopup(cityName, posts) {
+        if (!posts || !posts.length) {
+          return '<div class="popup-title">' + cityName + '</div>';
+        }
+
+        var list = posts.map(function (post) {
+          return (
+            '<li><a href="' +
+            post.url +
+            '" target="_blank" rel="noopener">' +
+            post.label +
+            '</a></li>'
+          );
+        }).join('');
+
+        return (
+          '<div class="popup-title">' +
+          cityName +
+          '</div>' +
+          '<ul class="popup-links">' +
+          list +
+          '</ul>'
+        );
+      }
+
+      function getIcon(pointType) {
+        if (pointType === "start") return greenIcon;
+        if (pointType === "via") return yellowIcon;
+        return blueIcon;
+      }
+
+      function addArrowMarkers(map, startLatLng, endLatLng, arrowCount, color) {
+        if (!arrowCount) arrowCount = 2;
+        if (!color) color = "#000000";
+
+        var angle = getAngle(startLatLng, endLatLng, -1);
+
+        var icon = L.divIcon({
+          className: "arrow-icon",
+          html: '<div style="color:' + color + ';transform: rotate(' + angle + 'deg)">▶</div>'
+        });
+
+        var arrows = [];
+
+        for (var i = 1; i <= arrowCount; i++) {
+          var pt = pointAlongLine(startLatLng, endLatLng, i / (arrowCount + 1), map);
+          arrows.push(
+            L.marker(pt, {
+              icon: icon,
+              interactive: false
+            }).addTo(map)
+          );
+        }
+
+        return arrows;
+      }
+
+      function drawSegment(map, fromLoc, toLoc) {
+        var style = toLoc.lineFromPrevious || "solid";
+        var startLatLng = [fromLoc.lat, fromLoc.lng];
+        var endLatLng = [toLoc.lat, toLoc.lng];
+
+        var options = {
+          color: "#000000",
+          weight: 2,
+          opacity: 1
+        };
+
+        if (style === "dotted") {
+          options.dashArray = "4, 8";
+        }
+
+        var line = L.polyline([startLatLng, endLatLng], options).addTo(map);
+        var arrows = addArrowMarkers(map, startLatLng, endLatLng, 2, "#000000");
+
+        return {
+          line: line,
+          arrows: arrows
+        };
+      }
+
+      function initLeafletTripMap() {
+        var mapEl = document.getElementById("map");
+        if (!mapEl || typeof L === "undefined" || !locations.length) return;
+
+        var map = L.map(mapEl, { scrollWheelZoom: true });
+
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors &copy; CARTO"
+        }).addTo(map);
+
+        var boundsGroup = L.featureGroup().addTo(map);
+
+        locations.forEach(function (loc) {
+          var marker = L.marker([loc.lat, loc.lng], {
+            icon: getIcon(loc.pointType)
+          }).addTo(map);
+
+          marker.bindPopup(buildPopup(loc.city, loc.posts));
+          boundsGroup.addLayer(marker);
+        });
+
+        for (var i = 1; i < locations.length; i++) {
+          var segment = drawSegment(map, locations[i - 1], locations[i]);
+          boundsGroup.addLayer(segment.line);
+        }
+
+        map.fitBounds(boundsGroup.getBounds(), { padding: [30, 30] });
+
+        setTimeout(function () { map.invalidateSize(); }, 250);
+        setTimeout(function () { map.invalidateSize(); }, 1000);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLeafletTripMap);
+      } else {
+        initLeafletTripMap();
+      }
+    })();
+  </script>
+</div>
+  
+  <div class="w-container">
+    <div class="blog-body w-richtext">	  
+      <p>Michinoku Trail: a coastal and urban walk in the Tohoku region of Japan's main island. </p>
+	  <p>I was 21 during the 2011 Sendai Earthquake. I recall a friend cancelling her study abroad trip to Japan because of the fear around radiation. Since then, the government has built a trail as a time capsule <i> in memorium </i> to the devastation the earthquake caused. I decided to hike bits and pieces with a friend.</p>
+	  <p>To the best of my ability, I have written the entries as I walked in real time. Pre-hike, I'm feeling a mix of excitement and nervousness. Also a bit of freedom. I am sure that will change as the days pass.</p>
+	  <p> FYI, green marker is start/finish; blue markers are rest stops, and yellow markers are sites along the way.
+	  
+    </div>
+  </div>
+  <div class="flexwrap w-container">
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/japan/michinokutrail01.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSC14937.JPG" srcset="../../images/DSC14937.JPG 500w, ../../images/DSC14937.JPG 800w, ../../images/DSC14937.JPG 1080w, ../../images/DSC14937.JPG 1600w, ../../images/DSC14937.JPG 2000w, ../../images/DSC14937.JPG 2600w, ../../images/DSC14937.JPG 3200w, ../../images/DSC14937.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/japan/michinokutrail2026_01.html">Tokyo (東京) > Hachinohe (八戸) > <br> Kuji (久慈市)<br>Day 1</a><a class="entry-date" href="../../asia/japan/michinokutrail2026_01.html">2026-04-02</a>
+    </div>
+	
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="../../js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
