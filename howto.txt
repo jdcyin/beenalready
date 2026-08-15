@@ -1,19 +1,139 @@
-1) Pushing to web
+====================================================================
+ HOW TO UPDATE beenalready.com -- NO CLAUDE / NO AI ASSISTANT NEEDED
+====================================================================
 
-Change to the registry ../DidAlready
+This file is written so you (or anyone) can maintain this site with
+just a text editor and a terminal. Nothing here requires Claude.
 
-git status , checks which updates there are
-git add . , adds all the changes
-git commit -m "test" , commits the changes
-git push , pushes it to github.io ##This should work post-no-password phase (password: happybuu03#)
+--------------------------------------------------------------------
+0) THE BIG PICTURE
+--------------------------------------------------------------------
+The site used to be made of plain HTML files you'd copy and hand-edit.
+It's now built with a tool called Eleventy: you write short, simple
+files (mostly just your trip write-up -- no header/menu boilerplate),
+and Eleventy assembles them into the finished pages automatically.
 
-2) Image storage / depository
-#In GDrive Wipe 2022, pictures were not linked. Change to hosted locally
+Where things live:
+  src/                     <- everything you actually edit lives in here
+    asia/  americas/  europe/    <- one folder per region, same as before
+      <country>/<place>.html     <- one file per trip post
+      <country>/images/          <- that region's photos
+    _includes/                   <- shared header/nav/footer (rarely touched)
+    index.njk, wrapped.njk       <- homepage + full archive (auto-generated,
+                                     you don't hand-edit the post lists)
+  _site/                    <- the finished, built website (never edit this
+                                by hand -- it's regenerated every time)
 
-	A) FOR IMAGES IN POST
-	 i) Within each country folder, create "images" folder
-	 ii) nomenclature for images: nameOfPost_n, where nameOfPost=html file name; n=nth picture in post
-	
-	B) FOR THUMBNAILS (post thumbnail):
-	 i) keep in "images" folder in the main directory. do not store in individual post (changing references too troublesome)
+--------------------------------------------------------------------
+1) ADDING A NEW TRIP POST
+--------------------------------------------------------------------
+Step 1 -- Create the post file
+  In the right region/country folder (e.g. src/asia/japan/), create a
+  new file named after your trip, e.g. src/asia/japan/nagoya.html
 
+  Paste this at the very top, then write your post underneath it:
+
+    ---
+    title: "Nagoya, Japan"
+    description: "A one-line summary of the trip, shown in search results."
+    ---
+    <h2>NAGOYA, JAPAN</h2>
+    <h4>2026-05-01</h4>
+    <p>Write your trip prose here, same as always.</p>
+    <figure class="w-richtext-figure-type-image w-richtext-align-center">
+      <div><img src="images/nagoya_01.JPG">
+      </div>
+      <figcaption>A caption for the photo</figcaption>
+    </figure>
+
+  You can add as many <p> paragraphs and <figure> image blocks as you
+  like. Copy the pattern from any existing post in that folder if you
+  want a longer example to work from.
+
+Step 2 -- Add your photos
+  Drop your photos into an "images" folder next to your post, e.g.
+  src/asia/japan/images/nagoya_01.JPG, nagoya_02.JPG, etc. -- exactly
+  the same naming convention as before (postSlug_n.jpg). Use the
+  original, full-size photos -- the site automatically resizes and
+  compresses them when it builds, so you don't need to do that
+  yourself.
+
+Step 3 -- (Optional) Make it appear on the homepage and archive
+  New posts don't automatically show up on the homepage or the full
+  "Wrapped" archive -- you have to opt them in, same as picking a
+  thumbnail used to work. Add four more lines to the front matter:
+
+    ---
+    title: "Nagoya, Japan"
+    description: "A one-line summary of the trip."
+    date: "2026-05-01"
+    cardTitle: "Nagoya, Japan"
+    cardDate: "2026-05-01 to 2026-05-03"
+    cardImage: "/asia/japan/images/nagoya_01.JPG"
+    ---
+
+  - date: the real date, used for sorting (newest first).
+  - cardTitle: what shows on the card (can include <br> for a line break).
+  - cardDate: the date text actually displayed (can be a range).
+  - cardImage: which photo to use as the thumbnail (site-root path,
+    starting with /, pointing at one of your own photos from Step 2).
+
+  Once these are added, the post appears on the homepage and in
+  Wrapped automatically -- no other file needs editing.
+
+--------------------------------------------------------------------
+2) PREVIEWING BEFORE YOU PUBLISH
+--------------------------------------------------------------------
+From the project folder, in a terminal:
+
+    npx eleventy --serve
+
+Then open the address it prints (something like
+http://localhost:8080) in your browser and click around. Press
+Ctrl+C in the terminal to stop the preview when you're done.
+
+If you don't have Node.js installed, get it from nodejs.org first
+(LTS version) -- it's a one-time install.
+
+--------------------------------------------------------------------
+3) PUBLISHING (this part hasn't changed)
+--------------------------------------------------------------------
+    git status   -- see what changed
+    git add .    -- stage your changes
+    git commit -m "add nagoya post"
+    git push     -- pushes to GitHub
+
+GitHub then automatically builds and publishes the site for you
+(that's what the GitHub Actions workflow does) -- you don't need to
+build it yourself before pushing. It usually takes a minute or two
+to go live after pushing.
+
+(Uses your normal GitHub sign-in/credential manager -- never store a
+password in this file; this repo is public.)
+
+--------------------------------------------------------------------
+4) IF SOMETHING GOES WRONG
+--------------------------------------------------------------------
+- If `npx eleventy --serve` shows an error, it will usually point at
+  the specific file and line -- the most common cause is a missing
+  closing quote on an <img src="..."> tag, or a missing "---" at the
+  end of the front matter block.
+- The site's design/styling lives in css/didalready.webflow.css --
+  you generally shouldn't need to touch this for new posts.
+- Any modern AI coding assistant (not just Claude) can read this
+  file and the existing posts in src/ to understand the pattern if
+  you'd rather describe a change in plain language than edit HTML
+  directly.
+
+--------------------------------------------------------------------
+5) IMAGE STORAGE (unchanged from before)
+--------------------------------------------------------------------
+  A) FOR IMAGES IN A POST
+     Within each post's own images/ folder, name files
+     <postFileName>_<n>.jpg, where n = the nth picture in that post.
+
+  B) FOR ROOT-LEVEL THUMBNAILS (rarely needed now)
+     A few older pages still reference photos kept directly in the
+     top-level images/ folder rather than a per-post folder. New
+     posts don't need this -- just use cardImage pointing at one of
+     your own post photos (see section 1, step 3).

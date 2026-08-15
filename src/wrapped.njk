@@ -1,0 +1,15 @@
+---
+layout: "base.njk"
+title: "Wrapped"
+description: "A wrap-up of all of my travels, and thoughts along the road."
+permalink: "/wrapped.html"
+---
+<div class="page-title-container">
+    <div class="page-title">WRAPPED</div>
+  </div>
+
+  <div class="flexwrap w-container">
+{% for post in collections.posts %}
+{% include "card.njk" %}
+{% endfor %}
+  </div>

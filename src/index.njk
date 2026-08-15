@@ -1,0 +1,14 @@
+---
+layout: "base.njk"
+title: "Home"
+description: "Places I've been already: travel blog"
+bodyClass: "body"
+permalink: "/index.html"
+---
+<div class="flexwrap w-container">
+{% for post in collections.recentPosts %}
+{% include "card.njk" %}
+{% endfor %}
+  </div>
+  <div class="home-footer"><a class="footer-link" href="wrapped.html">&lt;&lt; &nbsp;&nbsp;all posts</a>
+  </div>

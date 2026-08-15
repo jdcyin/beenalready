@@ -1,0 +1,170 @@
+---
+date: "2016-12-05"
+cardTitle: "cambodia field work"
+cardDate: "2016-12-05 to 2016-12-16"
+cardImage: "/images/DSCF7686comp.jpg"
+layout: "base.njk"
+title: "Cambodia Field Work Trip"
+description: "I've always wanted to be involved in field work. When my boss presented me with an opportunity to conduct a discrete choice experiment in the Cambodian countryside in conjunction with an NGO, I jumped at the opportunity."
+permalink: "/asia/cambodia/cambodiafldwrk.html"
+---
+<div class="mapcontainer w-container">
+  <div id="map" style="width: 90%; height: 400px; margin: 0 auto;"></div>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+
+  <script>
+    (function () {
+
+      // Same locations + order as your original Google Maps code
+      var locations = [
+        ['Dec 5, 6: OD: Chhouk', 10.835973, 104.457773],
+        ['Dec 5: OD: Kampong Trach, Center: Phnom Lngieng', 10.556941, 104.467963],
+        ['Dec 7, 12, 15: Takeo Province / OD', 10.932152, 104.798771],
+        ['Dec 8: OD: Daun Keo', 10.987706, 104.7871],
+        ['Dec 9, 13: OD: Kirivong', 10.637675, 104.874651],
+        ['Dec 10: Kep Beach', 10.479064, 104.294199],
+        ['Dec 10,11: Phnom Penh', 11.544873, 104.892167],
+        ['Dec 14: OD: Kampong Speu', 11.615511, 104.379191],
+        ['Dec 16: Bokor Mountain', 10.642223, 104.027374]
+      ];
+
+      function initLeafletMap() {
+        var mapEl = document.getElementById('map');
+        if (!mapEl || typeof L === 'undefined') return;
+
+        var map = L.map(mapEl, { scrollWheelZoom: true });
+
+        L.tileLayer(
+          'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+          {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+          }
+        ).addTo(map);
+
+        var bounds = L.latLngBounds([]);
+
+        for (var i = 0; i < locations.length; i++) {
+          var title = locations[i][0];
+          var lat = locations[i][1];
+          var lng = locations[i][2];
+
+          L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup(title);
+
+          bounds.extend([lat, lng]);
+        }
+
+        map.fitBounds(bounds, { padding: [30, 30] });
+
+        // Webflow sizing fix
+        setTimeout(function () { map.invalidateSize(); }, 250);
+        setTimeout(function () { map.invalidateSize(); }, 1000);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLeafletMap);
+      } else {
+        initLeafletMap();
+      }
+
+    })();
+  </script>
+</div>
+
+  
+  <div class="w-container">
+    <div class="blog-body w-richtext">
+      <p>I've always wanted to be involved in field work. When my boss presented me with an opportunity to conduct a discrete choice experiment in the Cambodian countryside in conjunction with an NGO, I jumped at the opportunity.</p>
+      <p>Cambodia is broken down into provinces, and these are further broken down into Operational Districts (OD). Within each OD, there are small health centers that screen for certain infectious diseases and provide basic health services. The main source of people-power to provide this care are volunteer health workers (VHSGs) that serve a village, or cluster of them. This project meant to look at what can incentivize these volunteer workers to encourage them to continue serving their community.</p>
+      <p>The entries are listed in chronological order and are marked by date. I've listed the ODs and health centers within each entry, with the map markers pin-pointing the ODs since I could not get coordinates for health centers. All names are anonymous and given single letter representations so as to protect privacy.</p>
+      <p>Lastly, if you ever get the chance, visit Cambodia. It's stunning, vibrant, and alive.</p>
+    </div>
+  </div>
+  <div class="flexwrap w-container">
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1216.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8590comp.jpg" srcset="../../images/DSCF8590comp-p-500x334.jpeg 500w, ../../images/DSCF8590comp-p-800x534.jpeg 800w, ../../images/DSCF8590comp-p-1080x720.jpeg 1080w, ../../images/DSCF8590comp-p-1600x1067.jpeg 1600w, ../../images/DSCF8590comp-p-2000x1334.jpeg 2000w, ../../images/DSCF8590comp-p-2600x1734.jpeg 2600w, ../../images/DSCF8590comp-p-3200x2134.jpeg 3200w, ../../images/DSCF8590comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1216.html">Bokor mountain</a><a class="entry-date" href="../../asia/cambodia/fldwrk1216.html">2016-12-16</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1215.html"><img class="post-image" sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282.0625px" src="../../images/DSCF8360comp.jpg" srcset="../../images/DSCF8360comp-p-500x334.jpeg 500w, ../../images/DSCF8360comp-p-800x534.jpeg 800w, ../../images/DSCF8360comp-p-1080x720.jpeg 1080w, ../../images/DSCF8360comp-p-1600x1067.jpeg 1600w, ../../images/DSCF8360comp-p-2000x1334.jpeg 2000w, ../../images/DSCF8360comp-p-2600x1734.jpeg 2600w, ../../images/DSCF8360comp-p-3200x2134.jpeg 3200w, ../../images/DSCF8360comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1215.html">angkorborey</a><a class="entry-date" href="../../asia/cambodia/fldwrk1215.html">2016-12-15</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1214.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8271comp.jpg" srcset="../../images/DSCF8271comp-p-500x334.jpeg 500w, ../../images/DSCF8271comp-p-800x534.jpeg 800w, ../../images/DSCF8271comp-p-1080x720.jpeg 1080w, ../../images/DSCF8271comp-p-1600x1067.jpeg 1600w, ../../images/DSCF8271comp-p-2000x1334.jpeg 2000w, ../../images/DSCF8271comp-p-2600x1734.jpeg 2600w, ../../images/DSCF8271comp-p-3200x2134.jpeg 3200w, ../../images/DSCF8271comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1214.html">damnak chan</a><a class="entry-date" href="../../asia/cambodia/fldwrk1214.html">2016-12-14</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1213.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8113comp-min.jpg" srcset="../../images/DSCF8113comp-min-p-500x334.jpeg 500w, ../../images/DSCF8113comp-min-p-800x534.jpeg 800w, ../../images/DSCF8113comp-min-p-1080x720.jpeg 1080w, ../../images/DSCF8113comp-min-p-1600x1067.jpeg 1600w, ../../images/DSCF8113comp-min-p-2000x1334.jpeg 2000w, ../../images/DSCF8113comp-min-p-2600x1734.jpeg 2600w, ../../images/DSCF8113comp-min-p-3200x2134.jpeg 3200w, ../../images/DSCF8113comp-min.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1213.html">kampong kreng</a><a class="entry-date" href="../../asia/cambodia/fldwrk1213.html">2016-12-13</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1212.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7933comp-min.jpg" srcset="../../images/DSCF7933comp-min-p-500x334.jpeg 500w, ../../images/DSCF7933comp-min-p-800x534.jpeg 800w, ../../images/DSCF7933comp-min-p-1080x720.jpeg 1080w, ../../images/DSCF7933comp-min-p-1600x1067.jpeg 1600w, ../../images/DSCF7933comp-min-p-2000x1334.jpeg 2000w, ../../images/DSCF7933comp-min-p-2600x1734.jpeg 2600w, ../../images/DSCF7933comp-min-p-3200x2134.jpeg 3200w, ../../images/DSCF7933comp-min.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1212.html">kraing sla</a><a class="entry-date" href="../../asia/cambodia/fldwrk1212.html">2016-12-12</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1211.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7815comp.jpg" srcset="../../images/DSCF7815comp-p-500x334.jpeg 500w, ../../images/DSCF7815comp-p-800x534.jpeg 800w, ../../images/DSCF7815comp-p-1080x720.jpeg 1080w, ../../images/DSCF7815comp-p-1600x1067.jpeg 1600w, ../../images/DSCF7815comp-p-2000x1334.jpeg 2000w, ../../images/DSCF7815comp-p-2600x1734.jpeg 2600w, ../../images/DSCF7815comp-p-3200x2134.jpeg 3200w, ../../images/DSCF7815comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1211.html">phnom penh</a><a class="entry-date" href="../../asia/cambodia/fldwrk1211.html">2016-12-11</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1210.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7579comp.jpg" srcset="../../images/DSCF7579comp-p-500x334.jpeg 500w, ../../images/DSCF7579comp-p-800x534.jpeg 800w, ../../images/DSCF7579comp-p-1080x720.jpeg 1080w, ../../images/DSCF7579comp-p-1600x1067.jpeg 1600w, ../../images/DSCF7579comp-p-2000x1334.jpeg 2000w, ../../images/DSCF7579comp-p-2600x1734.jpeg 2600w, ../../images/DSCF7579comp-p-3200x2134.jpeg 3200w, ../../images/DSCF7579comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1210.html">kep beach,<br>phnom penh</a><a class="entry-date" href="../../asia/cambodia/fldwrk1210.html">2016-12-10</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1209.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7505comp-min.jpg" srcset="../../images/DSCF7505comp-min-p-500x334.jpeg 500w, ../../images/DSCF7505comp-min-p-800x534.jpeg 800w, ../../images/DSCF7505comp-min-p-1080x720.jpeg 1080w, ../../images/DSCF7505comp-min-p-1600x1067.jpeg 1600w, ../../images/DSCF7505comp-min-p-2000x1334.jpeg 2000w, ../../images/DSCF7505comp-min-p-2600x1734.jpeg 2600w, ../../images/DSCF7505comp-min-p-3200x2134.jpeg 3200w, ../../images/DSCF7505comp-min.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1209.html">kropum chhouk, prey melong</a><a class="entry-date" href="../../asia/cambodia/fldwrk1209.html">2016-12-09</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1208.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7329comp.jpg" srcset="../../images/DSCF7329comp-p-500x334.jpeg 500w, ../../images/DSCF7329comp-p-800x534.jpeg 800w, ../../images/DSCF7329comp-p-1080x720.jpeg 1080w, ../../images/DSCF7329comp-p-1600x1067.jpeg 1600w, ../../images/DSCF7329comp-p-2000x1334.jpeg 2000w, ../../images/DSCF7329comp-p-2600x1734.jpeg 2600w, ../../images/DSCF7329comp-p-3200x2134.jpeg 3200w, ../../images/DSCF7329comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1208.html">prey sleok</a><a class="entry-date" href="../../asia/cambodia/fldwrk1208.html">2016-12-08</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1207.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7258comp.jpg" srcset="../../images/DSCF7258comp-p-500x334.jpeg 500w, ../../images/DSCF7258comp-p-800x534.jpeg 800w, ../../images/DSCF7258comp-p-1080x720.jpeg 1080w, ../../images/DSCF7258comp-p-1600x1067.jpeg 1600w, ../../images/DSCF7258comp-p-2000x1334.jpeg 2000w, ../../images/DSCF7258comp-p-2600x1734.jpeg 2600w, ../../images/DSCF7258comp-p-3200x2134.jpeg 3200w, ../../images/DSCF7258comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1207.html">takeo od</a><a class="entry-date" href="../../asia/cambodia/fldwrk1207.html">2016-12-07</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1206.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7198comp-min.jpg" srcset="../../images/DSCF7198comp-min-p-500x334.jpeg 500w, ../../images/DSCF7198comp-min-p-800x534.jpeg 800w, ../../images/DSCF7198comp-min-p-1080x720.jpeg 1080w, ../../images/DSCF7198comp-min-p-1600x1067.jpeg 1600w, ../../images/DSCF7198comp-min-p-2000x1334.jpeg 2000w, ../../images/DSCF7198comp-min-p-2600x1734.jpeg 2600w, ../../images/DSCF7198comp-min-p-3200x2134.jpeg 3200w, ../../images/DSCF7198comp-min.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1206.html">mean chey</a><a class="entry-date" href="../../asia/cambodia/fldwrk1206.html">2016-12-06</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/cambodia/fldwrk1205.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF7084comp.jpg" srcset="../../images/DSCF7084comp-p-500x334.jpeg 500w, ../../images/DSCF7084comp-p-800x534.jpeg 800w, ../../images/DSCF7084comp-p-1080x720.jpeg 1080w, ../../images/DSCF7084comp-p-1600x1067.jpeg 1600w, ../../images/DSCF7084comp-p-2000x1334.jpeg 2000w, ../../images/DSCF7084comp-p-2600x1734.jpeg 2600w, ../../images/DSCF7084comp-p-3200x2134.jpeg 3200w, ../../images/DSCF7084comp.jpg 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/cambodia/fldwrk1205.html">Angromeas,<br>phnom lngieng</a><a class="entry-date" href="../../asia/cambodia/fldwrk1205.html">2016-12-05</a>
+    </div>
+  </div>

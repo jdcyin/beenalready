@@ -1,0 +1,322 @@
+---
+layout: "base.njk"
+title: "Dong Bei, China (Northeastern Provinces)"
+description: "Thorin and I this year were 'relieved' of family duties and wanted somewhere cold for Christmas. Not only that, we wanted somewhere where Christmas wasn't a concept and New Years wasn't the big holiday for a fresh start. China sounded perfect."
+permalink: "/asia/china/dongbeitrip2016.html"
+---
+<div class="mapcontainer w-container">
+  <div id="map" style="width: 90%; height: 400px; margin: 0 auto;"></div>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    /* Match your mapped.html popup font/link styling */
+    #map.leaflet-container {
+      font-family: Bitter, serif !important;
+      font-size: 16px !important;
+      line-height: 1.4 !important;
+      color: inherit;
+    }
+    #map .leaflet-popup-content,
+    #map .leaflet-tooltip {
+      font-family: inherit !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+      color: inherit;
+    }
+    #map .leaflet-popup-content a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    #map .leaflet-popup-content a:hover {
+      text-decoration: underline;
+    }
+
+    #map .popup-title { font-weight: 700; margin: 0 0 6px 0; }
+    #map .popup-links { margin: 0; padding-left: 18px; }
+    #map .popup-links li { margin: 2px 0; }
+
+    /* Arrow styling */
+    .arrow-icon { width: 14px; height: 14px; background: transparent; border: none; }
+    .arrow-icon > div {
+      margin-left: -1px;
+      margin-top: -3px;
+      transform-origin: center center;
+      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+      color: #000;
+      text-shadow: 0 0 2px rgba(255,255,255,0.9);
+      user-select: none;
+      pointer-events: none;
+    }
+  </style>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script>
+    (function () {
+      // [markerTitle, lat, lng, [ {label, url}, ... ] ]
+      var locations = [
+        ["Dalian", 38.914003, 121.614682, [
+          { label: "Day 1: Dalian", url: "../../asia/china/dalian.html" },
+          { label: "Day 2: Dalian", url: "../../asia/china/dalian2.html" },
+          { label: "Day 3: Dalian", url: "../../asia/china/dalian3.html" },
+          { label: "Days 14 & 15: Dalian", url: "../../asia/china/dalian4.html" }
+        ]],
+
+        ["Shenyang", 41.805699, 123.431472, [
+          { label: "Day 4: Shenyang", url: "../../asia/china/shenyang.html" },
+          { label: "Day 6: Shenyang", url: "../../asia/china/shenyang2.html" },
+          { label: "Day 7: Shenyang", url: "../../asia/china/shenyang3.html" },
+          { label: "Days 12 & 13: Shenyang", url: "../../asia/china/shenyang4.html" }
+        ]],
+
+        ["Dandong", 40.000787, 124.354451, [
+          { label: "Day 5: Dandong", url: "../../asia/china/dandong.html" }
+        ]],
+
+        ["Harbin", 45.803775, 126.534967, [
+          { label: "Day 8: Harbin", url: "../../asia/china/harbin.html" },
+          { label: "Day 9: Harbin", url: "../../asia/china/harbin2.html" },
+          { label: "Day 10: Harbin", url: "../../asia/china/harbin3.html" }
+        ]]
+      ];
+
+      // Green start marker (Dalian)
+      var greenIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      // ---- Arrow helpers ----
+      function Point(x, y, round) { this.x = (round ? Math.round(x) : x); this.y = (round ? Math.round(y) : y); }
+      function distanceTo(p1, p2) { var x = p2.x - p1.x, y = p2.y - p1.y; return Math.sqrt(x*x + y*y); }
+      function myMidPoint(latlng1, latlng2, per, mapObj) {
+        var p1 = mapObj.project(new L.latLng(latlng1));
+        var p2 = mapObj.project(new L.latLng(latlng2));
+        var halfDist = distanceTo(p1, p2) * per;
+        if (halfDist === 0) return mapObj.unproject(p1);
+        var dist = distanceTo(p1, p2);
+        if (dist > halfDist) {
+          var ratio = (dist - halfDist) / dist;
+          var res = mapObj.unproject(new Point(
+            p2.x - ratio * (p2.x - p1.x),
+            p2.y - ratio * (p2.y - p1.y)
+          ));
+          return [res.lat, res.lng];
+        }
+      }
+      function getAngle(latLng1, latlng2, coef) {
+        var dy = latlng2[0] - latLng1[0];
+        var dx = Math.cos(Math.PI / 180 * latLng1[0]) * (latlng2[1] - latLng1[1]);
+        var ang = ((Math.atan2(dy, dx) / Math.PI) * 180 * coef);
+        return (+ang).toFixed(2);
+      }
+      function getArrows(arrLatlngs, color, arrowCount, mapObj) {
+        if (!arrLatlngs || arrLatlngs.length < 2) return [];
+        if (arrowCount == null) arrowCount = 1;
+
+        var styleColor = color ? "color:" + color : "";
+        var result = [];
+
+        for (var i = 1; i < arrLatlngs.length; i++) {
+          var icon = L.divIcon({
+            className: "arrow-icon",
+            html: '<div style="' + styleColor + ';transform: rotate(' +
+              getAngle(arrLatlngs[i - 1], arrLatlngs[i], -1) +
+              'deg)">▶</div>'
+          });
+
+          for (var c = 1; c <= arrowCount; c++) {
+            var pt = myMidPoint(arrLatlngs[i], arrLatlngs[i - 1], (c / (arrowCount + 1)), mapObj);
+            if (pt) result.push(L.marker(pt, { icon: icon, interactive: false }));
+          }
+        }
+        return result;
+      }
+
+      function buildPopup(title, links) {
+        if (!links || !links.length) return '<div class="popup-title">' + title + "</div>";
+
+        // Sort by day number where possible so it feels consistent
+        var sorted = links.slice().sort(function(a, b){
+          function dayNum(label){
+            var m = label.match(/Day\s+(\d+)/i);
+            return m ? parseInt(m[1], 10) : 9999;
+          }
+          return dayNum(a.label) - dayNum(b.label);
+        });
+
+        var list = sorted.map(function (l) {
+          return '<li><a href="' + l.url + '" target="_blank" rel="noopener">' + l.label + "</a></li>";
+        }).join("");
+
+        return '<div class="popup-title">' + title + '</div><ul class="popup-links">' + list + "</ul>";
+      }
+
+      function initLeafletTripMap() {
+        var mapEl = document.getElementById("map");
+        if (!mapEl || typeof L === "undefined") return;
+
+        var map = L.map(mapEl, { scrollWheelZoom: true });
+
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors &copy; CARTO"
+        }).addTo(map);
+
+        // Markers
+        for (var i = 0; i < locations.length; i++) {
+          var title = locations[i][0];
+          var lat = locations[i][1];
+          var lng = locations[i][2];
+          var links = locations[i][3];
+
+          var popupHTML = buildPopup(title, links);
+          var markerOpts = (title === "Dalian") ? { icon: greenIcon } : undefined;
+
+          L.marker([lat, lng], markerOpts).addTo(map).bindPopup(popupHTML);
+        }
+
+        // Route path (same order as your original Google path)
+        var routeLatLngs = [
+          [38.914003, 121.614682], // Dalian
+          [41.805699, 123.431472], // Shenyang
+          [40.000787, 124.354451], // Dandong
+          [41.805699, 123.431472], // Shenyang (back)
+          [45.803775, 126.534967]  // Harbin
+        ];
+
+        var routeLine = L.polyline(routeLatLngs, {
+          color: "#000000",
+          weight: 2,
+          opacity: 1.0
+        }).addTo(map);
+
+        // Arrows (2 per segment)
+        var arrows = getArrows(routeLatLngs, "#000000", 2, map);
+        L.featureGroup(arrows).addTo(map);
+
+        map.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
+
+        // Webflow sizing fix
+        setTimeout(function () { map.invalidateSize(); }, 250);
+        setTimeout(function () { map.invalidateSize(); }, 1000);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLeafletTripMap);
+      } else {
+        initLeafletTripMap();
+      }
+    })();
+  </script>
+</div>
+
+  
+  <div class="w-container">
+    <div class="blog-body w-richtext">
+      <h4>JASON</h4>
+      <h4><a href="https://docs.google.com/spreadsheets/d/14AZtZp3WmFJamB24gkpgygtl8AcNIi3faChCU4J5Gt0/edit?usp=sharing">BUDGET</a>, STAY: VARIOUS HOSTELS</h4>
+      <p>‍</p>
+      <p>Most people want to go to a warm place for Christmas to celebrate the holidays. Sunshine and sangrias and the like. Somewhere to spend the time with family (or, somewhere to escape them).</p>
+      <p>Thorin and I this year were 'relieved' of family duties and wanted somewhere cold for Christmas. Not only that, we wanted somewhere where Christmas wasn't a concept and New Years wasn't the big holiday for a fresh start. China sounded perfect. Scoot Airlines recently opened up a route to Dalian, and we were able to secure cheap flights round trip.</p>
+      <p>We packed our flimsy jackets Thorin took from London in preparation for the cold winter ahead in China. The plan was to start in Dalian, our port of arrival, then just work our way across Dong Bei (東北), which literally translates to the Northeastern part of China. It consists of Liaoning, Heilongjiang, and Jilin province.</p>
+      <p>This is our diary of the trip, including the cities we've been to and our impressions of them, and the stories we've gathered from the people we've met.</p>
+    </div>
+  </div>
+  <div class="flexwrap w-container">
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/dalian4.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8833-min.JPG" srcset="../../images/DSCF8833-min-p-500x334.jpeg 500w, ../../images/DSCF8833-min-p-800x534.jpeg 800w, ../../images/DSCF8833-min-p-1080x720.jpeg 1080w, ../../images/DSCF8833-min-p-1600x1067.jpeg 1600w, ../../images/DSCF8833-min-p-2000x1334.jpeg 2000w, ../../images/DSCF8833-min-p-2600x1734.jpeg 2600w, ../../images/DSCF8833-min-p-3200x2134.jpeg 3200w, ../../images/DSCF8833-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/dalian4.html">dalian, days 14 &amp; 15</a><a class="entry-date" href="../../asia/china/dalian4.html">2017-01-07 &amp; 2017-01-08</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/shenyang4.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF9876-min.JPG" srcset="../../images/DSCF9876-min-p-500x334.jpeg 500w, ../../images/DSCF9876-min-p-800x534.jpeg 800w, ../../images/DSCF9876-min-p-1080x720.jpeg 1080w, ../../images/DSCF9876-min-p-1600x1067.jpeg 1600w, ../../images/DSCF9876-min-p-2000x1334.jpeg 2000w, ../../images/DSCF9876-min-p-2600x1734.jpeg 2600w, ../../images/DSCF9876-min-p-3200x2134.jpeg 3200w, ../../images/DSCF9876-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/shenyang4.html">shenyang, days 12 &amp; 13</a><a class="entry-date" href="../../asia/china/shenyang4.html">2017-01-05 &amp; 2017-01-06</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/dongbeitrainstations.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8881-min.JPG" srcset="../../images/DSCF8881-min-p-500x334.jpeg 500w, ../../images/DSCF8881-min-p-800x534.jpeg 800w, ../../images/DSCF8881-min-p-1080x720.jpeg 1080w, ../../images/DSCF8881-min-p-1600x1067.jpeg 1600w, ../../images/DSCF8881-min-p-2000x1334.jpeg 2000w, ../../images/DSCF8881-min-p-2600x1734.jpeg 2600w, ../../images/DSCF8881-min-p-3200x2134.jpeg 3200w, ../../images/DSCF8881-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/dongbeitrainstations.html">train stations, day 11</a><a class="entry-date" href="../../asia/china/dongbeitrainstations.html">2017-01-04</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/harbin3.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF9715-min.JPG" srcset="../../images/DSCF9715-min-p-500x334.jpeg 500w, ../../images/DSCF9715-min-p-800x534.jpeg 800w, ../../images/DSCF9715-min-p-1080x720.jpeg 1080w, ../../images/DSCF9715-min-p-1600x1067.jpeg 1600w, ../../images/DSCF9715-min-p-2000x1334.jpeg 2000w, ../../images/DSCF9715-min-p-2600x1734.jpeg 2600w, ../../images/DSCF9715-min-p-3200x2134.jpeg 3200w, ../../images/DSCF9715-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/harbin3.html">harbin, day 10</a><a class="entry-date" href="../../asia/china/harbin3.html">2017-01-03</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/harbin2.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF9516-min.JPG" srcset="../../images/DSCF9516-min-p-500x750.jpeg 500w, ../../images/DSCF9516-min-p-800x1200.jpeg 800w, ../../images/DSCF9516-min-p-1080x1620.jpeg 1080w, ../../images/DSCF9516-min-p-1600x2400.jpeg 1600w, ../../images/DSCF9516-min-p-2000x3000.jpeg 2000w, ../../images/DSCF9516-min-p-2600x3900.jpeg 2600w, ../../images/DSCF9516-min-p-3200x4800.jpeg 3200w, ../../images/DSCF9516-min.JPG 3264w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/harbin2.html">harbin, day 9</a><a class="entry-date" href="../../asia/china/harbin2.html">2017-01-02</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/harbin.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF9403-min.JPG" srcset="../../images/DSCF9403-min-p-500x334.jpeg 500w, ../../images/DSCF9403-min-p-800x534.jpeg 800w, ../../images/DSCF9403-min-p-1080x720.jpeg 1080w, ../../images/DSCF9403-min-p-1600x1067.jpeg 1600w, ../../images/DSCF9403-min-p-2000x1334.jpeg 2000w, ../../images/DSCF9403-min-p-2600x1734.jpeg 2600w, ../../images/DSCF9403-min-p-3200x2134.jpeg 3200w, ../../images/DSCF9403-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/harbin.html">harbin, day 8</a><a class="entry-date" href="../../asia/china/harbin.html">2017-01-01</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/shenyang3.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF9383-min.JPG" srcset="../../images/DSCF9383-min-p-500x334.jpeg 500w, ../../images/DSCF9383-min-p-800x534.jpeg 800w, ../../images/DSCF9383-min-p-1080x720.jpeg 1080w, ../../images/DSCF9383-min-p-1600x1067.jpeg 1600w, ../../images/DSCF9383-min-p-2000x1334.jpeg 2000w, ../../images/DSCF9383-min-p-2600x1734.jpeg 2600w, ../../images/DSCF9383-min-p-3200x2134.jpeg 3200w, ../../images/DSCF9383-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/shenyang3.html">shenyang, day 7</a><a class="entry-date" href="../../asia/china/shenyang3.html">2016-12-31</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/shenyang2.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF9301-min.JPG" srcset="../../images/DSCF9301-min-p-500x334.jpeg 500w, ../../images/DSCF9301-min-p-800x534.jpeg 800w, ../../images/DSCF9301-min-p-1080x720.jpeg 1080w, ../../images/DSCF9301-min-p-1600x1067.jpeg 1600w, ../../images/DSCF9301-min-p-2000x1334.jpeg 2000w, ../../images/DSCF9301-min-p-2600x1734.jpeg 2600w, ../../images/DSCF9301-min-p-3200x2134.jpeg 3200w, ../../images/DSCF9301-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/shenyang2.html">shenyang, day 6</a><a class="entry-date" href="../../asia/china/shenyang2.html">2016-12-30</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/dandong.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF9134-min.JPG" srcset="../../images/DSCF9134-min-p-500x334.jpeg 500w, ../../images/DSCF9134-min-p-800x534.jpeg 800w, ../../images/DSCF9134-min-p-1080x720.jpeg 1080w, ../../images/DSCF9134-min-p-1600x1067.jpeg 1600w, ../../images/DSCF9134-min-p-2000x1334.jpeg 2000w, ../../images/DSCF9134-min-p-2600x1734.jpeg 2600w, ../../images/DSCF9134-min-p-3200x2134.jpeg 3200w, ../../images/DSCF9134-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/dandong.html">dandong, day 5</a><a class="entry-date" href="../../asia/china/dandong.html">2016-12-29</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/shenyang.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8961-min.JPG" srcset="../../images/DSCF8961-min-p-500x334.jpeg 500w, ../../images/DSCF8961-min-p-800x534.jpeg 800w, ../../images/DSCF8961-min-p-1080x720.jpeg 1080w, ../../images/DSCF8961-min-p-1600x1067.jpeg 1600w, ../../images/DSCF8961-min-p-2000x1334.jpeg 2000w, ../../images/DSCF8961-min-p-2600x1734.jpeg 2600w, ../../images/DSCF8961-min-p-3200x2134.jpeg 3200w, ../../images/DSCF8961-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/shenyang.html">shenyang, day 4</a><a class="entry-date" href="../../asia/china/shenyang.html">2016-12-28</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/dalian3.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8844-min.JPG" srcset="../../images/DSCF8844-min-p-500x334.jpeg 500w, ../../images/DSCF8844-min-p-800x534.jpeg 800w, ../../images/DSCF8844-min-p-1080x720.jpeg 1080w, ../../images/DSCF8844-min-p-1600x1067.jpeg 1600w, ../../images/DSCF8844-min-p-2000x1334.jpeg 2000w, ../../images/DSCF8844-min-p-2600x1734.jpeg 2600w, ../../images/DSCF8844-min-p-3200x2134.jpeg 3200w, ../../images/DSCF8844-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/dalian3.html">dalian, day 3</a><a class="entry-date" href="../../asia/china/dalian3.html">2016-12-27</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/dalian2.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8769-min.JPG" srcset="../../images/DSCF8769-min-p-500x334.jpeg 500w, ../../images/DSCF8769-min-p-800x534.jpeg 800w, ../../images/DSCF8769-min-p-1080x720.jpeg 1080w, ../../images/DSCF8769-min-p-1600x1067.jpeg 1600w, ../../images/DSCF8769-min-p-2000x1334.jpeg 2000w, ../../images/DSCF8769-min-p-2600x1734.jpeg 2600w, ../../images/DSCF8769-min-p-3200x2134.jpeg 3200w, ../../images/DSCF8769-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/dalian2.html">dalian, day 2</a><a class="entry-date" href="../../asia/china/dalian2.html">2016-12-26</a>
+    </div>
+    <div class="entrytest">
+      <a class="w-inline-block" href="../../asia/china/dalian.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="../../images/DSCF8737-min.JPG" srcset="../../images/DSCF8737-min-p-500x334.jpeg 500w, ../../images/DSCF8737-min-p-800x534.jpeg 800w, ../../images/DSCF8737-min-p-1080x720.jpeg 1080w, ../../images/DSCF8737-min-p-1600x1067.jpeg 1600w, ../../images/DSCF8737-min-p-2000x1334.jpeg 2000w, ../../images/DSCF8737-min-p-2600x1734.jpeg 2600w, ../../images/DSCF8737-min-p-3200x2134.jpeg 3200w, ../../images/DSCF8737-min.JPG 4896w">
+      </a>
+      
+      <a class="entry-title" href="../../asia/china/dalian.html">dalian, day 1</a><a class="entry-date" href="../../asia/china/dalian.html">2016-12-25</a>
+    </div>
+  </div>
