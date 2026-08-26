@@ -1,5 +1,381 @@
 /* BEGIN OWN CODE*/
 
+:root {
+  --bg: #fff;
+  --text: #000;
+  --text-muted: #333;
+  --text-faint: #666;
+  --border: #ccc;
+  --surface: #fff;
+  --surface-alt: #dbdbdb;
+  --header-surface: #dbdbdb;
+  --link-hover: #0062b8;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --text: #ededed;
+  --text-muted: #cfcfcf;
+  --text-faint: #a3a3a3;
+  --border: #3a3a3a;
+  --surface: #1c1c1c;
+  --surface-alt: #262626;
+  /* The header keeps a light, warm surface in dark mode instead of
+     blending into the dark page -- black text stays legible on it either
+     way, so only the background needs to change per theme. */
+  --header-surface: #ecdfc4;
+  --link-hover: #4da3ff;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.site-copyright {
+  padding: 30px 20px 40px;
+  text-align: center;
+  font-family: Bitter, serif;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+[data-theme="dark"] .navigation-bar {
+  background-color: var(--header-surface);
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="dark"] .navigation-link,
+[data-theme="dark"] .w-nav-link {
+  color: #000;
+}
+
+/* The rule above beats the plain a:hover rule on specificity alone (two
+   classes vs. one), which is why hovering a nav link in dark mode was
+   staying black instead of turning blue -- these win back the hover/active
+   state specifically, without touching the resting black text. */
+[data-theme="dark"] .navigation-link:hover,
+[data-theme="dark"] .navigation-link:active,
+[data-theme="dark"] .w-nav-link:hover,
+[data-theme="dark"] .w-nav-link:active,
+[data-theme="dark"] .compact-nav-link:hover,
+[data-theme="dark"] .compact-nav-link:active,
+[data-theme="dark"] .entry-title:hover,
+[data-theme="dark"] .entry-title:active,
+[data-theme="dark"] .entry-date:hover,
+[data-theme="dark"] .entry-date:active {
+  color: var(--link-hover);
+}
+
+/* Dark-mode adjustments for the elements below that were exported from
+   Webflow with hardcoded colors -- higher specificity than the originals
+   thanks to the [data-theme="dark"] prefix, so no !important needed. */
+[data-theme="dark"] .entry-title,
+[data-theme="dark"] .entry-date {
+  color: var(--text);
+}
+
+[data-theme="dark"] .continent {
+  color: #e0836f;
+}
+
+/* The collapsed scroll bar gets the same warm surface as the full header
+   instead of falling back to the page's dark background. */
+[data-theme="dark"] .compact-nav,
+[data-theme="dark"] .compact-nav-dropdown {
+  background-color: var(--header-surface);
+}
+
+[data-theme="dark"] .compact-nav-title,
+[data-theme="dark"] .compact-nav-page,
+[data-theme="dark"] .compact-nav-link {
+  color: #000;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.theme-toggle.active {
+  opacity: 1;
+}
+
+.nav-theme-toggle {
+  display: inline-block;
+  margin: 0 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.compact-nav-actions {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.compact-nav-theme-toggle {
+  font-size: 18px;
+  opacity: 1;
+}
+
+a {
+  transition: color 0.2s ease;
+}
+
+a:hover,
+a:active {
+  color: var(--link-hover);
+}
+
+.compact-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.compact-nav.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.compact-nav-title {
+  flex: 1;
+  font-family: Vollkorn, serif;
+  font-size: 18px;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.compact-nav-page {
+  flex: 1;
+  text-align: center;
+  font-family: Bitter, serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.compact-nav-globe {
+  flex: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.compact-nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.compact-nav-dropdown.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-traveler-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -14px;
+  height: 20px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.scroll-traveler-track.dragging {
+  cursor: grabbing;
+}
+
+.scroll-traveler-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  background-color: var(--border);
+}
+
+.scroll-traveler {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* The plane emoji's glyph points up-and-to-the-right by default -- the
+     rotate levels it out to point straight along the direction of travel. */
+  transform: translate(-50%, -50%) rotate(40deg);
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
+  transition: left 0.1s linear;
+}
+
+.compact-nav-link {
+  font-family: Bitter, serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+}
+
+@media screen and (max-width: 550px) {
+  .compact-nav {
+    padding: 10px 16px;
+  }
+  .compact-nav-title {
+    font-size: 14px;
+  }
+  .compact-nav-page {
+    font-size: 11px;
+  }
+  .compact-nav-globe {
+    font-size: 18px;
+  }
+}
+
+.year-nav {
+  position: fixed;
+  left: 14px;
+  top: 50%;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.year-nav.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+
+.year-nav-track {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  max-height: 60vh;
+  padding: 10px 6px;
+  border-left: 2px solid var(--border);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.year-nav-track.dragging {
+  cursor: grabbing;
+}
+
+.year-nav-tick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0 4px 8px;
+  cursor: pointer;
+}
+
+.year-nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  flex: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.year-nav-label {
+  font-family: Bitter, serif;
+  font-size: 12px;
+  color: var(--text);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.year-nav-tick:hover .year-nav-label,
+.year-nav-tick.active .year-nav-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.year-nav-tick.active .year-nav-dot {
+  background: var(--link-hover);
+  transform: scale(1.5);
+}
+
+/* Reserve room for the scrubber so its labels never sit on top of the
+   first column of trip cards -- only while it's actually showing. */
+.wrapped-page .flexwrap {
+  transition: padding-left 0.3s ease;
+}
+
+.wrapped-page.year-nav-open .flexwrap {
+  padding-left: var(--year-nav-gutter, 70px);
+}
+
+@media screen and (max-width: 750px) {
+  .year-nav {
+    left: 4px;
+  }
+  .year-nav-track {
+    max-height: 50vh;
+  }
+}
+
 .dropdown{
   position: relative;
   display: inline-block;
@@ -192,8 +568,9 @@ figcaption {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #dbdbdb;
+  background-color: var(--header-surface);
   text-align: center;
+  transition: background-color 0.2s ease;
 }
 
 .header-link {
@@ -203,11 +580,12 @@ figcaption {
   -webkit-flex: 0 auto;
   -ms-flex: 0 auto;
   flex: 0 auto;
-  background-color: #dbdbdb;
+  background-color: var(--header-surface);
   font-family: Vollkorn, serif;
   color: #000;
   font-size: 107px;
   text-align: left;
+  transition: background-color 0.2s ease;
 }
 
 .header-link.w--current {
@@ -587,10 +965,10 @@ figcaption {
 
 @media (max-width: 991px) {
   .hero {
-    background-color: #dbdbdb;
+    background-color: var(--header-surface);
   }
   .header-link {
-    background-color: #dbdbdb;
+    background-color: var(--header-surface);
   }
   .navigation-container {
     text-align: center;
@@ -748,6 +1126,10 @@ figcaption {
   .navigation-link {
     margin-right: 0px;
     margin-left: 0px;
+  }
+  .nav-theme-toggle {
+    margin: 0 4px;
+    font-size: 16px;
   }
   .navigation-bar {
     display: -webkit-box;

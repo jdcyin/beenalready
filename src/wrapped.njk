@@ -3,9 +3,30 @@ layout: "base.njk"
 title: "Wrapped"
 description: "A wrap-up of all of my travels, and thoughts along the road."
 permalink: "/wrapped.html"
+bodyClass: "wrapped-page"
+travelerAnimation: true
 ---
 <div class="page-title-container">
     <div class="page-title">WRAPPED</div>
+  </div>
+
+  {% set years = [] %}
+  {% for post in collections.posts %}
+    {% set y = post.date.getFullYear() %}
+    {% if y not in years %}
+      {% set years = (years.push(y), years) %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="year-nav" id="year-nav">
+    <div class="year-nav-track" id="year-nav-track">
+      {% for y in years %}
+      <div class="year-nav-tick" data-year="{{ y }}">
+        <span class="year-nav-dot"></span>
+        <span class="year-nav-label">{{ y }}</span>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 
   <div class="flexwrap w-container">
@@ -13,3 +34,169 @@ permalink: "/wrapped.html"
 {% include "card.njk" %}
 {% endfor %}
   </div>
+
+  <script>
+    (function () {
+      var nav = document.getElementById("year-nav");
+      var track = document.getElementById("year-nav-track");
+      var ticks = Array.prototype.slice.call(track.querySelectorAll(".year-nav-tick"));
+      var container = document.querySelector(".flexwrap");
+      var cards = Array.prototype.slice.call(container.children);
+
+      // First card for each year (cards are already newest-first, so this
+      // is the top of that year's block).
+      var yearCard = {};
+      cards.forEach(function (card) {
+        var y = card.getAttribute("data-year");
+        if (!(y in yearCard)) yearCard[y] = card;
+      });
+
+      // While a click/drag-triggered smooth scroll is in flight, the scroll
+      // events it fires along the way must not let updateActiveYearFromScroll
+      // recalculate and snap the highlight back to the year you started at
+      // -- so it's suppressed until the scroll actually finishes arriving.
+      var suppressScrollSpy = false;
+      var suppressScrollSpyTimeout = null;
+
+      function scrollToYear(year) {
+        var card = yearCard[year];
+        if (!card) return;
+        var top = card.getBoundingClientRect().top + window.pageYOffset - 90;
+
+        suppressScrollSpy = true;
+        clearTimeout(suppressScrollSpyTimeout);
+        var clearSuppress = function () {
+          suppressScrollSpy = false;
+          window.removeEventListener("scrollend", clearSuppress);
+          clearTimeout(suppressScrollSpyTimeout);
+        };
+        window.addEventListener("scrollend", clearSuppress, { once: true });
+        // Fallback in case this browser has no scrollend support.
+        suppressScrollSpyTimeout = setTimeout(clearSuppress, 1200);
+
+        window.scrollTo({ top: top, behavior: "smooth" });
+      }
+
+      function setActiveYear(year) {
+        ticks.forEach(function (t) {
+          t.classList.toggle("active", t.getAttribute("data-year") === String(year));
+        });
+      }
+
+      function tickAtClientY(clientY) {
+        var closest = null;
+        var closestDist = Infinity;
+        ticks.forEach(function (t) {
+          var rect = t.getBoundingClientRect();
+          var center = rect.top + rect.height / 2;
+          var dist = Math.abs(clientY - center);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = t;
+          }
+        });
+        return closest;
+      }
+
+      ticks.forEach(function (tick) {
+        tick.addEventListener("click", function () {
+          var year = tick.getAttribute("data-year");
+          setActiveYear(year);
+          scrollToYear(year);
+        });
+      });
+
+      // Drag along the track to scrub through years; release to jump.
+      var dragging = false;
+
+      // As you scroll normally (not dragging), highlight whichever year's
+      // block has reached the same reference line scrollToYear() targets.
+      // Ticks are in top-to-bottom page order, so the active one is the
+      // last year whose first card has scrolled past that line.
+      function updateActiveYearFromScroll() {
+        if (dragging || suppressScrollSpy) return;
+        var threshold = 150;
+        var activeYear = ticks.length ? ticks[0].getAttribute("data-year") : null;
+        for (var i = 0; i < ticks.length; i++) {
+          var year = ticks[i].getAttribute("data-year");
+          var card = yearCard[year];
+          if (!card) continue;
+          if (card.getBoundingClientRect().top <= threshold) {
+            activeYear = year;
+          } else {
+            break;
+          }
+        }
+        if (activeYear !== null) setActiveYear(activeYear);
+      }
+
+      // Measure how much the scrubber actually overhangs the card grid's
+      // own left edge (both rects are viewport-relative, so this works the
+      // same whether the grid is flush against the screen edge on mobile
+      // or sitting in a centered, wide-gutter column on desktop) and set
+      // exactly that much clearance -- no guessed pixel values that can
+      // fall short on one screen size or waste space on another.
+      function updateGutter() {
+        var navRect = nav.getBoundingClientRect();
+        var gridRect = container.getBoundingClientRect();
+        var needed = Math.ceil(navRect.right - gridRect.left) + 16;
+        document.body.style.setProperty("--year-nav-gutter", Math.max(needed, 0) + "px");
+      }
+
+      var resizeTicking = false;
+      window.addEventListener("resize", function () {
+        if (resizeTicking) return;
+        resizeTicking = true;
+        window.requestAnimationFrame(function () {
+          updateGutter();
+          resizeTicking = false;
+        });
+      });
+      updateGutter();
+
+      // Fade the scrubber in once you've scrolled past the page title, and
+      // keep the active year in sync -- throttled to one check per frame.
+      var scrollTicking = false;
+      function onScroll() {
+        var pastThreshold = window.scrollY > 150;
+        nav.classList.toggle("visible", pastThreshold);
+        // Push the card grid over while the scrubber is showing, so its
+        // labels never sit on top of the first column of cards.
+        document.body.classList.toggle("year-nav-open", pastThreshold);
+        if (!scrollTicking) {
+          window.requestAnimationFrame(function () {
+            updateActiveYearFromScroll();
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      function handlePointerMove(e) {
+        if (!dragging) return;
+        var tick = tickAtClientY(e.clientY);
+        if (tick) setActiveYear(tick.getAttribute("data-year"));
+      }
+
+      function handlePointerUp(e) {
+        if (!dragging) return;
+        dragging = false;
+        track.classList.remove("dragging");
+        var tick = tickAtClientY(e.clientY);
+        if (tick) scrollToYear(tick.getAttribute("data-year"));
+        window.removeEventListener("pointermove", handlePointerMove);
+        window.removeEventListener("pointerup", handlePointerUp);
+      }
+
+      track.addEventListener("pointerdown", function (e) {
+        dragging = true;
+        track.classList.add("dragging");
+        handlePointerMove(e);
+        window.addEventListener("pointermove", handlePointerMove);
+        window.addEventListener("pointerup", handlePointerUp);
+        e.preventDefault();
+      });
+    })();
+  </script>

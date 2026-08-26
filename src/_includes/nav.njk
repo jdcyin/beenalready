@@ -2,10 +2,174 @@
   </div>
   <div class="navigation-bar w-nav" data-animation="default" data-collapse="none" data-duration="400" data-no-scroll="1">
     <div class="navigation-container w-container">
-      <nav class="w-nav-menu" role="navigation"><a class="navigation-link w-nav-link" href="/about.html">ABOUT</a><a class="navigation-link w-nav-link" href="/mapped.html">MAPPED</a><a class="navigation-link w-nav-link" href="/at.html">@</a><a class="navigation-link w-nav-link" href="/wrapped.html">WRAPPED</a><a class="navigation-link w-nav-link" href="/contact.html">CONTACT</a>
+      <nav class="w-nav-menu" role="navigation"><button type="button" class="theme-toggle nav-theme-toggle" id="theme-toggle-dark" data-set-theme="dark" aria-label="Switch to dark mode">🌛</button><a class="navigation-link w-nav-link" href="/about.html">ABOUT</a><a class="navigation-link w-nav-link" href="/mapped.html">MAPPED</a><a class="navigation-link w-nav-link" href="/at.html">@</a><a class="navigation-link w-nav-link" href="/wrapped.html">WRAPPED</a><a class="navigation-link w-nav-link" href="/contact.html">CONTACT</a><button type="button" class="theme-toggle nav-theme-toggle" id="theme-toggle-light" data-set-theme="light" aria-label="Switch to light mode">🌞</button>
       </nav>
       <div class="w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>
     </div>
   </div>
+
+  <div class="compact-nav" id="compact-nav">
+    <a class="compact-nav-title" href="/index.html">BEEN ALREADY</a>
+    <div class="compact-nav-page">{{ title }}</div>
+    <div class="compact-nav-actions">
+      <button type="button" class="theme-toggle compact-nav-theme-toggle" id="theme-toggle-compact" aria-label="Toggle dark mode">🌛</button>
+      <button type="button" class="compact-nav-globe" id="compact-nav-globe" aria-expanded="false" aria-label="Open navigation">🌐</button>
+    </div>
+
+    <div class="compact-nav-dropdown" id="compact-nav-dropdown">
+      <a class="compact-nav-link" href="/about.html">ABOUT</a>
+      <a class="compact-nav-link" href="/mapped.html">MAPPED</a>
+      <a class="compact-nav-link" href="/at.html">@</a>
+      <a class="compact-nav-link" href="/wrapped.html">WRAPPED</a>
+      <a class="compact-nav-link" href="/contact.html">CONTACT</a>
+    </div>
+
+    {% if travelerAnimation %}
+    <div class="scroll-traveler-track" id="scroll-traveler-track">
+      <div class="scroll-traveler-line"></div>
+      <div class="scroll-traveler" id="scroll-traveler">✈️</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    (function () {
+      var fullNav = document.querySelector(".navigation-bar");
+      var compactNav = document.getElementById("compact-nav");
+      var globeBtn = document.getElementById("compact-nav-globe");
+      var dropdown = document.getElementById("compact-nav-dropdown");
+      if (!fullNav || !compactNav) return;
+
+      function closeDropdown() {
+        dropdown.classList.remove("open");
+        globeBtn.setAttribute("aria-expanded", "false");
+      }
+
+      // Optional -- only present on pages that opt in via the
+      // travelerAnimation front-matter flag (currently just Wrapped).
+      // The traveler's horizontal position tracks how far down the page
+      // you've scrolled, so it "arrives" at the far right as you reach
+      // the bottom of a long page.
+      var traveler = document.getElementById("scroll-traveler");
+      var travelerTrack = document.getElementById("scroll-traveler-track");
+
+      function updateTraveler() {
+        if (!traveler) return;
+        var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+        progress = Math.max(0, Math.min(1, progress));
+        traveler.style.left = (progress * 100) + "%";
+      }
+
+      // Drag the plane to scrub through the page -- scrolling instantly
+      // (not smoothly) so it tracks the pointer 1:1, and reusing onScroll's
+      // own updateTraveler() call to keep the plane in sync as it goes.
+      if (travelerTrack) {
+        var draggingTraveler = false;
+
+        function scrollToPointerX(clientX) {
+          var rect = travelerTrack.getBoundingClientRect();
+          var progress = (clientX - rect.left) / rect.width;
+          progress = Math.max(0, Math.min(1, progress));
+          var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+          window.scrollTo({ top: progress * scrollable, behavior: "auto" });
+        }
+
+        function handleTravelerMove(e) {
+          if (!draggingTraveler) return;
+          scrollToPointerX(e.clientX);
+        }
+
+        function handleTravelerUp() {
+          draggingTraveler = false;
+          travelerTrack.classList.remove("dragging");
+          window.removeEventListener("pointermove", handleTravelerMove);
+          window.removeEventListener("pointerup", handleTravelerUp);
+        }
+
+        travelerTrack.addEventListener("pointerdown", function (e) {
+          draggingTraveler = true;
+          travelerTrack.classList.add("dragging");
+          scrollToPointerX(e.clientX);
+          window.addEventListener("pointermove", handleTravelerMove);
+          window.addEventListener("pointerup", handleTravelerUp);
+          e.preventDefault();
+        });
+      }
+
+      // Swap in the compact bar exactly when the full header has scrolled
+      // out of view, rather than a guessed pixel offset -- this stays
+      // correct across the header's different sizes at each breakpoint.
+      function onScroll() {
+        var pastHeader = fullNav.getBoundingClientRect().bottom <= 0;
+        compactNav.classList.toggle("visible", pastHeader);
+        if (!pastHeader) closeDropdown();
+        updateTraveler();
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      globeBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var isOpen = dropdown.classList.toggle("open");
+        globeBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!dropdown.classList.contains("open")) return;
+        if (dropdown.contains(e.target) || globeBtn.contains(e.target)) return;
+        closeDropdown();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeDropdown();
+      });
+
+      // Light/dark mode -- base.njk already set the initial data-theme
+      // attribute before first paint (from a saved choice, or the system
+      // preference). The header has a standing moon/sun pair (click either
+      // to go straight to that mode); the compact bar keeps a single
+      // swap-icon toggle since there's less room there.
+      var setButtons = [
+        document.getElementById("theme-toggle-dark"),
+        document.getElementById("theme-toggle-light")
+      ];
+      var swapButton = document.getElementById("theme-toggle-compact");
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        try { localStorage.setItem("theme", theme); } catch (err) {}
+        syncButtons();
+      }
+
+      function syncButtons() {
+        var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        setButtons.forEach(function (btn) {
+          if (!btn) return;
+          btn.classList.toggle("active", btn.getAttribute("data-set-theme") === (isDark ? "dark" : "light"));
+        });
+        if (swapButton) {
+          swapButton.textContent = isDark ? "🌞" : "🌛";
+          swapButton.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+        }
+      }
+      syncButtons();
+
+      setButtons.forEach(function (btn) {
+        if (!btn) return;
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          applyTheme(btn.getAttribute("data-set-theme"));
+        });
+      });
+
+      if (swapButton) {
+        swapButton.addEventListener("click", function (e) {
+          e.stopPropagation();
+          applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+        });
+      }
+    })();
+  </script>

@@ -161,6 +161,10 @@ module.exports = function (eleventyConfig) {
   // (.njk) are unaffected and still process normally.
   eleventyConfig.htmlTemplateEngine = false;
 
+  // Computed once per build, so the footer's copyright year rolls forward
+  // on its own every time the site is rebuilt and deployed.
+  eleventyConfig.addGlobalData("currentYear", new Date().getFullYear());
+
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy("src/*.ico");
