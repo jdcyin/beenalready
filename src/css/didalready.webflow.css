@@ -568,9 +568,8 @@ figcaption {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: var(--header-surface);
+  background-color: #dbdbdb;
   text-align: center;
-  transition: background-color 0.2s ease;
 }
 
 .header-link {
@@ -580,12 +579,11 @@ figcaption {
   -webkit-flex: 0 auto;
   -ms-flex: 0 auto;
   flex: 0 auto;
-  background-color: var(--header-surface);
+  background-color: #dbdbdb;
   font-family: Vollkorn, serif;
   color: #000;
   font-size: 107px;
   text-align: left;
-  transition: background-color 0.2s ease;
 }
 
 .header-link.w--current {
@@ -964,12 +962,6 @@ figcaption {
 }
 
 @media (max-width: 991px) {
-  .hero {
-    background-color: var(--header-surface);
-  }
-  .header-link {
-    background-color: var(--header-surface);
-  }
   .navigation-container {
     text-align: center;
   }
