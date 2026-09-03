@@ -17,6 +17,12 @@ const IMG_TAG = /<img src="([^"]+)"([^>]*)>/g;
 // never match IMG_TAG above).
 const IMG_TAG_ANY = /<img\b[^>]*>/g;
 
+// Same idea as IMG_TAG_ANY, but for local video files referenced via
+// <video><source src="..."></video> -- these are never touched by the
+// image optimizer (it only matches <img> tags), so they need the same raw
+// passthrough-copy treatment as everything below.
+const SOURCE_TAG_ANY = /<source\b[^>]*>/g;
+
 // A real Webflow export includes a *set* of pre-generated derivative files
 // for each photo (e.g. "DSCF8590comp-p-800x534.jpeg"), referenced from the
 // srcset attribute, not just the one file named in src -- these are genuine
@@ -72,6 +78,12 @@ function findLocalImagePaths(dir) {
           const isOptimizerTag = tag.startsWith('<img src="');
           if (isOptimizedDir && isOptimizerTag) continue; // handled by optimizeLocalImages instead
           for (const src of localImagePathsInTag(tag)) {
+            const abs = "/" + path.posix.normalize(path.posix.join(relDir, src));
+            found.add(abs);
+          }
+        }
+        for (const m of content.matchAll(SOURCE_TAG_ANY)) {
+          for (const src of localImagePathsInTag(m[0])) {
             const abs = "/" + path.posix.normalize(path.posix.join(relDir, src));
             found.add(abs);
           }

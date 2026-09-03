@@ -62,6 +62,10 @@ Do not add new frameworks, major libraries or dependencies without explaining wh
 
 Preserve existing content unless I specifically ask you to rewrite or remove it.
 
+## Image naming convention
+
+Local post photos and videos live in a per-country `images/` folder (e.g. `src/asia/singapore/images/`) and must be named `postname_01.jpg`, `postname_02.jpg`, etc. -- always a zero-padded 2-digit number, always after the post name, never `01_postname` or `postname_1`.
+
 ## Design
 
 The website will undergo a substantial redesign.
