@@ -306,9 +306,9 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
       var map = L.map('map');
 
       // Add basemap tiles (CARTO Light)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+        attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
       // Add markers and fit bounds
