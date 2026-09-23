@@ -42,11 +42,14 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 	  ['Guangzhou, China', 23.129110, 113.264381],
 	  ['Harbin, China', 45.622442, 126.243381],
 	  ['Kaiping, China', 22.295369859406506, 112.56946066796779],
+	  ['Kashgar, China', 39.4704, 75.9898],
+	  ['Pamir Plateau, China', 38.4453, 75.0563],
 	  ['Pingdingshan, China', 33.7374744, 113.2981436],
 	  ['Shaoguan, China', 24.8104, 113.59720],
 	  ['Shenyang, China', 41.805699, 123.431472],
 	  ['Shenzhen, China', 22.543096, 114.057865],
 	  ['Taiyuan, China', 37.876961, 112.543114],
+	  ['Ürümqi, China', 43.8256, 87.6168],
 	  ['Yongding, China', 24.726752, 116.726589],
 	  ['Zhangzhou, China', 24.520375, 117.670016],
 	  ['Hong Kong, Hong Kong', 22.28552, 114.15769],
@@ -363,47 +366,59 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 		<div class="dropdown-container">
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Australia</option>
+			<option value disabled selected hidden>Australia</option>
 			<option value="asia/australia/sydney.html">Sydney</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Cambodia</option>
+			<option value disabled selected hidden>Cambodia</option>
 			<option value="asia/cambodia/cambodiafldwrk.html">Field Work Trip</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>China</option>
-			<option value disabled>Beijing</option>
+			<option value disabled selected hidden>China</option>
+			<optgroup label="Beijing">
 			<option value="asia/china/beijingtoc.html">Beijing</option>
-			<option value disabled>Fujian</option>
-			<option value="asia/china/yongding.html">Yongding</option> 
-			<option value="asia/china/zhangzhou.html">Zhangzhou</option> 
-			<option value disabled>Guangdong</option>
+			</optgroup>
+			<optgroup label="Fujian">
+			<option value="asia/china/yongding.html">Yongding</option>
+			<option value="asia/china/zhangzhou.html">Zhangzhou</option>
+			</optgroup>
+			<optgroup label="Guangdong">
 			<option value="asia/china/guangzhou.html">Guangzhou</option>
 			<option value="asia/china/kaiping.html">Kaiping</option>
 			<option value="asia/china/shenzhen.html">Shenzhen</option>
-			<option value="asia/china/shaoguan.html">Shaoguan</option>			
-			<option value disabled>Heilongjiang</option>
+			<option value="asia/china/shaoguan.html">Shaoguan</option>
+			</optgroup>
+			<optgroup label="Heilongjiang">
 			<option value="asia/china/harbintoc.html">Harbin</option>
-			<option value disabled>Henan</option>
+			</optgroup>
+			<optgroup label="Henan">
 			<option value="asia/china/pingdingshan.html">Pingdingshan</option>
-			<option value disabled>Liaoning</option>
-			<option value="asia/china/daliantoc.html">Dalian</option> 
-			<option value="asia/china/dandong.html">Dandong</option> 
+			</optgroup>
+			<optgroup label="Liaoning">
+			<option value="asia/china/daliantoc.html">Dalian</option>
+			<option value="asia/china/dandong.html">Dandong</option>
 			<option value="asia/china/shenyangtoc.html">Shenyang</option>
-			<option value disabled>Shanxi</option>
+			</optgroup>
+			<optgroup label="Shanxi">
 			<option value="asia/china/taiyuan.html">Taiyuan</option>
+			</optgroup>
+			<optgroup label="Xinjiang">
+			<option value="asia/china/kashgartoc.html">Kashgar</option>
+			<option value="asia/china/pamirplateautoc.html">Pamir Plateau</option>
+			<option value="asia/china/xinjiang2026_08.html">Ürümqi</option>
+			</optgroup>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Hong Kong</option>
+			<option value disabled selected hidden>Hong Kong</option>
 			<option value="at.html">Hong Kong (Live)</option>
 			<option value="asia/hongkong/hongkongtoc.html">Hong Kong (Vacation)</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>India</option>
+			<option value disabled selected hidden>India</option>
 			<option value="asia/india/amritsar.html">Amritsar</option>
 			<option value="asia/india/chandigarh.html">Chandigarh</option>
 			<option value="asia/india/chennai.html">Chennai</option>
@@ -415,7 +430,7 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Indonesia</option>
+			<option value disabled selected hidden>Indonesia</option>
 			<option value="asia/indonesia/balitoc.html">Bali</option>
 			<option value="asia/indonesia/jakarta.html">Jakarta</option>
 			<option value="asia/indonesia/jogjakarta.html">Jogjakarta</option>
@@ -424,7 +439,7 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Japan</option>
+			<option value disabled selected hidden>Japan</option>
 			<option value="asia/japan/gujohachimantoc.html">Gujo Hachiman</option>
 			<option value="asia/japan/gero.html">Gero</option>
 			<option value="asia/japan/iwamura.html">Iwamura</option>
@@ -438,12 +453,12 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Macau</option>
+			<option value disabled selected hidden>Macau</option>
 			<option value="asia/macau/macautoc.html">Macau</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Malaysia</option>
+			<option value disabled selected hidden>Malaysia</option>
 			<option value="asia/malaysia/cameronhighlands.html">Cameron Highlands</option>
 			<option value="asia/malaysia/penangtoc.html">Penang</option>
 			<option value="asia/malaysia/ipohtoc.html">Ipoh</option>
@@ -454,7 +469,7 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Maldives</option>
+			<option value disabled selected hidden>Maldives</option>
 			<option value="asia/maldives/maldives1.html">Hulhumale</option>
 			<option value="asia/maldives/maldives1.html">Maafushi</option>
 			<option value="asia/maldives/maldives1.html">Malé</option>
@@ -462,34 +477,34 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Myanmar</option>
+			<option value disabled selected hidden>Myanmar</option>
 			<option value="asia/myanmar/bagan.html">Bagan</option>
 			<option value="asia/myanmar/yangon.html">Yangon</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>The Philippines</option>
+			<option value disabled selected hidden>The Philippines</option>
 			<option value="asia/philippines/manilatoc.html">Manila</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Qatar</option>
+			<option value disabled selected hidden>Qatar</option>
 			<option value="asia/qatar/doha.html">Doha</option>
 			</select></div>			
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Singapore</option>
+			<option value disabled selected hidden>Singapore</option>
 			<option value="asia/singapore/singaporetoc.html">Singapore</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>South Korea</option>
+			<option value disabled selected hidden>South Korea</option>
 			<option value="asia/skorea/jeju.html">Jeju</option>
 			<option value="asia/skorea/seoultoc.html">Seoul</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Taiwan</option>
+			<option value disabled selected hidden>Taiwan</option>
 			<option value="asia/taiwan/alishan.html">Alishan</option>
 			<option value="asia/taiwan/biketoc.html">Bike Trip 2019-08</option>
 			<option value="asia/taiwan/datong.html">Datong</option>
@@ -504,24 +519,24 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Thailand</option>
+			<option value disabled selected hidden>Thailand</option>
 			<option value="asia/thailand/bangkok.html">Bangkok</option>
 			<option value="asia/thailand/kohsamuitoc.html">Koh Samui</option>
 			<option value="asia/thailand/pattaya.html">Pattaya</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Sri Lanka</option>
+			<option value disabled selected hidden>Sri Lanka</option>
 			<option value="asia/srilanka/colombo.html">Colombo</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>United Arab Emirates</option>
+			<option value disabled selected hidden>United Arab Emirates</option>
 			<option value="asia/uae/dubai.html">Dubai</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Vietnam</option>
+			<option value disabled selected hidden>Vietnam</option>
 			<option value="asia/vietnam/danangtoc.html">Da Nang</option>
 			<option value="asia/vietnam/hochiminhcity.html">Ho Chi Minh City</option>
 			<option value="asia/vietnam/hoiantoc.html">Hoi An</option>
@@ -535,35 +550,35 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 		<div class="dropdown-container">
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Albania</option>
+			<option value disabled selected hidden>Albania</option>
 			<option value="europe/albania/berat.html">Berat</option>
 			<option value="europe/albania/tirana.html">Tirana</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Austria</option>
+			<option value disabled selected hidden>Austria</option>
 			<option value="europe/austria/vienna.html">Vienna</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Belgium</option>
+			<option value disabled selected hidden>Belgium</option>
 			<option value="europe/belgium/brussels.html">Brussels</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Bosnia & Herzegovina</option>
+			<option value disabled selected hidden>Bosnia & Herzegovina</option>
 			<option value="europe/bosherz/mostar.html">Mostar</option>
 			<option value="europe/bosherz/sarajevo.html">Sarajevo</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Bulgaria</option>
+			<option value disabled selected hidden>Bulgaria</option>
 			<option value="europe/bulgaria/sofia.html">Sofia</option>
 			<option value="europe/bulgaria/velikotarnovo.html">Veliko Tarnovo</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Croatia</option>
+			<option value disabled selected hidden>Croatia</option>
 			<option value="europe/croatia/dubrovnik.html">Dubrovnik</option>
 			<option value="europe/croatia/osijek.html">Osijek</option>
 			<option value="europe/croatia/split.html">Split</option>
@@ -571,13 +586,13 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Denmark</option>
+			<option value disabled selected hidden>Denmark</option>
 			<option value="europe/denmark/copenhagen.html">Copenhagen</option>
 			<option value="europe/denmark/vejle.html">Vejle</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>England</option>
+			<option value disabled selected hidden>England</option>
 			<option value="europe/england/bristol.html">Bristol</option>
 			<option value="europe/england/isleofwight.html">Isle of Wight</option>
 			<option value="europe/england/london/londontoc.html">London</option>
@@ -586,33 +601,33 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Estonia</option>
+			<option value disabled selected hidden>Estonia</option>
 			<option value="europe/estonia/tallinn.html">Tallinn</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Finland</option>
+			<option value disabled selected hidden>Finland</option>
 			<option value="europe/finland/helsinki.html">Helsinki</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>France</option>
+			<option value disabled selected hidden>France</option>
 			<option value="europe/france/paris.html">Paris</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Germany</option>
+			<option value disabled selected hidden>Germany</option>
 			<option value="europe/germany/cologne.html">Cologne</option>
 			<option value="europe/germany/frankfurt.html">Frankfurt</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Hungary</option>
+			<option value disabled selected hidden>Hungary</option>
 			<option value="europe/hungary/budapest.html">Budapest</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Iceland</option>
+			<option value disabled selected hidden>Iceland</option>
 			<option value="europe/iceland/iceland.html">Akureyri</option>
 			<option value="europe/iceland/iceland.html">Egilsstaðir</option>
 			<option value="europe/iceland/iceland.html">Höfn</option>
@@ -623,43 +638,43 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Jersey (UK)</option>
+			<option value disabled selected hidden>Jersey (UK)</option>
 			<option value="europe/jersey/jersey.html">St. Helier</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Kosovo</option>
+			<option value disabled selected hidden>Kosovo</option>
 			<option value="europe/kosovo/pristina.html">Pristina</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Latvia</option>
+			<option value disabled selected hidden>Latvia</option>
 			<option value="europe/latvia/riga.html">Riga</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Lithuania</option>
+			<option value disabled selected hidden>Lithuania</option>
 			<option value="europe/lithuania/vilnius.html">Vilnius</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Luxembourg</option>
+			<option value disabled selected hidden>Luxembourg</option>
 			<option value="europe/luxembourg/luxembourg.html">Luxembourg City</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Macedonia</option>
+			<option value disabled selected hidden>Macedonia</option>
 			<option value="europe/macedonia/ohrid.html">Ohrid</option>
 			<option value="europe/macedonia/skopje.html">Skopje</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Moldova</option>
+			<option value disabled selected hidden>Moldova</option>
 			<option value="europe/moldova/chisinau.html">Chisinau</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Montenegro</option>
+			<option value disabled selected hidden>Montenegro</option>
 			<option value="europe/montenegro/kotor.html">Kotor</option>
 			<option value="europe/montenegro/montenegro.html">Mojkovac</option>
 			<option value="europe/montenegro/montenegro.html">Niksic</option>
@@ -668,29 +683,29 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>The Netherlands</option>
+			<option value disabled selected hidden>The Netherlands</option>
 			<option value="europe/netherlands/amsterdam.html">Amsterdam</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Norway</option>
+			<option value disabled selected hidden>Norway</option>
 			<option value="europe/norway/oslo.html">Oslo</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Poland</option>
+			<option value disabled selected hidden>Poland</option>
 			<option value="europe/poland/warsaw.html">Warsaw</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Portugal</option>
+			<option value disabled selected hidden>Portugal</option>
 			<option value="europe/portugal/braga.html">Braga</option>
 			<option value="europe/portugal/lisbon.html">Lisbon</option>
 			<option value="europe/portugal/porto.html">Porto</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Romania</option>
+			<option value disabled selected hidden>Romania</option>
 			<option value="europe/romania/brasov.html">Braşov</option>
 			<option value="europe/romania/bucharest.html">Bucharest</option>
 			<option value="europe/romania/ploiesti.html">Ploieşti</option>
@@ -698,30 +713,30 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Scotland</option>
+			<option value disabled selected hidden>Scotland</option>
 			<option value="construction.html">Edinburgh</option>
 			<option value="construction.html">Glasgow</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Serbia</option>
+			<option value disabled selected hidden>Serbia</option>
 			<option value="europe/serbia/belgrade.html">Belgrade</option>
 			<option value="europe/serbia/novisad.html">Novi Sad</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Slovakia</option>
+			<option value disabled selected hidden>Slovakia</option>
 			<option value="europe/slovakia/bratislava.html">Bratislava</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Slovenia</option>
+			<option value disabled selected hidden>Slovenia</option>
 			<option value="europe/slovenia/bled.html">Bled</option>
 			<option value="europe/slovenia/ljubljana.html">Ljubljana</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Spain</option>
+			<option value disabled selected hidden>Spain</option>
 			<option value="europe/spain/madrid.html">Madrid</option>
 			<option value="europe/spain/segovia.html">Segovia</option>
 			<option value="europe/spain/toledo.html">Toledo</option>
@@ -729,18 +744,18 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Sweden</option>
+			<option value disabled selected hidden>Sweden</option>
 			<option value="europe/sweden/malmo.html">Malmo</option>
 			<option value="europe/sweden/stockholm.html">Stockholm</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Transnistria</option>
+			<option value disabled selected hidden>Transnistria</option>
 			<option value="europe/transnistria/tiraspol.html">Tiraspol</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Ukraine</option>
+			<option value disabled selected hidden>Ukraine</option>
 			<option value="europe/ukraine/kiev.html">Kiev</option>
 			<option value="europe/ukraine/odessa.html">Odessa</option>
 			</select></div>
@@ -751,15 +766,16 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 		<div class="dropdown-container">
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Canada</option>
+			<option value disabled selected hidden>Canada</option>
 			<option value="americas/canada/toronto.html">Toronto</option>
 			</select></div>
 			<div class="dropdown">
 				<select onchange="mappedNav(this)">
-				<option value disabled selected>U.S.A.</option>
-				<option value disabled>Alaska</option>
-				<option value="americas/usa/ak/fairbanks.html">Fairbanks</option>		
-			    <option value disabled>California</option>
+				<option value disabled selected hidden>U.S.A.</option>
+				<optgroup label="Alaska">
+				<option value="americas/usa/ak/fairbanks.html">Fairbanks</option>
+				</optgroup>
+				<optgroup label="California">
 			    <option value="americas/usa/ca/angelscamp.html">Angels Camp</option>
 			    <option value="americas/usa/ca/carmel.html">Carmel</option>
 			    <option value="americas/usa/ca/chinesecamp.html">Chinese Camp</option>
@@ -777,17 +793,23 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 			    <option value="americas/usa/ca/santacruz.html">Santa Cruz</option>
 			    <option value="americas/usa/ca/soledad.html">Soledad</option>
 			    <option value="americas/usa/ca/tulelake.html">Tulelake</option>
-				<option value disabled>Colorado</option>
+				</optgroup>
+				<optgroup label="Colorado">
 				<option value="americas/usa/co/denver.html">Denver</option>
-				<option value disabled>Hawaii</option>
+				</optgroup>
+				<optgroup label="Hawaii">
 				<option value="americas/usa/hi/hilo.html">Hilo</option>
-				<option value disabled>New York</option>
+				</optgroup>
+				<optgroup label="New York">
 				<option value="americas/usa/ny/newyorkcity.html">New York City</option>
-				<option value disabled>Washington</option>
+				</optgroup>
+				<optgroup label="Washington">
 				<option value="americas/usa/wa/seattle.html">Seattle</option>
-				<option value disabled>Washington D.C.</option>
+				</optgroup>
+				<optgroup label="Washington D.C.">
 				<option value="americas/usa/dc/washingtondc.html">Washington D.C.</option>
-				</select></div>	
+				</optgroup>
+				</select></div>
 
 		</div>
       </div>
@@ -796,32 +818,34 @@ extraScripts: "<!-- Leaflet JS -->\r\n  <script\r\n    src=\"https://unpkg.com/l
 		<div class="dropdown-container">
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Cambodia</option>
+			<option value disabled selected hidden>Cambodia</option>
 			<option value="asia/cambodia/cambodiafldwrk.html">Cambodia Field Work 2016</option>
 			</select></div>	
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>China</option>
-			<option value="asia/china/dongbeitrip2016.html">Northeast China 2016</option></select></div>
+			<option value disabled selected hidden>China</option>
+			<option value="asia/china/dongbeitrip2016.html">Northeast China 2016</option>
+			<option value="asia/china/xinjiang2026.html">Xinjiang Trip 2026</option>
+			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">	
-			<option value disabled selected>India</option>
+			<option value disabled selected hidden>India</option>
 			<option value="asia/india/ladakhtrip2017.html">Amritsar to Ladakh 2017</option></select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Japan</option>
+			<option value disabled selected hidden>Japan</option>
 			<option value="asia/japan/japanchristmastrip2017.html">Japan Christmas 2017</option>
 			<option value="asia/japan/onsenskitrip2024.html">Onsen Ski Trip 2024</option>
 			<option value="asia/japan/michinokutrail2026.html">Michinoku Trail Hike 2026</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>Taiwan</option>
+			<option value disabled selected hidden>Taiwan</option>
 			<option value="asia/taiwan/taiwanbiketrip2019.html">Taiwan Bike Trip 2019</option>
 			</select></div>
 			<div class="dropdown">
 			<select onchange="mappedNav(this)">
-			<option value disabled selected>USA</option>			
+			<option value disabled selected hidden>USA</option>			
 			<option value="americas/usa/ca/missionsgoldrush2025.html">Missions & Gold Rush Towns (2025)</option>
 			</select></div>				
 		</div>

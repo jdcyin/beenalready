@@ -10,6 +10,12 @@
   --surface-alt: #dbdbdb;
   --header-surface: #dbdbdb;
   --link-hover: #0062b8;
+  /* Used to call out the map marker colours by name in body text (e.g. the
+     Xinjiang trip's colour-key legend) -- darker/more saturated than the
+     actual marker icons so the words stay readable on a white page. */
+  --map-legend-green: #1b7a3d;
+  --map-legend-yellow: #a67c00;
+  --map-legend-blue: #1565c0;
   color-scheme: light;
 }
 
@@ -26,6 +32,9 @@
      way, so only the background needs to change per theme. */
   --header-surface: #ecdfc4;
   --link-hover: #4da3ff;
+  --map-legend-green: #4caf50;
+  --map-legend-yellow: #ffca28;
+  --map-legend-blue: #64b5f6;
   color-scheme: dark;
 }
 
@@ -559,7 +568,7 @@ figcaption {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 178px;
+  min-height: 178px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -582,12 +591,14 @@ figcaption {
   background-color: #dbdbdb;
   font-family: Vollkorn, serif;
   color: #000;
-  font-size: 107px;
-  text-align: left;
+  font-size: 92px;
+  line-height: 88px;
+  text-align: center;
 }
 
 .header-link.w--current {
-  font-size: 107px;
+  font-size: 92px;
+  line-height: 88px;
 }
 
 .navigation-link {
@@ -647,7 +658,7 @@ figcaption {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 85px;
+  min-height: 85px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -658,6 +669,7 @@ figcaption {
   align-items: center;
   background-color: #000;
   text-align: center;
+  padding: 8px 16px;
 }
 
 .page-title {
@@ -670,6 +682,21 @@ figcaption {
   font-family: Vollkorn, serif;
   color: #fff;
   font-size: 58px;
+  line-height: 54px;
+}
+
+@media (max-width: 767px) {
+  .page-title {
+    font-size: 42px;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 479px) {
+  .page-title {
+    font-size: 32px;
+    line-height: 30px;
+  }
 }
 
 .entry-columns {
@@ -1049,13 +1076,13 @@ figcaption {
     -webkit-flex: 0 auto;
     -ms-flex: 0 auto;
     flex: 0 auto;
-    font-size: 85px;
-    line-height: 81px;
+    font-size: 74px;
+    line-height: 70px;
     text-align: center;
   }
   .header-link.w--current {
-    font-size: 87px;
-    line-height: 78px;
+    font-size: 74px;
+    line-height: 70px;
   }
   .navigation-bar {
     border-top-style: solid;
@@ -1106,14 +1133,16 @@ figcaption {
     display: -ms-flexbox;
     display: flex;
     font-size: 14px;
-    line-height: 75px;
+    line-height: 58px;
   }
   .header-link {
-    font-size: 69px;
+    font-size: 60px;
+    line-height: 58px;
     text-align: center;
   }
   .header-link.w--current {
-    font-size: 67px;
+    font-size: 60px;
+    line-height: 58px;
   }
   .navigation-link {
     margin-right: 0px;
@@ -1175,4 +1204,26 @@ figcaption {
 
 .nav-links {
   text-align: center;
+}
+
+.legend-green {
+  color: var(--map-legend-green);
+  font-weight: 600;
+}
+
+.legend-yellow {
+  color: var(--map-legend-yellow);
+  font-weight: 600;
+}
+
+.legend-blue {
+  color: var(--map-legend-blue);
+  font-weight: 600;
+}
+
+.section-divider {
+  text-align: center;
+  letter-spacing: 0.3em;
+  color: var(--text-faint);
+  margin: 2em 0;
 }

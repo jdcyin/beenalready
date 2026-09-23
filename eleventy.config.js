@@ -132,7 +132,7 @@ async function optimizeLocalImages(content, outputPath) {
       metadata = await Image(sourcePath, {
         widths: [800, 1800],
         formats: ["jpeg"],
-        sharpJpegOptions: { quality: 65 },
+        sharpJpegOptions: { quality: 80 },
         outputDir: "_site/img/",
         urlPath: "/img/",
         filenameFormat: (id, src, width, format) => {

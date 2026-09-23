@@ -1,0 +1,543 @@
+---
+date: "2026-09-14"
+cardTitle: "Ürümqi, Kashgar,<br>Southern Xinjiang, China"
+cardDate: "2026-09-14 to 2026-09-22"
+cardImage: "/asia/china/images/xinjiang2026_01_01.jpg"
+layout: "base.njk"
+title: "Kashgar to Ürümqi, Xinjiang 2026"
+description: "An 8-day trip across Xinjiang, starting in Kashgar and ending in Ürümqi."
+permalink: "/asia/china/xinjiang2026.html"
+---
+<div class="mapcontainer w-container">
+  <div id="map" style="width: 90%; height: 400px; margin: 0 auto;"></div>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    #map.leaflet-container {
+      font-family: Bitter, serif !important;
+      font-size: 16px !important;
+      line-height: 1.4 !important;
+      color: inherit;
+    }
+
+    #map .leaflet-popup-content,
+    #map .leaflet-tooltip {
+      font-family: inherit !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+      color: inherit;
+    }
+
+    #map .leaflet-popup-content a {
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    #map .leaflet-popup-content a:hover {
+      text-decoration: underline;
+    }
+
+    #map .popup-title {
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      color: #000;
+    }
+
+    #map .popup-title:only-child {
+      margin: 0;
+    }
+
+    #map .popup-links {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    #map .popup-links li {
+      margin: 2px 0;
+    }
+
+    .arrow-icon {
+      width: 14px;
+      height: 14px;
+      background: transparent;
+      border: none;
+    }
+
+    .arrow-icon > div {
+      margin-left: -1px;
+      margin-top: -3px;
+      transform-origin: center center;
+      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+      color: #000;
+      text-shadow: 0 0 2px rgba(255,255,255,0.9);
+      user-select: none;
+    }
+  </style>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script type="text/javascript">
+    (function () {
+      /*
+        Add points in travel order.
+
+        pointType:
+          - "start"    = green marker, start of the connected route
+          - "via"      = yellow marker, a stop along the connected route
+          - "end"      = red marker, end of the connected route
+          - "separate" = blue marker -- shown on the map but not part of
+                          the connected route: no line drawn to/from it,
+                          and it doesn't affect the map's default zoom.
+                          Used here for Ürümqi, since it's a separate
+                          endpoint far from the Kashgar-area stops.
+
+        lineFromPrevious:
+          - "solid"
+          - "dotted"
+
+        The first point does not need lineFromPrevious. Points with
+        pointType "separate" don't need it either.
+
+        More stops will be added as the itinerary firms up -- only
+        confirmed places get a marker.
+      */
+
+      var locations = [
+        {
+          city: "Kashgar (喀什)",
+          lat: 39.4666,
+          lng: 75.99,
+          pointType: "start",
+          posts: [
+            { label: "Day 1: Kashgar (喀什)", url: "xinjiang2026_01.html" },
+            { label: "Day 6: Kashgar Museum, Xiangfei Yuan, Old Town West", url: "xinjiang2026_06.html" }
+          ]
+        },
+        {
+          city: "Ao-i-ta-ke Red Rocks (奧依塔克紅山口)",
+          lat: 38.9476,
+          lng: 75.4949,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 2: Ao-i-ta-ke Red Rocks (奧依塔克紅山口)", url: "xinjiang2026_02.html" }
+          ]
+        },
+        {
+          city: "Baisha Lake (布倫庫勒水庫)",
+          lat: 38.7203,
+          lng: 74.9863,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 2: Baisha Lake (布倫庫勒水庫)", url: "xinjiang2026_02.html" }
+          ]
+        },
+        {
+          city: "Muji Volcano (木吉火山口)",
+          lat: 39.0015,
+          lng: 74.5006,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 2: Muji Volcano (木吉火山口)", url: "xinjiang2026_02.html" }
+          ]
+        },
+        {
+          city: "Subashi Village (蘇巴什村)",
+          lat: 38.4194,
+          lng: 75.0662,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 2: Subashi Village (蘇巴什村)", url: "xinjiang2026_02.html" }
+          ]
+        },
+        {
+          city: "Panlong Road (盤龍古道)",
+          lat: 37.6287,
+          lng: 75.4542,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 3: Panlong Road (盤龍古道)", url: "xinjiang2026_03.html" }
+          ]
+        },
+        {
+          city: "Bandier Lake (班迪爾藍湖)",
+          lat: 37.838,
+          lng: 75.4218,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 3: Bandier Lake (班迪爾藍湖)", url: "xinjiang2026_03.html" }
+          ]
+        },
+        {
+          city: "Pamir's Eye (帕米爾之眼)",
+          lat: 37.8603,
+          lng: 75.3077,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 3: Pamir's Eye (帕米爾之眼)", url: "xinjiang2026_03.html" }
+          ]
+        },
+        {
+          city: "Tashkurgan (塔什庫爾干)",
+          lat: 37.7769,
+          lng: 75.2247,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 3: Tashkurgan (塔什庫爾干)", url: "xinjiang2026_03.html" }
+          ]
+        },
+        {
+          city: "Tuogelun Village (托格倫夏村)",
+          lat: 37.995,
+          lng: 75.14,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 4: Tuogelun Village (托格倫夏村)", url: "xinjiang2026_04.html" }
+          ]
+        },
+        {
+          city: "Treehole Road (樹洞公路)",
+          lat: 37.9868,
+          lng: 75.1292,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 4: Treehole Road (樹洞公路)", url: "xinjiang2026_04.html" }
+          ]
+        },
+        {
+          city: "Bahe Bazaar (巴合齊鄉巴札)",
+          lat: 39.3163,
+          lng: 76.0094,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 4: Bahe Bazaar (巴合齊鄉巴札)", url: "xinjiang2026_04.html" }
+          ]
+        },
+        {
+          // Closes the Day 4 loop back to Kashgar -- same coordinates as
+          // the starting marker, so it sits right on top of it. It carries
+          // the same popup links, since this copy is the one that receives
+          // the click.
+          city: "Kashgar (喀什)",
+          lat: 39.4666,
+          lng: 75.99,
+          pointType: "start",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 1: Kashgar (喀什)", url: "xinjiang2026_01.html" },
+            { label: "Day 6: Kashgar Museum, Xiangfei Yuan, Old Town West", url: "xinjiang2026_06.html" }
+          ]
+        },
+        {
+          city: "Shache (莎車)",
+          lat: 38.417,
+          lng: 77.2411,
+          pointType: "via",
+          lineFromPrevious: "solid",
+          posts: [
+            { label: "Day 5: Shache (莎車)", url: "xinjiang2026_05.html" }
+          ]
+        },
+        {
+          city: "Ürümqi (烏魯木齊)",
+          lat: 43.8256,
+          lng: 87.6168,
+          pointType: "separate",
+          posts: [
+            { label: "Day 7: Kashgar to Ürümqi (travel day)", url: "xinjiang2026_07.html" },
+            { label: "Day 8: Ürümqi (烏魯木齊)", url: "xinjiang2026_08.html" }
+          ]
+        }
+      ];
+
+      var greenIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      var redIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      var blueIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      var yellowIcon = L.icon({
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      function Point(x, y, round) {
+        this.x = round ? Math.round(x) : x;
+        this.y = round ? Math.round(y) : y;
+      }
+
+      function distanceTo(p1, p2) {
+        var x = p2.x - p1.x;
+        var y = p2.y - p1.y;
+        return Math.sqrt(x * x + y * y);
+      }
+
+      function pointAlongLine(startLatLng, endLatLng, per, mapObj) {
+        var p1 = mapObj.project(new L.latLng(startLatLng));
+        var p2 = mapObj.project(new L.latLng(endLatLng));
+
+        var x = p1.x + (p2.x - p1.x) * per;
+        var y = p1.y + (p2.y - p1.y) * per;
+
+        var res = mapObj.unproject(new Point(x, y));
+        return [res.lat, res.lng];
+      }
+
+      function getAngle(latLng1, latLng2, coef) {
+        var dy = latLng2[0] - latLng1[0];
+        var dx = Math.cos(Math.PI / 180 * latLng1[0]) * (latLng2[1] - latLng1[1]);
+        var ang = (Math.atan2(dy, dx) / Math.PI) * 180 * coef;
+        return (+ang).toFixed(2);
+      }
+
+      function buildPopup(cityName, posts) {
+        if (!posts || !posts.length) {
+          return '<div class="popup-title">' + cityName + '</div>';
+        }
+
+        var list = posts.map(function (post) {
+          return (
+            '<li><a href="' +
+            post.url +
+            '" target="_blank" rel="noopener">' +
+            post.label +
+            '</a></li>'
+          );
+        }).join('');
+
+        return (
+          '<div class="popup-title">' +
+          cityName +
+          '</div>' +
+          '<ul class="popup-links">' +
+          list +
+          '</ul>'
+        );
+      }
+
+      function getIcon(pointType) {
+        if (pointType === "start") return greenIcon;
+        if (pointType === "via") return yellowIcon;
+        if (pointType === "separate") return blueIcon;
+        return redIcon;
+      }
+
+      function addArrowMarkers(map, startLatLng, endLatLng, arrowCount, color) {
+        if (!arrowCount) arrowCount = 2;
+        if (!color) color = "#000000";
+
+        var angle = getAngle(startLatLng, endLatLng, -1);
+
+        var icon = L.divIcon({
+          className: "arrow-icon",
+          html: '<div style="color:' + color + ';transform: rotate(' + angle + 'deg)">▶</div>'
+        });
+
+        var arrows = [];
+
+        for (var i = 1; i <= arrowCount; i++) {
+          var pt = pointAlongLine(startLatLng, endLatLng, i / (arrowCount + 1), map);
+          arrows.push(
+            L.marker(pt, {
+              icon: icon,
+              interactive: false
+            }).addTo(map)
+          );
+        }
+
+        return arrows;
+      }
+
+      function drawSegment(map, fromLoc, toLoc) {
+        var style = toLoc.lineFromPrevious || "solid";
+        var startLatLng = [fromLoc.lat, fromLoc.lng];
+        var endLatLng = [toLoc.lat, toLoc.lng];
+
+        var options = {
+          color: "#000000",
+          weight: 2,
+          opacity: 1
+        };
+
+        if (style === "dotted") {
+          options.dashArray = "4, 8";
+        }
+
+        var line = L.polyline([startLatLng, endLatLng], options).addTo(map);
+        var arrows = addArrowMarkers(map, startLatLng, endLatLng, 2, "#000000");
+
+        return {
+          line: line,
+          arrows: arrows
+        };
+      }
+
+      function initLeafletTripMap() {
+        var mapEl = document.getElementById("map");
+        if (!mapEl || typeof L === "undefined" || !locations.length) return;
+
+        var map = L.map(mapEl, { scrollWheelZoom: true });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors"
+        }).addTo(map);
+
+        // "separate" markers (e.g. a far-off endpoint like Ürümqi that isn't
+        // part of the connected Kashgar-area route) still show on the map,
+        // but don't drive the zoom/bounds and don't get a route line.
+        var boundsGroup = L.featureGroup().addTo(map);
+        var routeLocations = locations.filter(function (loc) {
+          return loc.pointType !== "separate";
+        });
+
+        locations.forEach(function (loc) {
+          var marker = L.marker([loc.lat, loc.lng], {
+            icon: getIcon(loc.pointType)
+          }).addTo(map);
+
+          if (loc.posts && loc.posts.length) {
+            marker.bindPopup(buildPopup(loc.city, loc.posts));
+          } else if (loc.label) {
+            // Plain place-name popup, shown only on click -- no link, just the label.
+            marker.bindPopup('<div class="popup-title">' + loc.label + '</div>');
+          }
+
+          if (loc.pointType !== "separate") {
+            boundsGroup.addLayer(marker);
+          }
+        });
+
+        for (var i = 1; i < routeLocations.length; i++) {
+          var segment = drawSegment(map, routeLocations[i - 1], routeLocations[i]);
+          boundsGroup.addLayer(segment.line);
+        }
+
+        if (routeLocations.length > 1) {
+          map.fitBounds(boundsGroup.getBounds(), { padding: [30, 30] });
+        } else if (routeLocations.length === 1) {
+          map.setView([routeLocations[0].lat, routeLocations[0].lng], 10);
+        } else {
+          map.fitBounds(L.featureGroup(locations.map(function (loc) {
+            return L.marker([loc.lat, loc.lng]);
+          })).getBounds(), { padding: [30, 30] });
+        }
+
+        setTimeout(function () { map.invalidateSize(); }, 250);
+        setTimeout(function () { map.invalidateSize(); }, 1000);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLeafletTripMap);
+      } else {
+        initLeafletTripMap();
+      }
+    })();
+  </script>
+</div>
+
+  <div class="w-container">
+    <div class="blog-body w-richtext">
+      <p>A reckless driver, camels, and a Reddit-found tour guide meet a tourist on the Silk Road.</p>
+      <p>Map colour key: the <span class="legend-green">green</span> marker is the start, <span class="legend-yellow">yellow</span> markers are stops along the way, and the <span class="legend-blue">blue</span> marker is Ürümqi -- a separate endpoint at the end of the trip, not directly connected to the Kashgar-area route.</p>
+    </div>
+  </div>
+  <div class="flexwrap w-container">
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_08.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_08_17.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_08.html">Ürümqi (烏魯木齊)<br>Day 8</a><a class="entry-date" href="xinjiang2026_08.html">2026-09-22</a>
+    </div>
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_07.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_07_01.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_07.html">Kashgar (喀什) &gt; Ürümqi (烏魯木齊)<br>Day 7</a><a class="entry-date" href="xinjiang2026_07.html">2026-09-20</a>
+    </div>
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_06.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_06_09.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_06.html">Kashgar (喀什)<br>Day 6</a><a class="entry-date" href="xinjiang2026_06.html">2026-09-19</a>
+    </div>
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_05.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_05_11.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_05.html">Shache (莎車)<br>Day 5</a><a class="entry-date" href="xinjiang2026_05.html">2026-09-18</a>
+    </div>
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_04.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_04_06.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_04.html">Kashgar (喀什)<br>Day 4</a><a class="entry-date" href="xinjiang2026_04.html">2026-09-17</a>
+    </div>
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_03.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_03_05.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_03.html">Tashkurgan (塔什庫爾干)<br>Day 3</a><a class="entry-date" href="xinjiang2026_03.html">2026-09-16</a>
+    </div>
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_02.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_02_17.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_02.html">Pamir Plateau (帕米爾高原)<br>Day 2</a><a class="entry-date" href="xinjiang2026_02.html">2026-09-15</a>
+    </div>
+
+    <div class="entrytest">
+      <a class="w-inline-block" href="xinjiang2026_01.html"><img class="post-image" sizes="(max-width: 767px) 96vw, (max-width: 991px) 291.1875px, 282px" src="images/xinjiang2026_01_05.jpg">
+      </a>
+      <a class="entry-title" href="xinjiang2026_01.html">Kashgar (喀什)<br>Day 1</a><a class="entry-date" href="xinjiang2026_01.html">2026-09-14</a>
+    </div>
+
+  </div>

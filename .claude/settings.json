@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl *)",
+      "Bash(npx eleventy)",
+      "Bash(npx eleventy --serve --port=8080)",
+      "Bash(tasklist)",
+      "Bash(awk *)",
+      "Bash(pdftotext *)",
+      "Bash(powershell -Command \"Get-NetTCPConnection*)"
+    ]
+  }
+}
