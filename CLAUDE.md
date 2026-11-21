@@ -72,6 +72,7 @@ Whenever a new post is added, it must also be linked from the Mapped page:
 
 * A single-location post gets one new `<option>` in its country's regular (non-excursion) dropdown, linking to the post, plus a marker on the main map with a matching city name so the existing auto-link script (`findUrlFor`/`urlLookup` in `mapped.njk`) picks it up automatically.
 * A multi-day/multi-part trip (several day-pages sharing one hub page, like the Michinoku Trail or a future multi-day excursion) gets exactly ONE entry under Excursions, linking to the hub/overview page -- individual day-pages are never listed separately in Excursions. If specific days already have a confirmed place (e.g. the first and last day of a trip), also add those places individually to the country's regular dropdown and as markers on the main map, same as a single-location post -- placeholder/TBD days do not get their own dropdown entry or marker until they have a real place.
+* Main-map markers are city-level only: one marker per city/town, placed at the city itself. Do not add separate markers for individual sites, attractions or hotels within or near a city (e.g. Qingyuan gets one "Qingyuan, China" marker -- not separate ones for Gulong Valley or the resort).
 
 When scaffolding a post or trip before it happens (before there is real content or photos), do not invent narrative text. Use the placeholder `TEXT HERE` instead.
 
